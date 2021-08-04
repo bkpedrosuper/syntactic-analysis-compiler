@@ -8,26 +8,14 @@
 #include <stdio.h>
 #include <string.h>
 #include "lang.tab.h"
-void invalidToken();
-#define TAM 99999
-
-int row = 1;
 int cont_col = 1;
-int id = 0;
-typedef struct symbol{
-    int id;
-    int row;
-    int column;
-    char content[100];
-    char *type;
-} symbol;
-symbol **symbolsTable;
 %}
 	/* ========================================================================== */
 	/* =========================== Sessão Definições ============================ */
 	/* ========================================================================== */
 
 ConstINT [0-9]+ 
+ConstFLOAT {ConstINT}.{ConstINT}
 IDENTIFICADOR [a-zA-Z_][a-zA-Z0-9_]*
 BIBLIOTECA <{IDENTIFICADOR}.h>
 STRING \".*\"
@@ -37,8 +25,8 @@ STRING \".*\"
 	/* =========================== Sessão REGRAS ================================ */
 	/* ========================================================================== */
 	
-[ ]			{ ++cont_col;}
-"\n"        { cont_col = 1;}
+[ ]			{ ++cont_col;	}
+"\n"        { cont_col = 1;	}
 "#include"  { return T_include; }
 "#define"   { return T_define; 	}
 "int"       { return T_int;		}
@@ -65,9 +53,11 @@ STRING \".*\"
 "return"    { return T_return;	}
 
 {ConstINT}      	{ yylval.ival = atof(yytext); return T_IntValue;	}
+{ConstFLOAT}      	{ yylval.ival = atof(yytext); return T_FloatValue;	}
 {IDENTIFICADOR} 	{ strcpy(yylval.sval, yytext); return T_Identificador;	}
 {BIBLIOTECA}      	{ strcpy(yylval.sval, yytext); return T_Biblioteca;	}
 {STRING}			{ strcpy(yylval.sval, yytext); return T_String;	}
+
 "{"[^}\n]*"}"     /* eat up one-line comments */
 [ \t]+           /* eat up whitespace */
 [[:space:]]|[[:space:]]+;  /* Linhas em branco não tem importancia! */

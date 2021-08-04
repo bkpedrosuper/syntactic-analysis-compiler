@@ -74,9 +74,10 @@ extern int yydebug;
     T_Minus = 280,
     T_return = 281,
     T_IntValue = 282,
-    T_String = 283,
-    T_Biblioteca = 284,
-    T_Identificador = 285
+    T_FloatValue = 283,
+    T_String = 284,
+    T_Biblioteca = 285,
+    T_Identificador = 286
   };
 #endif
 
@@ -84,12 +85,13 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 15 "lang.y"
+#line 18 "lang.y"
 
     int ival;
+    int fval;
     char* sval;
 
-#line 93 "lang.tab.h"
+#line 95 "lang.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

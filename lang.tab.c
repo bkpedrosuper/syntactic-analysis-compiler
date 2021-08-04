@@ -66,7 +66,7 @@
 
 
 /* First part of user prologue.  */
-#line 1 "lang.y"
+#line 4 "lang.y"
 
     #include <stdio.h>
     #include<stdlib.h>
@@ -152,9 +152,10 @@ extern int yydebug;
     T_Minus = 280,
     T_return = 281,
     T_IntValue = 282,
-    T_String = 283,
-    T_Biblioteca = 284,
-    T_Identificador = 285
+    T_FloatValue = 283,
+    T_String = 284,
+    T_Biblioteca = 285,
+    T_Identificador = 286
   };
 #endif
 
@@ -162,12 +163,13 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 15 "lang.y"
+#line 18 "lang.y"
 
     int ival;
+    int fval;
     char* sval;
 
-#line 171 "lang.tab.c"
+#line 173 "lang.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -489,7 +491,7 @@ union yyalloc
 #define YYLAST   0
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  31
+#define YYNTOKENS  32
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  2
 /* YYNRULES -- Number of rules.  */
@@ -498,7 +500,7 @@ union yyalloc
 #define YYNSTATES  3
 
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   285
+#define YYMAXUTOK   286
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -538,14 +540,14 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    26,    27,    28,    29,    30
+      25,    26,    27,    28,    29,    30,    31
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    39,    39
+       0,    47,    47
 };
 #endif
 
@@ -559,8 +561,8 @@ static const char *const yytname[] =
   "T_Comma", "T_Quote", "T_DotComma", "T_doubleDot", "T_OpenSquareBracket",
   "T_BackSlash", "T_CloseSquareBracket", "T_For", "T_Equals",
   "T_SmallerThan", "T_BiggerThan", "T_UnderScore", "T_Plus", "T_Percent",
-  "T_ComercialAND", "T_Minus", "T_return", "T_IntValue", "T_String",
-  "T_Biblioteca", "T_Identificador", "$accept", "program", YY_NULLPTR
+  "T_ComercialAND", "T_Minus", "T_return", "T_IntValue", "T_FloatValue",
+  "T_String", "T_Biblioteca", "T_Identificador", "$accept", "program", YY_NULLPTR
 };
 #endif
 
@@ -572,7 +574,7 @@ static const yytype_int16 yytoknum[] =
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
      275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
-     285
+     285,   286
 };
 # endif
 
@@ -630,13 +632,13 @@ static const yytype_int8 yycheck[] =
      symbol of state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,    32,     0
+       0,    33,     0
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    31,    32
+       0,    32,    33
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
@@ -1338,7 +1340,7 @@ yyreduce:
   switch (yyn)
     {
 
-#line 1342 "lang.tab.c"
+#line 1344 "lang.tab.c"
 
       default: break;
     }
@@ -1570,7 +1572,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 41 "lang.y"
+#line 49 "lang.y"
 
 	/* ========================================================================== */
 	/* ======================== Sessão Codigo Especifico ======================== */
