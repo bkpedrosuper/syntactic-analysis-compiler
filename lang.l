@@ -38,31 +38,31 @@ STRING \".*\"
 	
 [ ]			{ ++cont_col;}
 "\n"        { cont_col = 1;}
-"#include"  { }
-"#define"   { }
-"int"       { }
-"("         { }
-")"         { }
-"{"         { }
-"}"         { }
-","         { }
-\"          { }
-";"         { }
-":"	 	    { }
-"["         { }
-"\\"		{ }
-"]"         { }
-"for"       { }
-"="         { }
-"<"         { }
-">"         { }
-"_"         { }
-"+"         { }
-"%"         { }
-"&"         { }
-"-"         { }
-"return"    { }
-{ConstINT}      	{ }
+"#include"  { return T_include; }
+"#define"   { return T_define; 	}
+"int"       { return T_int;		}
+"("         { return T_OpenParen;	}
+")"         { return T_CloseParen; 	}
+"{"         { return T_OpenBracket;	}
+"}"         { return T_CloseBracket;	}
+","         { return T_Comma;	}
+\"          { return T_Quote;	}
+";"         { return T_DotComma;	}
+":"	 	    { return T_doubleDot;	}
+"["         { return T_OpenSquareBracket;	}
+"\\"		{ return T_BackSlash;	}
+"]"         { return T_CloseSquareBracket;	}
+"for"       { return T_For;	}
+"="         { return T_Equals;	}
+"<"         { return T_SmallerThan;	}
+">"         { return T_BiggerThan;	}
+"_"         { return T_UnderScore;	}
+"+"         { return T_Plus;	}
+"%"         { return T_Percent;	}
+"&"         { return T_ComercialAND	;}
+"-"         { return T_Minus;	}
+"return"    { return T_return;	}
+{ConstINT}      	{ yylval.ival = atof(yytext); return T_IntValue;	}
 {IDENTIFICADOR} 	{ }
 {BIBLIOTECA}      	{ }
 {STRING}			{ }
