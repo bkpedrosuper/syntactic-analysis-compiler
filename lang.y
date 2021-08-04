@@ -11,9 +11,9 @@
     void yyerror();
 %}
 
+    /* Aqui temos os tipos de valores que podem vir junto com os tokens, no nosso caso temos apenas valores inteiros e caracteres (strings) */
 %union{
     int ival;
-    double fval;
     char* sval;
 }
 
@@ -23,20 +23,25 @@
 	/* ============================= Sessão Tokens ============================== */
 	/* ========================================================================== */
 
-%token<ival> T_INT
-%token<fval> T_REAL
+%token T_include T_define T_int T_OpenParen T_CloseParen T_OpenBracket T_CloseBracket T_Comma T_Quote T_DotComma
+T_doubleDot T_OpenSquareBracket T_BackSlash T_CloseSquareBracket T_For T_Equals T_SmallerThan T_BiggerThan T_UnderScore 
+T_Plus T_Percent T_ComercialAND T_Minus T_return;
+%token<ival> T_IntValue;
+%token<sval> T_String T_Biblioteca T_Identificador;
 
 
-
-
-
+    /* ========================================================================== */
+	/* ============================ Sessão Gramatica ============================ */
+	/* ========================================================================== */
 %start program
-
 %%
 
 program: %empty
 
 %%
+	/* ========================================================================== */
+	/* ======================== Sessão Codigo Especifico ======================== */
+	/* ========================================================================== */
 
 int main() {
     yyin = fopen("texto-para-teste.txt", "r");

@@ -44,18 +44,52 @@
 extern int yydebug;
 #endif
 
+/* Token type.  */
+#ifndef YYTOKENTYPE
+# define YYTOKENTYPE
+  enum yytokentype
+  {
+    T_include = 258,
+    T_define = 259,
+    T_int = 260,
+    T_OpenParen = 261,
+    T_CloseParen = 262,
+    T_OpenBracket = 263,
+    T_CloseBracket = 264,
+    T_Comma = 265,
+    T_Quote = 266,
+    T_DotComma = 267,
+    T_doubleDot = 268,
+    T_OpenSquareBracket = 269,
+    T_BackSlash = 270,
+    T_CloseSquareBracket = 271,
+    T_For = 272,
+    T_Equals = 273,
+    T_SmallerThan = 274,
+    T_BiggerThan = 275,
+    T_UnderScore = 276,
+    T_Plus = 277,
+    T_Percent = 278,
+    T_ComercialAND = 279,
+    T_Minus = 280,
+    T_return = 281,
+    T_IntValue = 282,
+    T_String = 283,
+    T_Biblioteca = 284,
+    T_Identificador = 285
+  };
+#endif
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 14 "lang.y"
+#line 15 "lang.y"
 
     int ival;
-    double fval;
     char* sval;
 
-#line 59 "lang.tab.h"
+#line 93 "lang.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

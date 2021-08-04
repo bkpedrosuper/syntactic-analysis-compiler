@@ -7,6 +7,7 @@
 %{
 #include <stdio.h>
 #include <string.h>
+#include "lang.tab.h"
 void invalidToken();
 #define TAM 99999
 
@@ -62,10 +63,11 @@ STRING \".*\"
 "&"         { return T_ComercialAND	;}
 "-"         { return T_Minus;	}
 "return"    { return T_return;	}
+
 {ConstINT}      	{ yylval.ival = atof(yytext); return T_IntValue;	}
-{IDENTIFICADOR} 	{ }
-{BIBLIOTECA}      	{ }
-{STRING}			{ }
+{IDENTIFICADOR} 	{ strcpy(yylval.sval, yytext); return T_Identificador;	}
+{BIBLIOTECA}      	{ strcpy(yylval.sval, yytext); return T_Biblioteca;	}
+{STRING}			{ strcpy(yylval.sval, yytext); return T_String;	}
 "{"[^}\n]*"}"     /* eat up one-line comments */
 [ \t]+           /* eat up whitespace */
 [[:space:]]|[[:space:]]+;  /* Linhas em branco não tem importancia! */

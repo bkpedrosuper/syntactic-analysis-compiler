@@ -122,18 +122,52 @@
 extern int yydebug;
 #endif
 
+/* Token type.  */
+#ifndef YYTOKENTYPE
+# define YYTOKENTYPE
+  enum yytokentype
+  {
+    T_include = 258,
+    T_define = 259,
+    T_int = 260,
+    T_OpenParen = 261,
+    T_CloseParen = 262,
+    T_OpenBracket = 263,
+    T_CloseBracket = 264,
+    T_Comma = 265,
+    T_Quote = 266,
+    T_DotComma = 267,
+    T_doubleDot = 268,
+    T_OpenSquareBracket = 269,
+    T_BackSlash = 270,
+    T_CloseSquareBracket = 271,
+    T_For = 272,
+    T_Equals = 273,
+    T_SmallerThan = 274,
+    T_BiggerThan = 275,
+    T_UnderScore = 276,
+    T_Plus = 277,
+    T_Percent = 278,
+    T_ComercialAND = 279,
+    T_Minus = 280,
+    T_return = 281,
+    T_IntValue = 282,
+    T_String = 283,
+    T_Biblioteca = 284,
+    T_Identificador = 285
+  };
+#endif
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 14 "lang.y"
+#line 15 "lang.y"
 
     int ival;
-    double fval;
     char* sval;
 
-#line 137 "lang.tab.c"
+#line 171 "lang.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -455,7 +489,7 @@ union yyalloc
 #define YYLAST   0
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  3
+#define YYNTOKENS  31
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  2
 /* YYNRULES -- Number of rules.  */
@@ -464,7 +498,7 @@ union yyalloc
 #define YYNSTATES  3
 
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   257
+#define YYMAXUTOK   285
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -501,14 +535,17 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     1,     2
+       2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
+      15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
+      25,    26,    27,    28,    29,    30
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    28,    28
+       0,    39,    39
 };
 #endif
 
@@ -517,7 +554,13 @@ static const yytype_int8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "$accept", "program", YY_NULLPTR
+  "$end", "error", "$undefined", "T_include", "T_define", "T_int",
+  "T_OpenParen", "T_CloseParen", "T_OpenBracket", "T_CloseBracket",
+  "T_Comma", "T_Quote", "T_DotComma", "T_doubleDot", "T_OpenSquareBracket",
+  "T_BackSlash", "T_CloseSquareBracket", "T_For", "T_Equals",
+  "T_SmallerThan", "T_BiggerThan", "T_UnderScore", "T_Plus", "T_Percent",
+  "T_ComercialAND", "T_Minus", "T_return", "T_IntValue", "T_String",
+  "T_Biblioteca", "T_Identificador", "$accept", "program", YY_NULLPTR
 };
 #endif
 
@@ -526,7 +569,10 @@ static const char *const yytname[] =
    (internal) symbol number NUM (which must be that of a token).  */
 static const yytype_int16 yytoknum[] =
 {
-       0,   256,   257
+       0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
+     265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
+     275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
+     285
 };
 # endif
 
@@ -584,13 +630,13 @@ static const yytype_int8 yycheck[] =
      symbol of state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     4,     0
+       0,    32,     0
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_int8 yyr1[] =
 {
-       0,     3,     4
+       0,    31,    32
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
@@ -1292,7 +1338,7 @@ yyreduce:
   switch (yyn)
     {
 
-#line 1296 "lang.tab.c"
+#line 1342 "lang.tab.c"
 
       default: break;
     }
@@ -1524,8 +1570,11 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 30 "lang.y"
+#line 41 "lang.y"
 
+	/* ========================================================================== */
+	/* ======================== Sessão Codigo Especifico ======================== */
+	/* ========================================================================== */
 
 int main() {
     yyin = fopen("texto-para-teste.txt", "r");
