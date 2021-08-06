@@ -127,35 +127,43 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    T_include = 258,
-    T_define = 259,
-    T_int = 260,
+    T_Let = 258,
+    T_Import = 259,
+    T_Func = 260,
     T_OpenParen = 261,
     T_CloseParen = 262,
-    T_OpenBracket = 263,
-    T_CloseBracket = 264,
-    T_Comma = 265,
-    T_Quote = 266,
-    T_DotComma = 267,
-    T_doubleDot = 268,
-    T_OpenSquareBracket = 269,
-    T_BackSlash = 270,
-    T_CloseSquareBracket = 271,
-    T_For = 272,
-    T_Equals = 273,
-    T_SmallerThan = 274,
-    T_BiggerThan = 275,
-    T_UnderScore = 276,
-    T_Plus = 277,
-    T_Percent = 278,
-    T_ComercialAND = 279,
-    T_Minus = 280,
-    T_return = 281,
-    T_IntValue = 282,
-    T_FloatValue = 283,
-    T_String = 284,
-    T_Biblioteca = 285,
-    T_Identificador = 286
+    T_OpenCloseParen = 263,
+    T_OpenBracket = 264,
+    T_CloseBracket = 265,
+    T_Comma = 266,
+    T_Quote = 267,
+    T_DotComma = 268,
+    T_doubleDot = 269,
+    T_Dot = 270,
+    T_For = 271,
+    T_If = 272,
+    T_OpenSquareBracket = 273,
+    T_BackSlash = 274,
+    T_CloseSquareBracket = 275,
+    T_Equals = 276,
+    T_SmallerThan = 277,
+    T_BiggerThan = 278,
+    T_UnderScore = 279,
+    T_Percent = 280,
+    T_ComercialAND = 281,
+    T_return = 282,
+    T_EndLine = 283,
+    T_IntValue = 284,
+    T_FloatValue = 285,
+    T_String = 286,
+    T_Biblioteca = 287,
+    T_Identificador = 288,
+    T_Minus = 289,
+    T_Plus = 290,
+    T_Divide = 291,
+    T_Times = 292,
+    T_Negative = 293,
+    T_Power = 294
   };
 #endif
 
@@ -169,7 +177,7 @@ union YYSTYPE
     int fval;
     char* sval;
 
-#line 173 "lang.tab.c"
+#line 181 "lang.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -488,19 +496,19 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  2
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   0
+#define YYLAST   62
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  32
+#define YYNTOKENS  41
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  2
+#define YYNNTS  10
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  2
+#define YYNRULES  30
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  3
+#define YYNSTATES  52
 
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   286
+#define YYMAXUTOK   295
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -540,14 +548,18 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    26,    27,    28,    29,    30,    31
+      25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
+      35,    36,    37,    38,    39,    40
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    47,    47
+       0,    59,    59,    60,    62,    63,    64,    66,    68,    69,
+      70,    71,    73,    75,    76,    77,    79,    80,    82,    83,
+      84,    85,    86,    88,    89,    90,    91,    92,    93,    94,
+      95
 };
 #endif
 
@@ -556,13 +568,17 @@ static const yytype_int8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "T_include", "T_define", "T_int",
-  "T_OpenParen", "T_CloseParen", "T_OpenBracket", "T_CloseBracket",
-  "T_Comma", "T_Quote", "T_DotComma", "T_doubleDot", "T_OpenSquareBracket",
-  "T_BackSlash", "T_CloseSquareBracket", "T_For", "T_Equals",
-  "T_SmallerThan", "T_BiggerThan", "T_UnderScore", "T_Plus", "T_Percent",
-  "T_ComercialAND", "T_Minus", "T_return", "T_IntValue", "T_FloatValue",
-  "T_String", "T_Biblioteca", "T_Identificador", "$accept", "program", YY_NULLPTR
+  "$end", "error", "$undefined", "T_Let", "T_Import", "T_Func",
+  "T_OpenParen", "T_CloseParen", "T_OpenCloseParen", "T_OpenBracket",
+  "T_CloseBracket", "T_Comma", "T_Quote", "T_DotComma", "T_doubleDot",
+  "T_Dot", "T_For", "T_If", "T_OpenSquareBracket", "T_BackSlash",
+  "T_CloseSquareBracket", "T_Equals", "T_SmallerThan", "T_BiggerThan",
+  "T_UnderScore", "T_Percent", "T_ComercialAND", "T_return", "T_EndLine",
+  "T_IntValue", "T_FloatValue", "T_String", "T_Biblioteca",
+  "T_Identificador", "T_Minus", "T_Plus", "T_Divide", "T_Times",
+  "T_Negative", "T_Power", "\"\"", "$accept", "program", "structure",
+  "function_declaration", "line", "variable_declaration", "function_usage",
+  "logical_structure", "variable", "expression", YY_NULLPTR
 };
 #endif
 
@@ -574,16 +590,17 @@ static const yytype_int16 yytoknum[] =
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
      275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
-     285,   286
+     285,   286,   287,   288,   289,   290,   291,   292,   293,   294,
+     295
 };
 # endif
 
-#define YYPACT_NINF (-1)
+#define YYPACT_NINF (-28)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
 
-#define YYTABLE_NINF (-1)
+#define YYTABLE_NINF (-20)
 
 #define yytable_value_is_error(Yyn) \
   0
@@ -592,7 +609,12 @@ static const yytype_int16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -1,     0,    -1
+     -28,     1,   -28,   -28,   -27,   -28,   -28,   -28,     0,     2,
+     -18,    22,   -13,   -28,   -28,    -1,    38,   -28,    16,     9,
+     -28,   -28,    32,   -28,   -28,   -13,    -6,   -28,   -28,   -28,
+       7,    29,   -28,    32,     7,   -28,   -28,   -20,   -28,    -4,
+       5,     7,     7,     7,     7,     7,   -28,    12,    12,     5,
+       5,     5
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -600,19 +622,24 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       2,     0,     1
+       2,     0,     1,     6,     0,     4,     3,     5,     0,     0,
+       0,     0,     0,    16,    17,     0,     0,    15,     0,     0,
+      10,    11,     0,    13,     8,     0,     0,     7,     9,    14,
+       0,    23,    20,    18,     0,    22,    12,    21,    23,     0,
+      28,     0,     0,     0,     0,     0,    30,    25,    24,    27,
+      26,    29
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -1,    -1
+     -28,   -28,   -28,   -28,   -28,   -28,    -5,   -28,   -28,    13
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     1
+      -1,     1,     6,     7,    18,    19,    20,    21,    36,    37
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -620,31 +647,54 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       2
+      30,     2,    12,    46,     8,     3,     4,    23,     9,    12,
+      11,    10,    24,    30,    41,    42,    43,    44,    22,    45,
+      29,    35,    28,    31,    32,    33,    27,    17,    34,     5,
+      41,    42,    43,    44,    17,    45,    38,    12,    13,    14,
+      25,    34,   -19,    39,    45,     0,    25,    40,    43,    44,
+      15,    45,     0,    16,    47,    48,    49,    50,    51,    26,
+       0,     0,    17
 };
 
 static const yytype_int8 yycheck[] =
 {
-       0
+       6,     0,    15,     7,    31,     4,     5,    12,     8,    15,
+      28,     9,    13,     6,    34,    35,    36,    37,    31,    39,
+      25,    26,    13,    29,    30,    31,    10,    40,    34,    28,
+      34,    35,    36,    37,    40,    39,    29,    15,    16,    17,
+       8,    34,    13,    30,    39,    -1,     8,    34,    36,    37,
+      28,    39,    -1,    31,    41,    42,    43,    44,    45,    21,
+      -1,    -1,    40
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,    33,     0
+       0,    42,     0,     4,     5,    28,    43,    44,    31,     8,
+       9,    28,    15,    16,    17,    28,    31,    40,    45,    46,
+      47,    48,    31,    47,    13,     8,    21,    10,    13,    47,
+       6,    29,    30,    31,    34,    47,    49,    50,    29,    50,
+      50,    34,    35,    36,    37,    39,     7,    50,    50,    50,
+      50,    50
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    32,    33
+       0,    41,    42,    42,    43,    43,    43,    44,    45,    45,
+      45,    45,    46,    47,    47,    47,    48,    48,    49,    49,
+      49,    49,    49,    50,    50,    50,    50,    50,    50,    50,
+      50
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     0
+       0,     2,     0,     2,     1,     1,     1,     7,     2,     2,
+       1,     1,     3,     2,     3,     1,     1,     1,     1,     1,
+       1,     1,     1,     1,     3,     3,     3,     3,     2,     3,
+       3
 };
 
 
@@ -1339,8 +1389,56 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
+  case 23:
+#line 88 "lang.y"
+                       {(yyval.ival)=(yyvsp[0].ival);}
+#line 1396 "lang.tab.c"
+    break;
 
-#line 1344 "lang.tab.c"
+  case 24:
+#line 89 "lang.y"
+                                   { (yyval.ival) = (yyvsp[-2].ival) + (yyvsp[0].ival); }
+#line 1402 "lang.tab.c"
+    break;
+
+  case 25:
+#line 90 "lang.y"
+                                    { (yyval.ival) = (yyvsp[-2].ival) - (yyvsp[0].ival); }
+#line 1408 "lang.tab.c"
+    break;
+
+  case 26:
+#line 91 "lang.y"
+                                    { (yyval.ival) = (yyvsp[-2].ival) * (yyvsp[0].ival); }
+#line 1414 "lang.tab.c"
+    break;
+
+  case 27:
+#line 92 "lang.y"
+                                     { (yyval.ival) = (yyvsp[-2].ival) / (yyvsp[0].ival); }
+#line 1420 "lang.tab.c"
+    break;
+
+  case 28:
+#line 93 "lang.y"
+                                          { (yyval.ival) = -(yyvsp[0].ival);}
+#line 1426 "lang.tab.c"
+    break;
+
+  case 29:
+#line 94 "lang.y"
+                                    { (yyval.ival) = pow((yyvsp[-2].ival), (yyvsp[0].ival));}
+#line 1432 "lang.tab.c"
+    break;
+
+  case 30:
+#line 95 "lang.y"
+                                          { (yyval.ival) = (yyvsp[-1].ival); }
+#line 1438 "lang.tab.c"
+    break;
+
+
+#line 1442 "lang.tab.c"
 
       default: break;
     }
@@ -1572,7 +1670,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 49 "lang.y"
+#line 99 "lang.y"
 
 	/* ========================================================================== */
 	/* ======================== Sessão Codigo Especifico ======================== */

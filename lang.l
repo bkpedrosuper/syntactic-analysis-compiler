@@ -14,7 +14,7 @@ int cont_col = 1;
 	/* =========================== Sessão Definições ============================ */
 	/* ========================================================================== */
 
-ConstINT [0-9]+ 
+ConstINT [0-9]+
 ConstFLOAT {ConstINT}.{ConstINT}
 IDENTIFICADOR [a-zA-Z_][a-zA-Z0-9_]*
 BIBLIOTECA <{IDENTIFICADOR}.h>
@@ -26,27 +26,33 @@ STRING \".*\"
 	/* ========================================================================== */
 	
 [ ]			{ ++cont_col;	}
-"\n"        { cont_col = 1;	}
-"#include"  { return T_include; }
-"#define"   { return T_define; 	}
-"int"       { return T_int;		}
+"\n"        { cont_col = 1; return T_EndLine; }
+"let"       { return T_Let;		}
+"import"       { return T_Import;		}
+"func"       { return T_Func;		}
 "("         { return T_OpenParen;	}
 ")"         { return T_CloseParen; 	}
+"()"         { return T_OpenCloseParen; 	}
 "{"         { return T_OpenBracket;	}
 "}"         { return T_CloseBracket;	}
 ","         { return T_Comma;	}
 \"          { return T_Quote;	}
 ";"         { return T_DotComma;	}
 ":"	 	    { return T_doubleDot;	}
+"."	 	    { return T_Dot;	}
 "["         { return T_OpenSquareBracket;	}
 "\\"		{ return T_BackSlash;	}
 "]"         { return T_CloseSquareBracket;	}
 "for"       { return T_For;	}
+"if"       { return T_If;	}
 "="         { return T_Equals;	}
 "<"         { return T_SmallerThan;	}
 ">"         { return T_BiggerThan;	}
 "_"         { return T_UnderScore;	}
 "+"         { return T_Plus;	}
+"/"         { return T_Divide;	}
+"*"         { return T_Times;	}
+"^"         { return T_Power;	}
 "%"         { return T_Percent;	}
 "&"         { return T_ComercialAND	;}
 "-"         { return T_Minus;	}

@@ -49,35 +49,43 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    T_include = 258,
-    T_define = 259,
-    T_int = 260,
+    T_Let = 258,
+    T_Import = 259,
+    T_Func = 260,
     T_OpenParen = 261,
     T_CloseParen = 262,
-    T_OpenBracket = 263,
-    T_CloseBracket = 264,
-    T_Comma = 265,
-    T_Quote = 266,
-    T_DotComma = 267,
-    T_doubleDot = 268,
-    T_OpenSquareBracket = 269,
-    T_BackSlash = 270,
-    T_CloseSquareBracket = 271,
-    T_For = 272,
-    T_Equals = 273,
-    T_SmallerThan = 274,
-    T_BiggerThan = 275,
-    T_UnderScore = 276,
-    T_Plus = 277,
-    T_Percent = 278,
-    T_ComercialAND = 279,
-    T_Minus = 280,
-    T_return = 281,
-    T_IntValue = 282,
-    T_FloatValue = 283,
-    T_String = 284,
-    T_Biblioteca = 285,
-    T_Identificador = 286
+    T_OpenCloseParen = 263,
+    T_OpenBracket = 264,
+    T_CloseBracket = 265,
+    T_Comma = 266,
+    T_Quote = 267,
+    T_DotComma = 268,
+    T_doubleDot = 269,
+    T_Dot = 270,
+    T_For = 271,
+    T_If = 272,
+    T_OpenSquareBracket = 273,
+    T_BackSlash = 274,
+    T_CloseSquareBracket = 275,
+    T_Equals = 276,
+    T_SmallerThan = 277,
+    T_BiggerThan = 278,
+    T_UnderScore = 279,
+    T_Percent = 280,
+    T_ComercialAND = 281,
+    T_return = 282,
+    T_EndLine = 283,
+    T_IntValue = 284,
+    T_FloatValue = 285,
+    T_String = 286,
+    T_Biblioteca = 287,
+    T_Identificador = 288,
+    T_Minus = 289,
+    T_Plus = 290,
+    T_Divide = 291,
+    T_Times = 292,
+    T_Negative = 293,
+    T_Power = 294
   };
 #endif
 
@@ -91,7 +99,7 @@ union YYSTYPE
     int fval;
     char* sval;
 
-#line 95 "lang.tab.h"
+#line 103 "lang.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
