@@ -28,11 +28,10 @@ STRING \".*\"
 [ ]			{ ++cont_col;	}
 "\n"        { cont_col = 1; return T_EndLine; }
 "let"       { return T_Let;		}
-"import"       { return T_Import;		}
-"func"       { return T_Func;		}
+"import"    { return T_Import;		}
+"func"      { return T_Func;		}
 "("         { return T_OpenParen;	}
 ")"         { return T_CloseParen; 	}
-"()"         { return T_OpenCloseParen; 	}
 "{"         { return T_OpenBracket;	}
 "}"         { return T_CloseBracket;	}
 ","         { return T_Comma;	}
@@ -44,7 +43,7 @@ STRING \".*\"
 "\\"		{ return T_BackSlash;	}
 "]"         { return T_CloseSquareBracket;	}
 "for"       { return T_For;	}
-"if"       { return T_If;	}
+"if"        { return T_If;	}
 "="         { return T_Equals;	}
 "<"         { return T_SmallerThan;	}
 ">"         { return T_BiggerThan;	}
@@ -58,11 +57,11 @@ STRING \".*\"
 "-"         { return T_Minus;	}
 "return"    { return T_return;	}
 
-{ConstINT}      	{ yylval.ival = atof(yytext); return T_IntValue;	}
-{ConstFLOAT}      	{ yylval.ival = atof(yytext); return T_FloatValue;	}
+{ConstINT}      	{ yylval.ival = atof(yytext); return T_IntValue;		}
+{ConstFLOAT}      	{ yylval.ival = atof(yytext); return T_FloatValue;		}
 {IDENTIFICADOR} 	{ strcpy(yylval.sval, yytext); return T_Identificador;	}
-{BIBLIOTECA}      	{ strcpy(yylval.sval, yytext); return T_Biblioteca;	}
-{STRING}			{ strcpy(yylval.sval, yytext); return T_String;	}
+{BIBLIOTECA}      	{ strcpy(yylval.sval, yytext); return T_Biblioteca;		}
+{STRING}			{ strcpy(yylval.sval, yytext); return T_String;			}
 
 "{"[^}\n]*"}"     /* eat up one-line comments */
 [ \t]+           /* eat up whitespace */

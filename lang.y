@@ -11,7 +11,7 @@
     extern int linha_num;    
     extern int yylex();
     extern int param_cont;
-    void yyerror();
+    void yyerror(const char* s);
 %}
 
     /* Aqui temos os tipos de valores dos Tokens, no nosso caso temos valores inteiros, reais e caracteres (strings) */
@@ -41,6 +41,7 @@
 
 
 %type<ival> expression;
+%type<fval> mixed_expression;
 
 %left T_Minus T_Plus
 %left T_Divide T_Times
@@ -57,9 +58,9 @@
 %%
 
 program: /* empty */;
-program: program structure;
+    | program structures;
 
-structure:  T_EndLine
+structures:  T_EndLine
     | function_declaration;
     | T_Import;
 
@@ -85,8 +86,8 @@ variable: T_String
     | expression
     | function_usage;
 
-expression: T_IntValue {$$=$1;}
-    | expression T_Plus expression { $$ = $1 + $3; }
+expression: T_IntValue {$$=$1; printf("int\n");}
+    | expression T_Plus expression { printf("int + int\n"); $$ = $1 + $3;  }
     | expression T_Minus expression { $$ = $1 - $3; }
     | expression T_Times expression { $$ = $1 * $3; }
     | expression T_Divide expression { $$ = $1 / $3; }
@@ -101,23 +102,19 @@ expression: T_IntValue {$$=$1;}
 	/* ======================== Sessão Codigo Especifico ======================== */
 	/* ========================================================================== */
 
+
 int main() {
-    yyin = fopen("texto-para-teste.txt", "r");
+	yyin = stdin;
 
-    do{
-        yyparse();
-    } while(!feof(yyin));
+	do {
+		yyparse();
+	} while(!feof(yyin));
 
-    yyout = fopen("tabela.out", "w");
-    
-    fclose(yyout);
-
-    return 0;
+	return 0;
 }
 
-void yyerror(const char *s) {
-    fprintf(stderr, "\t\t%s\n", s);
-    exit(1);
+void yyerror(const char* s) {
+	fprintf(stderr, "Erro de análise (sintática): %s\n", s);
+	exit(1);
 }
-
 

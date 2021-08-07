@@ -77,7 +77,7 @@
     extern int linha_num;    
     extern int yylex();
     extern int param_cont;
-    void yyerror();
+    void yyerror(const char* s);
 
 #line 83 "lang.tab.c"
 
@@ -556,10 +556,10 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    59,    59,    60,    62,    63,    64,    66,    68,    69,
-      70,    71,    73,    75,    76,    77,    79,    80,    82,    83,
-      84,    85,    86,    88,    89,    90,    91,    92,    93,    94,
-      95
+       0,    60,    60,    61,    63,    64,    65,    67,    69,    70,
+      71,    72,    74,    76,    77,    78,    80,    81,    83,    84,
+      85,    86,    87,    89,    90,    91,    92,    93,    94,    95,
+      96
 };
 #endif
 
@@ -576,7 +576,7 @@ static const char *const yytname[] =
   "T_UnderScore", "T_Percent", "T_ComercialAND", "T_return", "T_EndLine",
   "T_IntValue", "T_FloatValue", "T_String", "T_Biblioteca",
   "T_Identificador", "T_Minus", "T_Plus", "T_Divide", "T_Times",
-  "T_Negative", "T_Power", "\"\"", "$accept", "program", "structure",
+  "T_Negative", "T_Power", "\"\"", "$accept", "program", "structures",
   "function_declaration", "line", "variable_declaration", "function_usage",
   "logical_structure", "variable", "expression", YY_NULLPTR
 };
@@ -1390,49 +1390,49 @@ yyreduce:
   switch (yyn)
     {
   case 23:
-#line 88 "lang.y"
-                       {(yyval.ival)=(yyvsp[0].ival);}
+#line 89 "lang.y"
+                       {(yyval.ival)=(yyvsp[0].ival); printf("int\n");}
 #line 1396 "lang.tab.c"
     break;
 
   case 24:
-#line 89 "lang.y"
-                                   { (yyval.ival) = (yyvsp[-2].ival) + (yyvsp[0].ival); }
+#line 90 "lang.y"
+                                   { printf("int + int\n"); (yyval.ival) = (yyvsp[-2].ival) + (yyvsp[0].ival);  }
 #line 1402 "lang.tab.c"
     break;
 
   case 25:
-#line 90 "lang.y"
+#line 91 "lang.y"
                                     { (yyval.ival) = (yyvsp[-2].ival) - (yyvsp[0].ival); }
 #line 1408 "lang.tab.c"
     break;
 
   case 26:
-#line 91 "lang.y"
+#line 92 "lang.y"
                                     { (yyval.ival) = (yyvsp[-2].ival) * (yyvsp[0].ival); }
 #line 1414 "lang.tab.c"
     break;
 
   case 27:
-#line 92 "lang.y"
+#line 93 "lang.y"
                                      { (yyval.ival) = (yyvsp[-2].ival) / (yyvsp[0].ival); }
 #line 1420 "lang.tab.c"
     break;
 
   case 28:
-#line 93 "lang.y"
+#line 94 "lang.y"
                                           { (yyval.ival) = -(yyvsp[0].ival);}
 #line 1426 "lang.tab.c"
     break;
 
   case 29:
-#line 94 "lang.y"
+#line 95 "lang.y"
                                     { (yyval.ival) = pow((yyvsp[-2].ival), (yyvsp[0].ival));}
 #line 1432 "lang.tab.c"
     break;
 
   case 30:
-#line 95 "lang.y"
+#line 96 "lang.y"
                                           { (yyval.ival) = (yyvsp[-1].ival); }
 #line 1438 "lang.tab.c"
     break;
@@ -1670,29 +1670,25 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 99 "lang.y"
+#line 100 "lang.y"
 
 	/* ========================================================================== */
 	/* ======================== Sessão Codigo Especifico ======================== */
 	/* ========================================================================== */
 
+
 int main() {
-    yyin = fopen("texto-para-teste.txt", "r");
+	yyin = stdin;
 
-    do{
-        yyparse();
-    } while(!feof(yyin));
+	do {
+		yyparse();
+	} while(!feof(yyin));
 
-    yyout = fopen("tabela.out", "w");
-    
-    fclose(yyout);
-
-    return 0;
+	return 0;
 }
 
-void yyerror(const char *s) {
-    fprintf(stderr, "\t\t%s\n", s);
-    exit(1);
+void yyerror(const char* s) {
+	fprintf(stderr, "Erro de análise (sintática): %s\n", s);
+	exit(1);
 }
-
 
