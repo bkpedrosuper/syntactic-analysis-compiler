@@ -89,6 +89,7 @@ function_usage: T_Identificador T_OpenParen T_CloseParen;
 
 logical_structure: structure_for
     | structure_if structure_else
+    | structure_switch
     ;
 
 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket structures T_CloseBracket;
@@ -97,6 +98,13 @@ structure_if: T_If T_OpenSquareBracket logical_expression T_CloseSquareBracket T
 
 structure_else: T_Else T_OpenBracket structures T_CloseBracket;
     | /* empty */;
+
+structure_switch: T_Switch T_OpenSquareBracket T_Identificador T_CloseSquareBracket T_OpenBracket structure_cases T_Default T_OpenBracket structures T_CloseBracket T_CloseBracket;
+
+structure_cases: structure_cases structure_case
+    | /* empty */;
+
+structure_case: T_Case T_OpenSquareBracket T_Identificador T_CloseSquareBracket T_OpenBracket structures T_CloseBracket;
 
 logical_expression: type
         | expression T_EqualsEQ expression {$$ = $1 == $3;  }
