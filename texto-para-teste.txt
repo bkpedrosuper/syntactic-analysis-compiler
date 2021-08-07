@@ -18,7 +18,7 @@ func isPrime(number) {
 
 	for i:(1, math.sqrt(number), 1) {
 		if i mod 2 == 0 {
-			cont = cont + 1;
+			cont ++;
 		}
 	}
 
