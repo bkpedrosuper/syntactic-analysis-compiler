@@ -64,28 +64,41 @@ extern int yydebug;
     T_Dot = 270,
     T_For = 271,
     T_If = 272,
-    T_OpenSquareBracket = 273,
-    T_BackSlash = 274,
-    T_CloseSquareBracket = 275,
-    T_Equals = 276,
-    T_SmallerThan = 277,
-    T_BiggerThan = 278,
-    T_UnderScore = 279,
-    T_Percent = 280,
-    T_ComercialAND = 281,
-    T_return = 282,
-    T_EndLine = 283,
-    T_IntValue = 284,
-    T_FloatValue = 285,
-    T_String = 286,
-    T_Biblioteca = 287,
-    T_Identificador = 288,
-    T_Minus = 289,
-    T_Plus = 290,
-    T_Divide = 291,
-    T_Times = 292,
-    T_Negative = 293,
-    T_Power = 294
+    T_While = 273,
+    T_Else = 274,
+    T_Switch = 275,
+    T_Case = 276,
+    T_Default = 277,
+    T_Do = 278,
+    T_OpenSquareBracket = 279,
+    T_BackSlash = 280,
+    T_CloseSquareBracket = 281,
+    T_Equals = 282,
+    T_UnderScore = 283,
+    T_Percent = 284,
+    T_ComercialAND = 285,
+    T_return = 286,
+    T_EndLine = 287,
+    T_Not = 288,
+    T_EqualsEQ = 289,
+    T_NegativeEquals = 290,
+    T_Or = 291,
+    T_And = 292,
+    T_SmallerThan = 293,
+    T_SmallerThanEQ = 294,
+    T_BiggerThan = 295,
+    T_BiggerThanEQ = 296,
+    T_IntValue = 297,
+    T_FloatValue = 298,
+    T_String = 299,
+    T_Biblioteca = 300,
+    T_Identificador = 301,
+    T_Minus = 302,
+    T_Plus = 303,
+    T_Divide = 304,
+    T_Times = 305,
+    T_Negative = 306,
+    T_Power = 307
   };
 #endif
 
@@ -99,7 +112,7 @@ union YYSTYPE
     int fval;
     char* sval;
 
-#line 103 "lang.tab.h"
+#line 116 "lang.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

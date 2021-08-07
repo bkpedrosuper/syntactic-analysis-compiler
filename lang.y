@@ -30,18 +30,19 @@
 %token T_OpenParen T_CloseParen T_OpenCloseParen
 %token T_OpenBracket T_CloseBracket 
 %token T_Comma T_Quote T_DotComma T_doubleDot T_Dot
-%token T_For T_If
+%token T_For T_If T_While T_Else T_Switch T_Case T_Default T_Do
 %token T_OpenSquareBracket T_BackSlash T_CloseSquareBracket T_Equals 
-%token T_SmallerThan T_BiggerThan T_UnderScore T_Percent T_ComercialAND  T_return;
+%token T_UnderScore T_Percent T_ComercialAND  T_return;
 %token T_EndLine;
+%token T_Not T_EqualsEQ T_NegativeEquals T_Or T_And T_SmallerThan T_SmallerThanEQ T_BiggerThan T_BiggerThanEQ
 %token<ival> T_IntValue;
 %token<fval> T_FloatValue;
 %token<sval> T_String T_Biblioteca T_Identificador;
 
 
 
-%type<ival> expression;
-%type<fval> mixed_expression;
+%type<ival> logical_expression;
+%type<fval> mixed_expression expression type;
 
 %left T_Minus T_Plus
 %left T_Divide T_Times
@@ -57,28 +58,56 @@
 %start program
 %%
 
-program: /* empty */;
-    | program structures;
+program: structures;
 
-structures:  T_EndLine
-    | function_declaration;
-    | T_Import;
+structures: structures structure
+        | /* empty */;
 
-function_declaration: T_Func T_String T_OpenCloseParen T_OpenBracket T_EndLine line T_CloseBracket;
+structure:  T_EndLine
+    | variable_declaration T_DotComma {printf("variable declaration\n");}
+    | attribution T_DotComma {printf("attribution\n");};
+    | function_usage T_DotComma {printf("function\n");}
+    | logical_structure
+    | import T_DotComma {printf("import\n");}
+    | logical_expression T_DotComma
+    ;
 
-line: T_EndLine T_DotComma
-    | variable_declaration T_DotComma
-    | function_usage;
-    | logical_structure;
+import: T_Import T_Identificador ;
 
-variable_declaration: T_String T_Equals variable;
+variable_declaration: T_Let T_Identificador T_Equals variable;
 
-function_usage: T_Dot function_usage
-    | T_String T_OpenCloseParen function_usage
-    | "";
+attribution: T_Identificador T_Equals variable
+        | T_Identificador T_Plus T_Equals variable
+        | T_Identificador T_Minus T_Equals variable
+        | T_Identificador T_Divide T_Equals variable
+        | T_Identificador T_Times T_Equals variable
+        | T_Identificador T_Plus T_Plus
+        | T_Identificador T_Minus T_Minus
+        ;
 
-logical_structure: T_For
-    | T_If;
+function_usage: T_Identificador T_OpenParen T_CloseParen;
+
+logical_structure: structure_for
+    | structure_if structure_else
+    ;
+
+structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket structures T_CloseBracket;
+
+structure_if: T_If T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket structures T_CloseBracket;
+
+structure_else: T_Else T_OpenBracket structures T_CloseBracket;
+    | /* empty */;
+
+logical_expression: type
+        | expression T_EqualsEQ expression {$$ = $1 == $3;  }
+        | expression T_NegativeEquals expression {$$ = $1 != $3; }
+        | expression T_BiggerThan expression {$$ = $1 > $3; }
+        | expression T_SmallerThan expression {$$ = $1 < $3; }
+        | expression T_BiggerThanEQ expression {$$ = $1 >= $3; }
+        | expression T_SmallerThanEQ expression {$$ = $1 <= $3; }
+        | expression T_Or expression {$$ = $1 || $3; }
+        | expression T_And expression {$$ = $1 && $3; }
+        | T_Not expression {$$ = !$2;};
 
 variable: T_String
     | T_IntValue
@@ -86,8 +115,8 @@ variable: T_String
     | expression
     | function_usage;
 
-expression: T_IntValue {$$=$1; printf("int\n");}
-    | expression T_Plus expression { printf("int + int\n"); $$ = $1 + $3;  }
+expression: type
+    | expression T_Plus expression { $$ =$1 + $3;}
     | expression T_Minus expression { $$ = $1 - $3; }
     | expression T_Times expression { $$ = $1 * $3; }
     | expression T_Divide expression { $$ = $1 / $3; }
@@ -96,7 +125,10 @@ expression: T_IntValue {$$=$1; printf("int\n");}
     | T_OpenParen expression T_CloseParen { $$ = $2; };
 
 
-
+type: T_IntValue {$$ = $1;}
+    | T_FloatValue {$$ = $1;}
+    | T_Identificador
+    ;
 %%
 	/* ========================================================================== */
 	/* ======================== Sessão Codigo Especifico ======================== */
