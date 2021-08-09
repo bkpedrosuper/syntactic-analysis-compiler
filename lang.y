@@ -70,8 +70,7 @@ structure:  T_EndLine
     | function_usage T_DotComma {printf("function\n");}
     | logical_structure
     | import T_DotComma {printf("import\n");}
-    | logical_expression T_DotComma
-    | T_Comment
+    | T_Comment {printf("Isso é um comentário\n");}
     ;
 
 import: T_Import T_Identificador ;
@@ -87,11 +86,12 @@ attribution: T_Identificador T_Equals variable
         | T_Identificador T_Minus T_Minus
         ;
 
-function_usage: T_Identificador T_OpenParen T_CloseParen;
+function_usage: T_Identificador T_OpenParen optional_params T_CloseParen;
 
 logical_structure: structure_for
     | structure_while
-    | structure_if structure_else
+    | structure_do T_DotComma
+    | structure_if optional_break structure_else
     | structure_switch
     ;
 
@@ -114,6 +114,8 @@ structure_case: T_Case T_OpenSquareBracket type T_CloseSquareBracket T_OpenBrack
 structure_default: T_Default T_OpenBracket structures T_CloseBracket T_EndLine;
 
 structure_while: T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket structures T_CloseBracket;
+
+structure_do: T_Do T_OpenBracket structures T_CloseBracket T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket;
 
 logical_expression: type
         | expression T_EqualsEQ expression {$$ = $1 == $3;  }
@@ -146,24 +148,29 @@ type: T_IntValue {$$ = $1;}
     | T_FloatValue {$$ = $1;}
     | T_Identificador
     ;
+
+optional_break: T_EndLine
+    | /* empty */;
+
+optional_params: T_String
+    | /* empty */;
+
 %%
 	/* ========================================================================== */
 	/* ======================== Sessão Codigo Especifico ======================== */
 	/* ========================================================================== */
 
-
 int main() {
-	yyin = stdin;
+    yyin = fopen("texto-exemplo.txt", "r");
 
-	do {
-		yyparse();
-	} while(!feof(yyin));
+    do{
+        yyparse();
+    } while(!feof(yyin));
 
-	return 0;
+    return 0;
 }
 
-void yyerror(const char* s) {
-	fprintf(stderr, "Erro de análise (sintática): %s\n", s);
-	exit(1);
+void yyerror(const char *s) {
+    fprintf(stderr, "\t\t%s\n", s);
+    exit(1);
 }
-

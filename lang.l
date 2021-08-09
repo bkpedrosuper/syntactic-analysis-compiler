@@ -25,7 +25,7 @@ COMENTARIO $$.*
 	/* =========================== Sessão REGRAS ================================ */
 	/* ========================================================================== */
 	
-[ ]            { ++cont_col;    }
+[ ]         { ++cont_col;    }
 "\n"        { cont_col = 1; return T_EndLine; }
 "let"       { return T_Let;        }
 "import"    { return T_Import;        }
@@ -37,31 +37,32 @@ COMENTARIO $$.*
 ","         { return T_Comma;    }
 \"          { return T_Quote;    }
 ";"         { return T_DotComma;    }
-":"             { return T_doubleDot;    }
-"."             { return T_Dot;    }
+":"         { return T_doubleDot;    }
+"."         { return T_Dot;    }
 "["         { return T_OpenSquareBracket;    }
 "\\"        { return T_BackSlash;    }
 "]"         { return T_CloseSquareBracket;    }
 "for"       { return T_For;    }
 "if"        { return T_If;    }
-"else"        { return T_Else;    }
-"!"        { return T_Not;    }
+"else"      { return T_Else;    }
+"!"        	{ return T_Not;    }
 "="         { return T_Equals;    }
-"=="         { return T_EqualsEQ;    }
-"!="         { return T_NegativeEquals;    }
+"=="        { return T_EqualsEQ;    }
+"!="        { return T_NegativeEquals;    }
 "|"         { return T_Or;    }
 "&"         { return T_And;    }
 "<"         { return T_SmallerThan;    }
-"<="         { return T_SmallerThanEQ;    }
+"<="        { return T_SmallerThanEQ;    }
 ">"         { return T_BiggerThan;    }
 ">="        { return T_BiggerThanEQ;    }
 "_"         { return T_UnderScore;    }
 "+"         { return T_Plus;    }
-"while"      { return T_While; }
-"switch"      { return T_Switch; }
+"while"     { return T_While; }
+"do"      	{ return T_Do; }
+"switch"    { return T_Switch; }
 "case"      { return T_Case; }
-"default"      { return T_Default; }
-"do"      { return T_Do; }
+"default"   { return T_Default; }
+"do"      	{ return T_Do; }
 "/"         { return T_Divide;    }
 "*"         { return T_Times;    }
 "^"         { return T_Power;    }
@@ -79,7 +80,7 @@ COMENTARIO $$.*
 "{"[^}\n]*"}"     /* eat up one-line comments */
 [ \t]+           /* eat up whitespace */
 [[:space:]]|[[:space:]]+;  /* Linhas em branco não tem importancia! */
-. printf("Caracter não reconhecido %s\n", yytext ); //erros
+. printf("(Erro Léxico) Caracter não reconhecido %s\n", yytext ); //erros
 
 %%
 	/* ========================================================================== */

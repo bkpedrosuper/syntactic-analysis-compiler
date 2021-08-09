@@ -373,8 +373,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 54
-#define YY_END_OF_BUFFER 55
+#define YY_NUM_RULES 55
+#define YY_END_OF_BUFFER 56
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -384,18 +384,18 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[105] =
     {   0,
-        0,    0,   55,   53,   51,    2,   52,    1,   21,   11,
-       53,   41,   26,    6,    7,   39,   32,   10,   43,   14,
-       38,   45,   13,   12,   27,   22,   29,   47,   15,   16,
-       17,   40,   31,   47,   47,   47,   47,   47,   47,   47,
-       47,   47,    8,   25,    9,   51,    0,   52,   24,    0,
-       48,   49,    0,   45,   28,   23,   30,   47,   47,   47,
-       37,   47,   47,   47,   19,   47,   47,   47,   47,   47,
-        0,   50,   49,   46,   45,   47,   47,   47,   18,   47,
-       47,    3,   47,   47,   47,   35,   47,   20,    5,   47,
-       47,   47,   47,   47,   47,   47,   47,   33,   47,    4,
+        0,    0,   56,   54,   52,    2,   53,    1,   21,   11,
+       54,   42,   26,    6,    7,   40,   32,   10,   44,   14,
+       39,   46,   13,   12,   27,   22,   29,   48,   15,   16,
+       17,   41,   31,   48,   48,   48,   48,   48,   48,   48,
+       48,   48,    8,   25,    9,   52,    0,   53,   24,    0,
+       49,   50,    0,   46,   28,   23,   30,   48,   48,   48,
+       34,   48,   48,   48,   19,   48,   48,   48,   48,   48,
+        0,   51,   50,   47,   46,   48,   48,   48,   18,   48,
+       48,    3,   48,   48,   48,   36,   48,   20,    5,   48,
+       48,   48,   48,   48,   48,   48,   48,   33,   48,    4,
 
-       44,   34,   36,    0
+       45,   35,   37,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -524,11 +524,11 @@ static const flex_int16_t yy_chk[197] =
     } ;
 
 /* Table of booleans, true if rule could match eol. */
-static const flex_int32_t yy_rule_can_match_eol[55] =
+static const flex_int32_t yy_rule_can_match_eol[56] =
     {   0,
 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,     };
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,     };
 
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
@@ -1018,110 +1018,115 @@ YY_RULE_SETUP
 case 34:
 YY_RULE_SETUP
 #line 62 "lang.l"
-{ return T_Switch; }
+{ return T_Do; }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
 #line 63 "lang.l"
-{ return T_Case; }
+{ return T_Switch; }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
 #line 64 "lang.l"
-{ return T_Default; }
+{ return T_Case; }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
 #line 65 "lang.l"
-{ return T_Do; }
+{ return T_Default; }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
 #line 66 "lang.l"
-{ return T_Divide;    }
+{ return T_Do; }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
 #line 67 "lang.l"
-{ return T_Times;    }
+{ return T_Divide;    }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
 #line 68 "lang.l"
-{ return T_Power;    }
+{ return T_Times;    }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
 #line 69 "lang.l"
-{ return T_Percent;    }
+{ return T_Power;    }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
 #line 70 "lang.l"
-{ return T_ComercialAND    ;}
+{ return T_Percent;    }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
 #line 71 "lang.l"
-{ return T_Minus;    }
+{ return T_ComercialAND    ;}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
 #line 72 "lang.l"
-{ return T_return;    }
+{ return T_Minus;    }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 74 "lang.l"
-{ yylval.ival = atof(yytext); return T_IntValue;		}
+#line 73 "lang.l"
+{ return T_return;    }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
 #line 75 "lang.l"
-{ yylval.ival = atof(yytext); return T_FloatValue;		}
+{ yylval.ival = atof(yytext); return T_IntValue;		}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
 #line 76 "lang.l"
-{ yylval.sval = strdup(yytext); return T_Identificador;	}
+{ yylval.ival = atof(yytext); return T_FloatValue;		}
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
 #line 77 "lang.l"
-{ yylval.sval = strdup(yytext); return T_String;		}
+{ yylval.sval = strdup(yytext); return T_Identificador;	}
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
 #line 78 "lang.l"
-{ yylval.sval = strdup(yytext); return T_Comment;		}
+{ yylval.sval = strdup(yytext); return T_String;		}
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 80 "lang.l"
-/* eat up one-line comments */
+#line 79 "lang.l"
+{ yylval.sval = strdup(yytext); return T_Comment;		}
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
 #line 81 "lang.l"
-/* eat up whitespace */
+/* eat up one-line comments */
 	YY_BREAK
 case 52:
-/* rule 52 can match eol */
 YY_RULE_SETUP
 #line 82 "lang.l"
-/* Linhas em branco não tem importancia! */
+/* eat up whitespace */
 	YY_BREAK
 case 53:
+/* rule 53 can match eol */
 YY_RULE_SETUP
 #line 83 "lang.l"
-printf("Caracter não reconhecido %s\n", yytext ); //erros
+/* Linhas em branco não tem importancia! */
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 85 "lang.l"
+#line 84 "lang.l"
+printf("(Erro Léxico) Caracter não reconhecido %s\n", yytext ); //erros
+	YY_BREAK
+case 55:
+YY_RULE_SETUP
+#line 86 "lang.l"
 ECHO;
 	YY_BREAK
-#line 1125 "lex.yy.c"
+#line 1130 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2138,7 +2143,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 85 "lang.l"
+#line 86 "lang.l"
 
 	/* ========================================================================== */
 	/* ======================== Sessão Codigo Especifico ======================== */

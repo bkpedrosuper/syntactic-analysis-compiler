@@ -24,4 +24,13 @@ switch[n] {
 while [n != 25 ] {
 	math();
 }
-println("O número de números pares entre 0 e ", n, "É igual a ", numberOfEvens);
+
+do {
+	math();
+	import math;
+	n++;
+} while [n != 25];
+
+println("numberOfEvens");
+
+$$ isso é um comentário
