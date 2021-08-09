@@ -34,6 +34,7 @@
 %token T_OpenSquareBracket T_BackSlash T_CloseSquareBracket T_Equals 
 %token T_UnderScore T_Percent T_ComercialAND  T_return;
 %token T_EndLine;
+%token T_Comment;
 %token T_Not T_EqualsEQ T_NegativeEquals T_Or T_And T_SmallerThan T_SmallerThanEQ T_BiggerThan T_BiggerThanEQ
 %token<ival> T_IntValue;
 %token<fval> T_FloatValue;
@@ -70,6 +71,7 @@ structure:  T_EndLine
     | logical_structure
     | import T_DotComma {printf("import\n");}
     | logical_expression T_DotComma
+    | T_Comment
     ;
 
 import: T_Import T_Identificador ;
@@ -88,6 +90,7 @@ attribution: T_Identificador T_Equals variable
 function_usage: T_Identificador T_OpenParen T_CloseParen;
 
 logical_structure: structure_for
+    | structure_while
     | structure_if structure_else
     | structure_switch
     ;
@@ -109,6 +112,8 @@ structure_case: T_Case T_OpenSquareBracket type T_CloseSquareBracket T_OpenBrack
     ;
 
 structure_default: T_Default T_OpenBracket structures T_CloseBracket T_EndLine;
+
+structure_while: T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket structures T_CloseBracket;
 
 logical_expression: type
         | expression T_EqualsEQ expression {$$ = $1 == $3;  }

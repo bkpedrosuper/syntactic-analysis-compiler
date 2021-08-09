@@ -18,6 +18,7 @@ ConstINT [0-9]+
 ConstFLOAT {ConstINT}.{ConstINT}
 IDENTIFICADOR [a-zA-Z_][a-zA-Z0-9_]*
 STRING \".*\"
+COMENTARIO $$.*
 
 %%
 	/* ========================================================================== */
@@ -72,7 +73,8 @@ STRING \".*\"
 {ConstINT}      	{ yylval.ival = atof(yytext); return T_IntValue;		}
 {ConstFLOAT}      	{ yylval.ival = atof(yytext); return T_FloatValue;		}
 {IDENTIFICADOR} 	{ yylval.sval = strdup(yytext); return T_Identificador;	}
-{STRING}			{ yylval.sval = strdup(yytext); return T_String;			}
+{STRING}			{ yylval.sval = strdup(yytext); return T_String;		}
+{COMENTARIO}		{ yylval.sval = strdup(yytext); return T_Comment;		}
 
 "{"[^}\n]*"}"     /* eat up one-line comments */
 [ \t]+           /* eat up whitespace */

@@ -79,26 +79,27 @@ extern int yydebug;
     T_ComercialAND = 285,
     T_return = 286,
     T_EndLine = 287,
-    T_Not = 288,
-    T_EqualsEQ = 289,
-    T_NegativeEquals = 290,
-    T_Or = 291,
-    T_And = 292,
-    T_SmallerThan = 293,
-    T_SmallerThanEQ = 294,
-    T_BiggerThan = 295,
-    T_BiggerThanEQ = 296,
-    T_IntValue = 297,
-    T_FloatValue = 298,
-    T_String = 299,
-    T_Biblioteca = 300,
-    T_Identificador = 301,
-    T_Minus = 302,
-    T_Plus = 303,
-    T_Divide = 304,
-    T_Times = 305,
-    T_Negative = 306,
-    T_Power = 307
+    T_Comment = 288,
+    T_Not = 289,
+    T_EqualsEQ = 290,
+    T_NegativeEquals = 291,
+    T_Or = 292,
+    T_And = 293,
+    T_SmallerThan = 294,
+    T_SmallerThanEQ = 295,
+    T_BiggerThan = 296,
+    T_BiggerThanEQ = 297,
+    T_IntValue = 298,
+    T_FloatValue = 299,
+    T_String = 300,
+    T_Biblioteca = 301,
+    T_Identificador = 302,
+    T_Minus = 303,
+    T_Plus = 304,
+    T_Divide = 305,
+    T_Times = 306,
+    T_Negative = 307,
+    T_Power = 308
   };
 #endif
 
@@ -112,7 +113,7 @@ union YYSTYPE
     int fval;
     char* sval;
 
-#line 116 "lang.tab.h"
+#line 117 "lang.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
