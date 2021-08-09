@@ -17,7 +17,6 @@ int cont_col = 1;
 ConstINT [0-9]+
 ConstFLOAT {ConstINT}.{ConstINT}
 IDENTIFICADOR [a-zA-Z_][a-zA-Z0-9_]*
-BIBLIOTECA <{IDENTIFICADOR}.h>
 STRING \".*\"
 
 %%
@@ -49,8 +48,8 @@ STRING \".*\"
 "="         { return T_Equals;    }
 "=="         { return T_EqualsEQ;    }
 "!="         { return T_NegativeEquals;    }
-"||"         { return T_Or;    }
-"&&"         { return T_And;    }
+"|"         { return T_Or;    }
+"&"         { return T_And;    }
 "<"         { return T_SmallerThan;    }
 "<="         { return T_SmallerThanEQ;    }
 ">"         { return T_BiggerThan;    }
@@ -73,7 +72,6 @@ STRING \".*\"
 {ConstINT}      	{ yylval.ival = atof(yytext); return T_IntValue;		}
 {ConstFLOAT}      	{ yylval.ival = atof(yytext); return T_FloatValue;		}
 {IDENTIFICADOR} 	{ yylval.sval = strdup(yytext); return T_Identificador;	}
-{BIBLIOTECA}      	{ yylval.sval = strdup(yytext); return T_Biblioteca;		}
 {STRING}			{ yylval.sval = strdup(yytext); return T_String;			}
 
 "{"[^}\n]*"}"     /* eat up one-line comments */

@@ -65,7 +65,7 @@ structures: structures structure
 
 structure:  T_EndLine
     | variable_declaration T_DotComma {printf("variable declaration\n");}
-    | attribution T_DotComma {printf("attribution\n");};
+    | attribution T_DotComma {printf("attribution\n");}
     | function_usage T_DotComma {printf("function\n");}
     | logical_structure
     | import T_DotComma {printf("import\n");}
@@ -89,6 +89,7 @@ function_usage: T_Identificador T_OpenParen T_CloseParen;
 
 logical_structure: structure_for
     | structure_if structure_else
+    | structure_switch
     ;
 
 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket structures T_CloseBracket;
@@ -97,6 +98,17 @@ structure_if: T_If T_OpenSquareBracket logical_expression T_CloseSquareBracket T
 
 structure_else: T_Else T_OpenBracket structures T_CloseBracket;
     | /* empty */;
+
+structure_switch: T_Switch T_OpenSquareBracket T_Identificador T_CloseSquareBracket T_OpenBracket structure_cases structure_default T_CloseBracket;
+
+structure_cases: structure_cases structure_case
+    | /* empty */;
+
+structure_case: T_Case T_OpenSquareBracket type T_CloseSquareBracket T_OpenBracket structures T_CloseBracket T_EndLine
+    | structure;
+    ;
+
+structure_default: T_Default T_OpenBracket structures T_CloseBracket T_EndLine;
 
 logical_expression: type
         | expression T_EqualsEQ expression {$$ = $1 == $3;  }
