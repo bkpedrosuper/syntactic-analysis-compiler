@@ -57,13 +57,13 @@
 %start program
 %%
 
-program: structures { printf("Program begins, Linha: %d Coluna: %d\n", cont_line, cont_col); }; 
+program: lines { printf("Program begins, Linha: %d Coluna: %d\n", cont_line, cont_col); }; 
 
-structures: structures structure { printf("Structure Usage, Linha: %d Coluna: %d\n", cont_line, cont_col); }
+lines: lines line
         | /* empty */; 
 
-structure:  T_EndLine {  printf("Endline Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
-    | variable_declaration T_DotComma {  printf("Variable Declaration Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
+line:  T_EndLine {  printf("Endline Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
+    | variable_declaration T_DotComma
     | attribution T_DotComma {  printf("Attribution Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
     | function_usage T_DotComma {   printf("Function Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
     | logical_structure {   printf("Logical Structure Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
@@ -93,15 +93,15 @@ function_usage: T_Identificador T_OpenParen optional_params T_CloseParen;
 logical_structure: structure_for
     | structure_while
     | structure_do T_DotComma
-    | structure_if optional_break structure_else
+    | structure_if structure_else
     | structure_switch
     ;
 
-structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket structures T_CloseBracket;
+structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket;
 
-structure_if: T_If T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket structures T_CloseBracket;
+structure_if: T_If T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket lines T_CloseBracket;
 
-structure_else: T_Else T_OpenBracket structures T_CloseBracket;
+structure_else: T_Else T_OpenBracket lines T_CloseBracket;
     | /* empty */;
 
 structure_switch: T_Switch T_OpenSquareBracket T_Identificador T_CloseSquareBracket T_OpenBracket structure_cases structure_default T_CloseBracket;
@@ -109,18 +109,17 @@ structure_switch: T_Switch T_OpenSquareBracket T_Identificador T_CloseSquareBrac
 structure_cases: structure_cases structure_case
     | /* empty */;
 
-structure_case: T_Case T_OpenSquareBracket type T_CloseSquareBracket T_OpenBracket structures T_CloseBracket T_EndLine
-    | structure;
+structure_case: T_Case T_OpenSquareBracket type T_CloseSquareBracket T_OpenBracket lines T_CloseBracket T_EndLine
+    | line;
     ;
 
-structure_default: T_Default T_OpenBracket structures T_CloseBracket T_EndLine;
+structure_default: T_Default T_OpenBracket lines T_CloseBracket T_EndLine;
 
-structure_while: T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket structures T_CloseBracket;
+structure_while: T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket lines T_CloseBracket;
 
-structure_do: T_Do T_OpenBracket structures T_CloseBracket T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket;
+structure_do: T_Do T_OpenBracket lines T_CloseBracket T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket;
 
-logical_expression: type
-        | expression T_EqualsEQ expression {$$ = $1 == $3;  }
+logical_expression: expression T_EqualsEQ expression {$$ = $1 == $3;  }
         | expression T_NegativeEquals expression {$$ = $1 != $3; }
         | expression T_BiggerThan expression {$$ = $1 > $3; }
         | expression T_SmallerThan expression {$$ = $1 < $3; }
@@ -130,9 +129,7 @@ logical_expression: type
         | expression T_And expression {$$ = $1 && $3; }
         | T_Not expression {$$ = !$2;};
 
-variable: T_String 
-    | T_IntValue
-    | T_FloatValue
+variable: T_String
     | expression {printf(" Resultado: %d\n", $1);}
     | function_usage;
 
@@ -147,11 +144,8 @@ expression: type
 
 type: T_IntValue {$$ = $1;}
     | T_FloatValue {$$ = $1;}
-    | T_Identificador 
+    | T_Identificador {$$ = T_Identificador;}
     ;
-
-optional_break: T_EndLine
-    | /* empty */;
 
 optional_params: T_String
     | T_Identificador
