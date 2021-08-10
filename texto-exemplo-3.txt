@@ -1,6 +1,6 @@
 import math;
 let n = stdin();
-let numberOfEvens = 0;
+const numberOfEvens = 2.33333;
 for [i:(0,n,1)] {
 	for [i:(0,m,3)] {
 		for [i:(0,j,10)] {

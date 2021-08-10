@@ -34,7 +34,7 @@
 %token T_Comma T_Quote T_DotComma T_doubleDot T_Dot
 %token T_For T_If T_While T_Else T_Switch T_Case T_Default T_Do
 %token T_OpenSquareBracket T_BackSlash T_CloseSquareBracket T_Equals 
-%token T_UnderScore T_Percent T_ComercialAND  T_return;
+%token T_UnderScore T_Percent T_ComercialAND T_Return T_Const;
 %token T_EndLine;
 %token T_Comment;
 %token T_Not T_EqualsEQ T_NegativeEquals T_Or T_And T_SmallerThan T_SmallerThanEQ T_BiggerThan T_BiggerThanEQ
@@ -63,7 +63,7 @@ structures: structures structure
         | /* empty */;
 
 structure:  T_EndLine
-    | variable_declaration T_DotComma {printf("Variable declaration usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
+    | variable_declaration T_DotComma 
     | attribution T_DotComma {printf("Attribution Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
     | function_usage T_DotComma {printf("Function Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
     | logical_structure {printf("Logical Structure Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
@@ -73,9 +73,10 @@ structure:  T_EndLine
 
 import: T_Import T_Identificador ;
 
-variable_declaration: T_Let T_Identificador T_Equals variable;
+variable_declaration: T_Let T_Identificador T_Equals variable {printf("Variable declaration Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
+        | T_Const T_Identificador T_Equals variable { printf("Constant declaration Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}; 
 
-attribution: T_Identificador T_Equals variable 
+attribution: T_Identificador T_Equals variable
         | T_Identificador T_Plus T_Equals variable
         | T_Identificador T_Minus T_Equals variable
         | T_Identificador T_Divide T_Equals variable
@@ -126,10 +127,10 @@ logical_expression: type
         | expression T_And expression {$$ = $1 && $3; }
         | T_Not expression {$$ = !$2;};
 
-variable: T_String
+variable: T_String 
     | T_IntValue
     | T_FloatValue
-    | expression
+    | expression {printf(" Resultado: %d\n", $1);}
     | function_usage;
 
 expression: type
@@ -140,7 +141,6 @@ expression: type
     | T_Minus expression %prec T_Negative { $$ = -$2;}
     | expression T_Power expression { $$ = pow($1, $3);}
     | T_OpenParen expression T_CloseParen { $$ = $2; };
-
 
 type: T_IntValue {$$ = $1;}
     | T_FloatValue {$$ = $1;}

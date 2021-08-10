@@ -77,29 +77,30 @@ extern int yydebug;
     T_UnderScore = 283,
     T_Percent = 284,
     T_ComercialAND = 285,
-    T_return = 286,
-    T_EndLine = 287,
-    T_Comment = 288,
-    T_Not = 289,
-    T_EqualsEQ = 290,
-    T_NegativeEquals = 291,
-    T_Or = 292,
-    T_And = 293,
-    T_SmallerThan = 294,
-    T_SmallerThanEQ = 295,
-    T_BiggerThan = 296,
-    T_BiggerThanEQ = 297,
-    T_IntValue = 298,
-    T_FloatValue = 299,
-    T_String = 300,
-    T_Biblioteca = 301,
-    T_Identificador = 302,
-    T_Minus = 303,
-    T_Plus = 304,
-    T_Divide = 305,
-    T_Times = 306,
-    T_Negative = 307,
-    T_Power = 308
+    T_Return = 286,
+    T_Const = 287,
+    T_EndLine = 288,
+    T_Comment = 289,
+    T_Not = 290,
+    T_EqualsEQ = 291,
+    T_NegativeEquals = 292,
+    T_Or = 293,
+    T_And = 294,
+    T_SmallerThan = 295,
+    T_SmallerThanEQ = 296,
+    T_BiggerThan = 297,
+    T_BiggerThanEQ = 298,
+    T_IntValue = 299,
+    T_FloatValue = 300,
+    T_String = 301,
+    T_Biblioteca = 302,
+    T_Identificador = 303,
+    T_Minus = 304,
+    T_Plus = 305,
+    T_Divide = 306,
+    T_Times = 307,
+    T_Negative = 308,
+    T_Power = 309
   };
 #endif
 
@@ -113,7 +114,7 @@ union YYSTYPE
     int fval;
     char* sval;
 
-#line 117 "lang.tab.h"
+#line 118 "lang.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

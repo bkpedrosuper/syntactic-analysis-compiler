@@ -36,7 +36,7 @@ COMENTARIO $$.*
 "{"         { return T_OpenBracket;    }
 "}"         { return T_CloseBracket;    }
 ","         { return T_Comma;    }
-\"          { return T_Quote;    }
+\"        	{ return T_Quote;    }
 ";"         { return T_DotComma;    }
 ":"         { return T_doubleDot;    }
 "."         { return T_Dot;    }
@@ -63,14 +63,15 @@ COMENTARIO $$.*
 "switch"    { return T_Switch; }
 "case"      { return T_Case; }
 "default"   { return T_Default; }
-"do"      	{ return T_Do; }
-"/"         { return T_Divide;    }
-"*"         { return T_Times;    }
-"^"         { return T_Power;    }
-"%"         { return T_Percent;    }
-"&"         { return T_ComercialAND    ;}
-"-"         { return T_Minus;    }
-"return"    { return T_return;    }
+"do"      	{ return T_Do; 		}
+"/"        	{ return T_Divide; 	}
+"*"         { return T_Times;   }
+"^"         { return T_Power;   }
+"%"         { return T_Percent; }
+"&"         { return T_ComercialAND;	}
+"-"         { return T_Minus;   }
+"return"    { return T_Return;   }
+"const"    	{ return T_Const;   }
 
 {ConstINT}      	{ yylval.ival = atof(yytext); return T_IntValue;		}
 {ConstFLOAT}      	{ yylval.ival = atof(yytext); return T_FloatValue;		}
