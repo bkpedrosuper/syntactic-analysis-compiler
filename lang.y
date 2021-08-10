@@ -57,18 +57,18 @@
 %start program
 %%
 
-program: structures;
+program: structures { printf("Program begins, Linha: %d Coluna: %d\n", cont_line, cont_col); }; 
 
-structures: structures structure
-        | /* empty */;
+structures: structures structure { printf("Structure Usage, Linha: %d Coluna: %d\n", cont_line, cont_col); }
+        | /* empty */; 
 
-structure:  T_EndLine
-    | variable_declaration T_DotComma 
-    | attribution T_DotComma {printf("Attribution Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
-    | function_usage T_DotComma {printf("Function Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
-    | logical_structure {printf("Logical Structure Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
-    | import T_DotComma {printf("Import Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
-    | T_Comment {printf("Comment Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
+structure:  T_EndLine {  printf("Endline Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
+    | variable_declaration T_DotComma {  printf("Variable Declaration Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
+    | attribution T_DotComma {  printf("Attribution Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
+    | function_usage T_DotComma {   printf("Function Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
+    | logical_structure {   printf("Logical Structure Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
+    | import T_DotComma {   printf("Import Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
+    | T_Comment {   printf("Comment Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
     ;
 
 import: T_Import T_Identificador ;
@@ -76,14 +76,17 @@ import: T_Import T_Identificador ;
 variable_declaration: T_Let T_Identificador T_Equals variable {printf("Variable declaration Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
         | T_Const T_Identificador T_Equals variable { printf("Constant declaration Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}; 
 
-attribution: T_Identificador T_Equals variable
-        | T_Identificador T_Plus T_Equals variable
-        | T_Identificador T_Minus T_Equals variable
-        | T_Identificador T_Divide T_Equals variable
-        | T_Identificador T_Times T_Equals variable
-        | T_Identificador T_Plus T_Plus
-        | T_Identificador T_Minus T_Minus
+attribution: T_Identificador attribution_right
         ;
+
+attribution_right:  T_Equals variable
+        |  T_Plus T_Equals variable
+        |  T_Minus T_Equals variable
+        |  T_Divide T_Equals variable
+        |  T_Times T_Equals variable
+        |  T_Plus T_Plus
+        |  T_Minus T_Minus
+        ;        
 
 function_usage: T_Identificador T_OpenParen optional_params T_CloseParen;
 

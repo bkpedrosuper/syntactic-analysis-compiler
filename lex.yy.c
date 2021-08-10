@@ -1001,7 +1001,7 @@ YY_RULE_SETUP
 case 30:
 YY_RULE_SETUP
 #line 59 "lang.l"
-{ return T_BiggerThanEQ;    }
+{ return T_BiggerThanEQ;  }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
@@ -1016,22 +1016,22 @@ YY_RULE_SETUP
 case 33:
 YY_RULE_SETUP
 #line 62 "lang.l"
-{ return T_While; }
+{ return T_While; 	}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
 #line 63 "lang.l"
-{ return T_Do; }
+{ return T_Do; 		}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
 #line 64 "lang.l"
-{ return T_Switch; }
+{ return T_Switch; 	}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
 #line 65 "lang.l"
-{ return T_Case; }
+{ return T_Case; 	}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
@@ -1076,7 +1076,7 @@ YY_RULE_SETUP
 case 45:
 YY_RULE_SETUP
 #line 74 "lang.l"
-{ return T_Return;   }
+{ return T_Return;  }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP

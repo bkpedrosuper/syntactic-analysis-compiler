@@ -55,13 +55,13 @@ COMENTARIO $$.*
 "<"         { return T_SmallerThan;    }
 "<="        { return T_SmallerThanEQ;    }
 ">"         { return T_BiggerThan;    }
-">="        { return T_BiggerThanEQ;    }
+">="        { return T_BiggerThanEQ;  }
 "_"         { return T_UnderScore;    }
 "+"         { return T_Plus;    }
-"while"     { return T_While; }
-"do"      	{ return T_Do; }
-"switch"    { return T_Switch; }
-"case"      { return T_Case; }
+"while"     { return T_While; 	}
+"do"      	{ return T_Do; 		}
+"switch"    { return T_Switch; 	}
+"case"      { return T_Case; 	}
 "default"   { return T_Default; }
 "do"      	{ return T_Do; 		}
 "/"        	{ return T_Divide; 	}
@@ -70,7 +70,7 @@ COMENTARIO $$.*
 "%"         { return T_Percent; }
 "&"         { return T_ComercialAND;	}
 "-"         { return T_Minus;   }
-"return"    { return T_Return;   }
+"return"    { return T_Return;  }
 "const"    	{ return T_Const;   }
 
 {ConstINT}      	{ yylval.ival = atof(yytext); return T_IntValue;		}
