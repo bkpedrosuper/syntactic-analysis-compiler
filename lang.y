@@ -11,6 +11,8 @@
     extern int linha_num;    
     extern int yylex();
     extern int param_cont;
+    extern int cont_line;
+    extern int cont_col;
     void yyerror(const char* s);
 %}
 
@@ -40,17 +42,13 @@
 %token<fval> T_FloatValue;
 %token<sval> T_String T_Biblioteca T_Identificador;
 
-
-
 %type<ival> logical_expression;
-%type<fval> mixed_expression expression type;
+%type<fval> expression type;
 
 %left T_Minus T_Plus
 %left T_Divide T_Times
 %left T_Negative
 %right T_Power
-
-
 
     /* ========================================================================== */
 	/* ============================ Sessão Gramatica ============================ */
@@ -65,19 +63,19 @@ structures: structures structure
         | /* empty */;
 
 structure:  T_EndLine
-    | variable_declaration T_DotComma {printf("variable declaration\n");}
-    | attribution T_DotComma {printf("attribution\n");}
-    | function_usage T_DotComma {printf("function\n");}
-    | logical_structure
-    | import T_DotComma {printf("import\n");}
-    | T_Comment {printf("Isso é um comentário\n");}
+    | variable_declaration T_DotComma {printf("Variable declaration usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
+    | attribution T_DotComma {printf("Attribution Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
+    | function_usage T_DotComma {printf("Function Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
+    | logical_structure {printf("Logical Structure Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
+    | import T_DotComma {printf("Import Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
+    | T_Comment {printf("Comment Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
     ;
 
 import: T_Import T_Identificador ;
 
 variable_declaration: T_Let T_Identificador T_Equals variable;
 
-attribution: T_Identificador T_Equals variable
+attribution: T_Identificador T_Equals variable 
         | T_Identificador T_Plus T_Equals variable
         | T_Identificador T_Minus T_Equals variable
         | T_Identificador T_Divide T_Equals variable
@@ -146,13 +144,14 @@ expression: type
 
 type: T_IntValue {$$ = $1;}
     | T_FloatValue {$$ = $1;}
-    | T_Identificador
+    | T_Identificador 
     ;
 
 optional_break: T_EndLine
     | /* empty */;
 
 optional_params: T_String
+    | T_Identificador
     | /* empty */;
 
 %%

@@ -9,6 +9,7 @@
 #include <string.h>
 #include "lang.tab.h"
 int cont_col = 1;
+int cont_line = 1;
 %}
 	/* ========================================================================== */
 	/* =========================== Sessão Definições ============================ */
@@ -26,7 +27,7 @@ COMENTARIO $$.*
 	/* ========================================================================== */
 	
 [ ]         { ++cont_col;    }
-"\n"        { cont_col = 1; return T_EndLine; }
+"\n"        { cont_line++; cont_col = 1; return T_EndLine; }
 "let"       { return T_Let;        }
 "import"    { return T_Import;        }
 "func"      { return T_Func;        }
