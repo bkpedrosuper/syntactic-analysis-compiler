@@ -70,17 +70,17 @@ lines: lines line
 
 line:  T_EndLine
     | variable_declaration T_DotComma
-    | { print_spaces(scope_in_line[cont_line], 1); printf("|"); printf("Attribution Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);} attribution T_DotComma
-    | { print_spaces(scope_in_line[cont_line], 2); printf("|"); printf("Function Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);} function_usage T_DotComma
+    | attribution T_DotComma { print_spaces(scope_in_line[cont_line], 1); printf("|"); printf("Attribution Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
+    | function_usage T_DotComma { print_spaces(scope_in_line[cont_line], 2); printf("|"); printf("Function Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
     | { print_spaces(scope_in_line[cont_line], 3); printf("|");  printf("Logical Structure Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);} logical_structure
-    | { print_spaces(scope_in_line[cont_line], 4); printf("|"); printf("Import Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);} import T_DotComma
-    | { print_spaces(scope_in_line[cont_line], 5); printf("|");  printf("Comment Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);} T_Comment
+    | import T_DotComma { print_spaces(scope_in_line[cont_line], 4); printf("|"); printf("Import Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
+    | T_Comment { print_spaces(scope_in_line[cont_line], 5); printf("|");  printf("Comment Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);} 
     ;
 
 import: T_Import T_Identificador ;
 
-variable_declaration: { print_spaces(scope_in_line[cont_line], 6); printf("|"); printf("Variable declaration Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);} T_Let T_Identificador T_Equals variable 
-        | { print_spaces(scope_in_line[cont_line], 7); printf("|"); printf("Constant declaration Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);} T_Const T_Identificador T_Equals variable ; 
+variable_declaration: T_Let T_Identificador T_Equals variable { print_spaces(scope_in_line[cont_line], 6); printf("|"); printf("Variable declaration Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);} 
+        | T_Const T_Identificador T_Equals variable { print_spaces(scope_in_line[cont_line], 7); printf("|"); printf("Constant declaration Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}; 
 
 attribution: T_Identificador attribution_right
         ;
