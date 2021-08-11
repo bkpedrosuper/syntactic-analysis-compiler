@@ -13,7 +13,13 @@
     extern int param_cont;
     extern int cont_line;
     extern int cont_col;
+    extern int scope;
+    extern int scope_in_line[];
     void yyerror(const char* s);
+
+    void print_spaces(int n, int jojase) {
+        for(int i=0;i<n+1;i++) printf("\t");
+    }
 %}
 
     /* Aqui temos os tipos de valores dos Tokens, no nosso caso temos valores inteiros, reais e caracteres (strings) */
@@ -57,24 +63,24 @@
 %start program
 %%
 
-program: lines { printf("Program begins, Linha: %d Coluna: %d\n", cont_line, cont_col); }; 
+program: { printf("|"); printf("Program begins, Linha: %d Coluna: %d\n", cont_line, cont_col); } lines ; 
 
 lines: lines line
         | /* empty */; 
 
-line:  T_EndLine {  printf("Endline Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
+line:  T_EndLine
     | variable_declaration T_DotComma
-    | attribution T_DotComma {  printf("Attribution Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
-    | function_usage T_DotComma {   printf("Function Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
-    | logical_structure {   printf("Logical Structure Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
-    | import T_DotComma {   printf("Import Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
-    | T_Comment {   printf("Comment Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
+    | { print_spaces(scope_in_line[cont_line], 1); printf("|"); printf("Attribution Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);} attribution T_DotComma
+    | { print_spaces(scope_in_line[cont_line], 2); printf("|"); printf("Function Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);} function_usage T_DotComma
+    | { print_spaces(scope_in_line[cont_line], 3); printf("|");  printf("Logical Structure Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);} logical_structure
+    | { print_spaces(scope_in_line[cont_line], 4); printf("|"); printf("Import Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);} import T_DotComma
+    | { print_spaces(scope_in_line[cont_line], 5); printf("|");  printf("Comment Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);} T_Comment
     ;
 
 import: T_Import T_Identificador ;
 
-variable_declaration: T_Let T_Identificador T_Equals variable {printf("Variable declaration Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}
-        | T_Const T_Identificador T_Equals variable { printf("Constant declaration Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}; 
+variable_declaration: { print_spaces(scope_in_line[cont_line], 6); printf("|"); printf("Variable declaration Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);} T_Let T_Identificador T_Equals variable 
+        | { print_spaces(scope_in_line[cont_line], 7); printf("|"); printf("Constant declaration Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);} T_Const T_Identificador T_Equals variable ; 
 
 attribution: T_Identificador attribution_right
         ;
@@ -130,7 +136,7 @@ logical_expression: expression T_EqualsEQ expression {$$ = $1 == $3;  }
         | T_Not expression {$$ = !$2;};
 
 variable: T_String
-    | expression {printf(" Resultado: %d\n", $1);}
+    | expression {for(int i=0;i<scope_in_line[cont_line]+1;i++) printf("\t"); printf("|"); printf("Resultado: %d\n", $1);}
     | function_usage;
 
 expression: type

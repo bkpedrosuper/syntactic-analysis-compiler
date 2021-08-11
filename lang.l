@@ -8,8 +8,11 @@
 #include <stdio.h>
 #include <string.h>
 #include "lang.tab.h"
+#define MAX_LINES 1003
 int cont_col = 1;
 int cont_line = 1;
+int scope_in_line[MAX_LINES];
+int scope=0;
 %}
 	/* ========================================================================== */
 	/* =========================== Sessão Definições ============================ */
@@ -27,14 +30,14 @@ COMENTARIO $$.*
 	/* ========================================================================== */
 	
 [ ]         { ++cont_col;    }
-"\n"        { cont_line++; cont_col = 1; return T_EndLine; }
+"\n"        { cont_line++; scope_in_line[cont_line]=scope; cont_col = 1;  return T_EndLine; }
 "let"       { return T_Let;        }
 "import"    { return T_Import;        }
 "func"      { return T_Func;        }
-"("         { return T_OpenParen;    }
-")"         { return T_CloseParen;     }
-"{"         { return T_OpenBracket;    }
-"}"         { return T_CloseBracket;    }
+"("         { scope++; return T_OpenParen;  }
+")"         { scope--; return T_CloseParen; }
+"{"         { scope++;  return T_OpenBracket;   }
+"}"         { scope--; return T_CloseBracket;   }
 ","         { return T_Comma;    }
 \"        	{ return T_Quote;    }
 ";"         { return T_DotComma;    }
