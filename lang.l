@@ -48,7 +48,7 @@ COMENTARIO $$.*
 "]"         { return T_CloseSquareBracket;    }
 "for"       { return T_For;    }
 "if"        { return T_If;    }
-"else"      { scope++; return T_Else;    }
+"else"      { return T_Else;    }
 "!"        	{ return T_Not;    }
 "="         { return T_Equals;    }
 "=="        { return T_EqualsEQ;    }

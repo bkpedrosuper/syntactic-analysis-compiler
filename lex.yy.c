@@ -954,7 +954,7 @@ YY_RULE_SETUP
 case 20:
 YY_RULE_SETUP
 #line 52 "lang.l"
-{ scope++; return T_Else;    }
+{ return T_Else;    }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP

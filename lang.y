@@ -96,11 +96,11 @@ attribution_right:  T_Equals variable
 
 function_usage: T_Identificador T_OpenParen optional_params T_CloseParen;
 
-logical_structure: structure_for
-    | structure_while
-    | structure_do T_DotComma
-    | structure_if structure_else
-    | structure_switch
+logical_structure: { print_spaces(scope_in_line[cont_line], 3); printf("|");  printf("For Structure Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);} structure_for
+    | { print_spaces(scope_in_line[cont_line], 3); printf("|");  printf("While Structure Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);} structure_while
+    | { print_spaces(scope_in_line[cont_line], 3); printf("|");  printf("Do Structure Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);} structure_do T_DotComma
+    | { print_spaces(scope_in_line[cont_line], 3); printf("|");  printf("IF Structure Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);}  structure_if { print_spaces(scope_in_line[cont_line], 3); printf("|");  printf("Else Structure Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);} structure_else
+    | { print_spaces(scope_in_line[cont_line], 3); printf("|");  printf("Switch Structure Usage, Linha: %d Coluna: %d\n", cont_line, cont_col);} structure_switch
     ;
 
 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket;
@@ -136,7 +136,7 @@ logical_expression: expression T_EqualsEQ expression {$$ = $1 == $3;  }
         | T_Not expression {$$ = !$2;};
 
 variable: T_String
-    | expression {for(int i=0;i<scope_in_line[cont_line]+1;i++) printf("\t"); printf("|"); printf("Resultado: %d\n", $1);}
+    | expression {for(int i=0;i<scope_in_line[cont_line]+1;i++) printf("\t"); printf(" Resultado: %d\n", $1);}
     | function_usage;
 
 expression: type

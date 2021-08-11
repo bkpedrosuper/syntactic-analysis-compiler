@@ -51,63 +51,79 @@ Gramática
 
    24 function_usage: T_Identificador T_OpenParen optional_params T_CloseParen
 
-   25 logical_structure: structure_for
-   26                  | structure_while
-   27                  | structure_do T_DotComma
-   28                  | structure_if structure_else
-   29                  | structure_switch
+   25 $@3: %empty
 
-   30 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
+   26 logical_structure: $@3 structure_for
 
-   31 structure_if: T_If T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
+   27 $@4: %empty
 
-   32 structure_else: T_Else T_OpenBracket lines T_CloseBracket
-   33               | %empty
+   28 logical_structure: $@4 structure_while
 
-   34 structure_switch: T_Switch T_OpenSquareBracket T_Identificador T_CloseSquareBracket T_OpenBracket structure_cases structure_default T_CloseBracket
+   29 $@5: %empty
 
-   35 structure_cases: structure_cases structure_case
-   36                | %empty
+   30 logical_structure: $@5 structure_do T_DotComma
 
-   37 structure_case: T_Case T_OpenSquareBracket type T_CloseSquareBracket T_OpenBracket lines T_CloseBracket T_EndLine
-   38               | line
+   31 $@6: %empty
 
-   39 structure_default: T_Default T_OpenBracket lines T_CloseBracket T_EndLine
+   32 $@7: %empty
 
-   40 structure_while: T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
+   33 logical_structure: $@6 structure_if $@7 structure_else
 
-   41 structure_do: T_Do T_OpenBracket lines T_CloseBracket T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket
+   34 $@8: %empty
 
-   42 logical_expression: expression T_EqualsEQ expression
-   43                   | expression T_NegativeEquals expression
-   44                   | expression T_BiggerThan expression
-   45                   | expression T_SmallerThan expression
-   46                   | expression T_BiggerThanEQ expression
-   47                   | expression T_SmallerThanEQ expression
-   48                   | expression T_Or expression
-   49                   | expression T_And expression
-   50                   | T_Not expression
+   35 logical_structure: $@8 structure_switch
 
-   51 variable: T_String
-   52         | expression
-   53         | function_usage
+   36 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
 
-   54 expression: type
-   55           | expression T_Plus expression
-   56           | expression T_Minus expression
-   57           | expression T_Times expression
-   58           | expression T_Divide expression
-   59           | T_Minus expression
-   60           | expression T_Power expression
-   61           | T_OpenParen expression T_CloseParen
+   37 structure_if: T_If T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
 
-   62 type: T_IntValue
-   63     | T_FloatValue
-   64     | T_Identificador
+   38 structure_else: T_Else T_OpenBracket lines T_CloseBracket
+   39               | %empty
 
-   65 optional_params: T_String
-   66                | T_Identificador
-   67                | %empty
+   40 structure_switch: T_Switch T_OpenSquareBracket T_Identificador T_CloseSquareBracket T_OpenBracket structure_cases structure_default T_CloseBracket
+
+   41 structure_cases: structure_cases structure_case
+   42                | %empty
+
+   43 structure_case: T_Case T_OpenSquareBracket type T_CloseSquareBracket T_OpenBracket lines T_CloseBracket T_EndLine
+   44               | line
+
+   45 structure_default: T_Default T_OpenBracket lines T_CloseBracket T_EndLine
+
+   46 structure_while: T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
+
+   47 structure_do: T_Do T_OpenBracket lines T_CloseBracket T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket
+
+   48 logical_expression: expression T_EqualsEQ expression
+   49                   | expression T_NegativeEquals expression
+   50                   | expression T_BiggerThan expression
+   51                   | expression T_SmallerThan expression
+   52                   | expression T_BiggerThanEQ expression
+   53                   | expression T_SmallerThanEQ expression
+   54                   | expression T_Or expression
+   55                   | expression T_And expression
+   56                   | T_Not expression
+
+   57 variable: T_String
+   58         | expression
+   59         | function_usage
+
+   60 expression: type
+   61           | expression T_Plus expression
+   62           | expression T_Minus expression
+   63           | expression T_Times expression
+   64           | expression T_Divide expression
+   65           | T_Minus expression
+   66           | expression T_Power expression
+   67           | T_OpenParen expression T_CloseParen
+
+   68 type: T_IntValue
+   69     | T_FloatValue
+   70     | T_Identificador
+
+   71 optional_params: T_String
+   72                | T_Identificador
+   73                | %empty
 
 
 Terminais, com as regras onde eles aparecem
@@ -117,55 +133,55 @@ Terminais, com as regras onde eles aparecem
     T_Let (258) 14
     T_Import (259) 13
     T_Func (260)
-    T_OpenParen (261) 24 30 61
-    T_CloseParen (262) 24 30 61
+    T_OpenParen (261) 24 36 67
+    T_CloseParen (262) 24 36 67
     T_OpenCloseParen (263)
-    T_OpenBracket (264) 30 31 32 34 37 39 40 41
-    T_CloseBracket (265) 30 31 32 34 37 39 40 41
-    T_Comma (266) 30
+    T_OpenBracket (264) 36 37 38 40 43 45 46 47
+    T_CloseBracket (265) 36 37 38 40 43 45 46 47
+    T_Comma (266) 36
     T_Quote (267)
-    T_DotComma (268) 6 7 8 11 27
-    T_doubleDot (269) 30
+    T_DotComma (268) 6 7 8 11 30
+    T_doubleDot (269) 36
     T_Dot (270)
-    T_For (271) 30
-    T_If (272) 31
-    T_While (273) 40 41
-    T_Else (274) 32
-    T_Switch (275) 34
-    T_Case (276) 37
-    T_Default (277) 39
-    T_Do (278) 41
-    T_OpenSquareBracket (279) 30 31 34 37 40 41
+    T_For (271) 36
+    T_If (272) 37
+    T_While (273) 46 47
+    T_Else (274) 38
+    T_Switch (275) 40
+    T_Case (276) 43
+    T_Default (277) 45
+    T_Do (278) 47
+    T_OpenSquareBracket (279) 36 37 40 43 46 47
     T_BackSlash (280)
-    T_CloseSquareBracket (281) 30 31 34 37 40 41
+    T_CloseSquareBracket (281) 36 37 40 43 46 47
     T_Equals (282) 14 15 17 18 19 20 21
     T_UnderScore (283)
     T_Percent (284)
     T_ComercialAND (285)
     T_Return (286)
     T_Const (287) 15
-    T_EndLine (288) 5 37 39
+    T_EndLine (288) 5 43 45
     T_Comment (289) 12
-    T_Not (290) 50
-    T_EqualsEQ (291) 42
-    T_NegativeEquals (292) 43
-    T_Or (293) 48
-    T_And (294) 49
-    T_SmallerThan (295) 45
-    T_SmallerThanEQ (296) 47
-    T_BiggerThan (297) 44
-    T_BiggerThanEQ (298) 46
-    T_IntValue <ival> (299) 62
-    T_FloatValue <fval> (300) 63
-    T_String <sval> (301) 51 65
+    T_Not (290) 56
+    T_EqualsEQ (291) 48
+    T_NegativeEquals (292) 49
+    T_Or (293) 54
+    T_And (294) 55
+    T_SmallerThan (295) 51
+    T_SmallerThanEQ (296) 53
+    T_BiggerThan (297) 50
+    T_BiggerThanEQ (298) 52
+    T_IntValue <ival> (299) 68
+    T_FloatValue <fval> (300) 69
+    T_String <sval> (301) 57 71
     T_Biblioteca <sval> (302)
-    T_Identificador <sval> (303) 13 14 15 16 24 30 34 64 66
-    T_Minus (304) 19 23 56 59
-    T_Plus (305) 18 22 55
-    T_Divide (306) 20 58
-    T_Times (307) 21 57
+    T_Identificador <sval> (303) 13 14 15 16 24 36 40 70 72
+    T_Minus (304) 19 23 62 65
+    T_Plus (305) 18 22 61
+    T_Divide (306) 20 64
+    T_Times (307) 21 63
     T_Negative (308)
-    T_Power (309) 60
+    T_Power (309) 66
 
 
 Não terminais com as regras onde eles aparecem
@@ -180,10 +196,10 @@ Não terminais com as regras onde eles aparecem
         à direita: 2
     lines (58)
         à esquerda: 3 4
-        à direita: 2 3 30 31 32 37 39 40 41
+        à direita: 2 3 36 37 38 43 45 46 47
     line (59)
         à esquerda: 5 6 7 8 10 11 12
-        à direita: 3 38
+        à direita: 3 44
     $@2 (60)
         à esquerda: 9
         à direita: 10
@@ -201,51 +217,69 @@ Não terminais com as regras onde eles aparecem
         à direita: 16
     function_usage (65)
         à esquerda: 24
-        à direita: 8 53
+        à direita: 8 59
     logical_structure (66)
-        à esquerda: 25 26 27 28 29
+        à esquerda: 26 28 30 33 35
         à direita: 10
-    structure_for (67)
-        à esquerda: 30
-        à direita: 25
-    structure_if (68)
-        à esquerda: 31
-        à direita: 28
-    structure_else (69)
-        à esquerda: 32 33
-        à direita: 28
-    structure_switch (70)
-        à esquerda: 34
-        à direita: 29
-    structure_cases (71)
-        à esquerda: 35 36
-        à direita: 34 35
-    structure_case (72)
-        à esquerda: 37 38
-        à direita: 35
-    structure_default (73)
-        à esquerda: 39
-        à direita: 34
-    structure_while (74)
-        à esquerda: 40
+    $@3 (67)
+        à esquerda: 25
         à direita: 26
-    structure_do (75)
-        à esquerda: 41
-        à direita: 27
-    logical_expression <ival> (76)
-        à esquerda: 42 43 44 45 46 47 48 49 50
-        à direita: 31 40 41
-    variable (77)
-        à esquerda: 51 52 53
+    $@4 (68)
+        à esquerda: 27
+        à direita: 28
+    $@5 (69)
+        à esquerda: 29
+        à direita: 30
+    $@6 (70)
+        à esquerda: 31
+        à direita: 33
+    $@7 (71)
+        à esquerda: 32
+        à direita: 33
+    $@8 (72)
+        à esquerda: 34
+        à direita: 35
+    structure_for (73)
+        à esquerda: 36
+        à direita: 26
+    structure_if (74)
+        à esquerda: 37
+        à direita: 33
+    structure_else (75)
+        à esquerda: 38 39
+        à direita: 33
+    structure_switch (76)
+        à esquerda: 40
+        à direita: 35
+    structure_cases (77)
+        à esquerda: 41 42
+        à direita: 40 41
+    structure_case (78)
+        à esquerda: 43 44
+        à direita: 41
+    structure_default (79)
+        à esquerda: 45
+        à direita: 40
+    structure_while (80)
+        à esquerda: 46
+        à direita: 28
+    structure_do (81)
+        à esquerda: 47
+        à direita: 30
+    logical_expression <ival> (82)
+        à esquerda: 48 49 50 51 52 53 54 55 56
+        à direita: 37 46 47
+    variable (83)
+        à esquerda: 57 58 59
         à direita: 14 15 17 18 19 20 21
-    expression <fval> (78)
-        à esquerda: 54 55 56 57 58 59 60 61
-        à direita: 42 43 44 45 46 47 48 49 50 52 55 56 57 58 59 60 61
-    type <fval> (79)
-        à esquerda: 62 63 64
-        à direita: 30 37 54
-    optional_params (80)
-        à esquerda: 65 66 67
+    expression <fval> (84)
+        à esquerda: 60 61 62 63 64 65 66 67
+        à direita: 48 49 50 51 52 53 54 55 56 58 61 62 63 64 65 66 67
+    type <fval> (85)
+        à esquerda: 68 69 70
+        à direita: 36 43 60
+    optional_params (86)
+        à esquerda: 71 72 73
         à direita: 24
 
 
@@ -389,64 +423,64 @@ Estado 11
 Estado 12
 
    10 line: $@2 . logical_structure
-   25 logical_structure: . structure_for
-   26                  | . structure_while
-   27                  | . structure_do T_DotComma
-   28                  | . structure_if structure_else
-   29                  | . structure_switch
-   30 structure_for: . T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
-   31 structure_if: . T_If T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
-   34 structure_switch: . T_Switch T_OpenSquareBracket T_Identificador T_CloseSquareBracket T_OpenBracket structure_cases structure_default T_CloseBracket
-   40 structure_while: . T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
-   41 structure_do: . T_Do T_OpenBracket lines T_CloseBracket T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket
+   25 $@3: . %empty  [T_For]
+   26 logical_structure: . $@3 structure_for
+   27 $@4: . %empty  [T_While]
+   28 logical_structure: . $@4 structure_while
+   29 $@5: . %empty  [T_Do]
+   30 logical_structure: . $@5 structure_do T_DotComma
+   31 $@6: . %empty  [T_If]
+   33 logical_structure: . $@6 structure_if $@7 structure_else
+   34 $@8: . %empty  [T_Switch]
+   35 logical_structure: . $@8 structure_switch
 
-    T_For     deslocar, e ir ao estado 27
-    T_If      deslocar, e ir ao estado 28
-    T_While   deslocar, e ir ao estado 29
-    T_Switch  deslocar, e ir ao estado 30
-    T_Do      deslocar, e ir ao estado 31
+    T_If      reduzir usando a regra 31 ($@6)
+    T_While   reduzir usando a regra 27 ($@4)
+    T_Switch  reduzir usando a regra 34 ($@8)
+    T_Do      reduzir usando a regra 29 ($@5)
+    $padrão  reduzir usando a regra 25 ($@3)
 
-    logical_structure  ir ao estado 32
-    structure_for      ir ao estado 33
-    structure_if       ir ao estado 34
-    structure_switch   ir ao estado 35
-    structure_while    ir ao estado 36
-    structure_do       ir ao estado 37
+    logical_structure  ir ao estado 27
+    $@3                ir ao estado 28
+    $@4                ir ao estado 29
+    $@5                ir ao estado 30
+    $@6                ir ao estado 31
+    $@8                ir ao estado 32
 
 
 Estado 13
 
    11 line: import . T_DotComma
 
-    T_DotComma  deslocar, e ir ao estado 38
+    T_DotComma  deslocar, e ir ao estado 33
 
 
 Estado 14
 
     6 line: variable_declaration . T_DotComma
 
-    T_DotComma  deslocar, e ir ao estado 39
+    T_DotComma  deslocar, e ir ao estado 34
 
 
 Estado 15
 
     7 line: attribution . T_DotComma
 
-    T_DotComma  deslocar, e ir ao estado 40
+    T_DotComma  deslocar, e ir ao estado 35
 
 
 Estado 16
 
     8 line: function_usage . T_DotComma
 
-    T_DotComma  deslocar, e ir ao estado 41
+    T_DotComma  deslocar, e ir ao estado 36
 
 
 Estado 17
 
    14 variable_declaration: T_Let T_Identificador . T_Equals variable
 
-    T_Equals  deslocar, e ir ao estado 42
+    T_Equals  deslocar, e ir ao estado 37
 
 
 Estado 18
@@ -460,54 +494,54 @@ Estado 19
 
    15 variable_declaration: T_Const T_Identificador . T_Equals variable
 
-    T_Equals  deslocar, e ir ao estado 43
+    T_Equals  deslocar, e ir ao estado 38
 
 
 Estado 20
 
    24 function_usage: T_Identificador T_OpenParen . optional_params T_CloseParen
-   65 optional_params: . T_String
-   66                | . T_Identificador
-   67                | . %empty  [T_CloseParen]
+   71 optional_params: . T_String
+   72                | . T_Identificador
+   73                | . %empty  [T_CloseParen]
 
-    T_String         deslocar, e ir ao estado 44
-    T_Identificador  deslocar, e ir ao estado 45
+    T_String         deslocar, e ir ao estado 39
+    T_Identificador  deslocar, e ir ao estado 40
 
-    $padrão  reduzir usando a regra 67 (optional_params)
+    $padrão  reduzir usando a regra 73 (optional_params)
 
-    optional_params  ir ao estado 46
+    optional_params  ir ao estado 41
 
 
 Estado 21
 
    17 attribution_right: T_Equals . variable
    24 function_usage: . T_Identificador T_OpenParen optional_params T_CloseParen
-   51 variable: . T_String
-   52         | . expression
-   53         | . function_usage
-   54 expression: . type
-   55           | . expression T_Plus expression
-   56           | . expression T_Minus expression
-   57           | . expression T_Times expression
-   58           | . expression T_Divide expression
-   59           | . T_Minus expression
-   60           | . expression T_Power expression
-   61           | . T_OpenParen expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
+   57 variable: . T_String
+   58         | . expression
+   59         | . function_usage
+   60 expression: . type
+   61           | . expression T_Plus expression
+   62           | . expression T_Minus expression
+   63           | . expression T_Times expression
+   64           | . expression T_Divide expression
+   65           | . T_Minus expression
+   66           | . expression T_Power expression
+   67           | . T_OpenParen expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_String         deslocar, e ir ao estado 50
-    T_Identificador  deslocar, e ir ao estado 51
-    T_Minus          deslocar, e ir ao estado 52
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_String         deslocar, e ir ao estado 45
+    T_Identificador  deslocar, e ir ao estado 46
+    T_Minus          deslocar, e ir ao estado 47
 
-    function_usage  ir ao estado 53
-    variable        ir ao estado 54
-    expression      ir ao estado 55
-    type            ir ao estado 56
+    function_usage  ir ao estado 48
+    variable        ir ao estado 49
+    expression      ir ao estado 50
+    type            ir ao estado 51
 
 
 Estado 22
@@ -515,8 +549,8 @@ Estado 22
    19 attribution_right: T_Minus . T_Equals variable
    23                  | T_Minus . T_Minus
 
-    T_Equals  deslocar, e ir ao estado 57
-    T_Minus   deslocar, e ir ao estado 58
+    T_Equals  deslocar, e ir ao estado 52
+    T_Minus   deslocar, e ir ao estado 53
 
 
 Estado 23
@@ -524,22 +558,22 @@ Estado 23
    18 attribution_right: T_Plus . T_Equals variable
    22                  | T_Plus . T_Plus
 
-    T_Equals  deslocar, e ir ao estado 59
-    T_Plus    deslocar, e ir ao estado 60
+    T_Equals  deslocar, e ir ao estado 54
+    T_Plus    deslocar, e ir ao estado 55
 
 
 Estado 24
 
    20 attribution_right: T_Divide . T_Equals variable
 
-    T_Equals  deslocar, e ir ao estado 61
+    T_Equals  deslocar, e ir ao estado 56
 
 
 Estado 25
 
    21 attribution_right: T_Times . T_Equals variable
 
-    T_Equals  deslocar, e ir ao estado 62
+    T_Equals  deslocar, e ir ao estado 57
 
 
 Estado 26
@@ -551,1615 +585,1543 @@ Estado 26
 
 Estado 27
 
-   30 structure_for: T_For . T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
-
-    T_OpenSquareBracket  deslocar, e ir ao estado 63
-
-
-Estado 28
-
-   31 structure_if: T_If . T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
-
-    T_OpenSquareBracket  deslocar, e ir ao estado 64
-
-
-Estado 29
-
-   40 structure_while: T_While . T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
-
-    T_OpenSquareBracket  deslocar, e ir ao estado 65
-
-
-Estado 30
-
-   34 structure_switch: T_Switch . T_OpenSquareBracket T_Identificador T_CloseSquareBracket T_OpenBracket structure_cases structure_default T_CloseBracket
-
-    T_OpenSquareBracket  deslocar, e ir ao estado 66
-
-
-Estado 31
-
-   41 structure_do: T_Do . T_OpenBracket lines T_CloseBracket T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket
-
-    T_OpenBracket  deslocar, e ir ao estado 67
-
-
-Estado 32
-
    10 line: $@2 logical_structure .
 
     $padrão  reduzir usando a regra 10 (line)
 
 
+Estado 28
+
+   26 logical_structure: $@3 . structure_for
+   36 structure_for: . T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
+
+    T_For  deslocar, e ir ao estado 58
+
+    structure_for  ir ao estado 59
+
+
+Estado 29
+
+   28 logical_structure: $@4 . structure_while
+   46 structure_while: . T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
+
+    T_While  deslocar, e ir ao estado 60
+
+    structure_while  ir ao estado 61
+
+
+Estado 30
+
+   30 logical_structure: $@5 . structure_do T_DotComma
+   47 structure_do: . T_Do T_OpenBracket lines T_CloseBracket T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket
+
+    T_Do  deslocar, e ir ao estado 62
+
+    structure_do  ir ao estado 63
+
+
+Estado 31
+
+   33 logical_structure: $@6 . structure_if $@7 structure_else
+   37 structure_if: . T_If T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
+
+    T_If  deslocar, e ir ao estado 64
+
+    structure_if  ir ao estado 65
+
+
+Estado 32
+
+   35 logical_structure: $@8 . structure_switch
+   40 structure_switch: . T_Switch T_OpenSquareBracket T_Identificador T_CloseSquareBracket T_OpenBracket structure_cases structure_default T_CloseBracket
+
+    T_Switch  deslocar, e ir ao estado 66
+
+    structure_switch  ir ao estado 67
+
+
 Estado 33
-
-   25 logical_structure: structure_for .
-
-    $padrão  reduzir usando a regra 25 (logical_structure)
-
-
-Estado 34
-
-   28 logical_structure: structure_if . structure_else
-   32 structure_else: . T_Else T_OpenBracket lines T_CloseBracket
-   33               | . %empty  [$end, T_Let, T_Import, T_CloseBracket, T_For, T_If, T_While, T_Switch, T_Case, T_Default, T_Do, T_Const, T_EndLine, T_Comment, T_Identificador]
-
-    T_Else  deslocar, e ir ao estado 68
-
-    $padrão  reduzir usando a regra 33 (structure_else)
-
-    structure_else  ir ao estado 69
-
-
-Estado 35
-
-   29 logical_structure: structure_switch .
-
-    $padrão  reduzir usando a regra 29 (logical_structure)
-
-
-Estado 36
-
-   26 logical_structure: structure_while .
-
-    $padrão  reduzir usando a regra 26 (logical_structure)
-
-
-Estado 37
-
-   27 logical_structure: structure_do . T_DotComma
-
-    T_DotComma  deslocar, e ir ao estado 70
-
-
-Estado 38
 
    11 line: import T_DotComma .
 
     $padrão  reduzir usando a regra 11 (line)
 
 
-Estado 39
+Estado 34
 
     6 line: variable_declaration T_DotComma .
 
     $padrão  reduzir usando a regra 6 (line)
 
 
-Estado 40
+Estado 35
 
     7 line: attribution T_DotComma .
 
     $padrão  reduzir usando a regra 7 (line)
 
 
-Estado 41
+Estado 36
 
     8 line: function_usage T_DotComma .
 
     $padrão  reduzir usando a regra 8 (line)
 
 
-Estado 42
+Estado 37
 
    14 variable_declaration: T_Let T_Identificador T_Equals . variable
    24 function_usage: . T_Identificador T_OpenParen optional_params T_CloseParen
-   51 variable: . T_String
-   52         | . expression
-   53         | . function_usage
-   54 expression: . type
-   55           | . expression T_Plus expression
-   56           | . expression T_Minus expression
-   57           | . expression T_Times expression
-   58           | . expression T_Divide expression
-   59           | . T_Minus expression
-   60           | . expression T_Power expression
-   61           | . T_OpenParen expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
+   57 variable: . T_String
+   58         | . expression
+   59         | . function_usage
+   60 expression: . type
+   61           | . expression T_Plus expression
+   62           | . expression T_Minus expression
+   63           | . expression T_Times expression
+   64           | . expression T_Divide expression
+   65           | . T_Minus expression
+   66           | . expression T_Power expression
+   67           | . T_OpenParen expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_String         deslocar, e ir ao estado 50
-    T_Identificador  deslocar, e ir ao estado 51
-    T_Minus          deslocar, e ir ao estado 52
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_String         deslocar, e ir ao estado 45
+    T_Identificador  deslocar, e ir ao estado 46
+    T_Minus          deslocar, e ir ao estado 47
 
-    function_usage  ir ao estado 53
-    variable        ir ao estado 71
-    expression      ir ao estado 55
-    type            ir ao estado 56
+    function_usage  ir ao estado 48
+    variable        ir ao estado 68
+    expression      ir ao estado 50
+    type            ir ao estado 51
+
+
+Estado 38
+
+   15 variable_declaration: T_Const T_Identificador T_Equals . variable
+   24 function_usage: . T_Identificador T_OpenParen optional_params T_CloseParen
+   57 variable: . T_String
+   58         | . expression
+   59         | . function_usage
+   60 expression: . type
+   61           | . expression T_Plus expression
+   62           | . expression T_Minus expression
+   63           | . expression T_Times expression
+   64           | . expression T_Divide expression
+   65           | . T_Minus expression
+   66           | . expression T_Power expression
+   67           | . T_OpenParen expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
+
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_String         deslocar, e ir ao estado 45
+    T_Identificador  deslocar, e ir ao estado 46
+    T_Minus          deslocar, e ir ao estado 47
+
+    function_usage  ir ao estado 48
+    variable        ir ao estado 69
+    expression      ir ao estado 50
+    type            ir ao estado 51
+
+
+Estado 39
+
+   71 optional_params: T_String .
+
+    $padrão  reduzir usando a regra 71 (optional_params)
+
+
+Estado 40
+
+   72 optional_params: T_Identificador .
+
+    $padrão  reduzir usando a regra 72 (optional_params)
+
+
+Estado 41
+
+   24 function_usage: T_Identificador T_OpenParen optional_params . T_CloseParen
+
+    T_CloseParen  deslocar, e ir ao estado 70
+
+
+Estado 42
+
+   60 expression: . type
+   61           | . expression T_Plus expression
+   62           | . expression T_Minus expression
+   63           | . expression T_Times expression
+   64           | . expression T_Divide expression
+   65           | . T_Minus expression
+   66           | . expression T_Power expression
+   67           | . T_OpenParen expression T_CloseParen
+   67           | T_OpenParen . expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
+
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_Identificador  deslocar, e ir ao estado 71
+    T_Minus          deslocar, e ir ao estado 47
+
+    expression  ir ao estado 72
+    type        ir ao estado 51
 
 
 Estado 43
 
-   15 variable_declaration: T_Const T_Identificador T_Equals . variable
-   24 function_usage: . T_Identificador T_OpenParen optional_params T_CloseParen
-   51 variable: . T_String
-   52         | . expression
-   53         | . function_usage
-   54 expression: . type
-   55           | . expression T_Plus expression
-   56           | . expression T_Minus expression
-   57           | . expression T_Times expression
-   58           | . expression T_Divide expression
-   59           | . T_Minus expression
-   60           | . expression T_Power expression
-   61           | . T_OpenParen expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
+   68 type: T_IntValue .
 
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_String         deslocar, e ir ao estado 50
-    T_Identificador  deslocar, e ir ao estado 51
-    T_Minus          deslocar, e ir ao estado 52
-
-    function_usage  ir ao estado 53
-    variable        ir ao estado 72
-    expression      ir ao estado 55
-    type            ir ao estado 56
+    $padrão  reduzir usando a regra 68 (type)
 
 
 Estado 44
 
-   65 optional_params: T_String .
+   69 type: T_FloatValue .
 
-    $padrão  reduzir usando a regra 65 (optional_params)
+    $padrão  reduzir usando a regra 69 (type)
 
 
 Estado 45
 
-   66 optional_params: T_Identificador .
+   57 variable: T_String .
 
-    $padrão  reduzir usando a regra 66 (optional_params)
+    $padrão  reduzir usando a regra 57 (variable)
 
 
 Estado 46
 
-   24 function_usage: T_Identificador T_OpenParen optional_params . T_CloseParen
+   24 function_usage: T_Identificador . T_OpenParen optional_params T_CloseParen
+   70 type: T_Identificador .  [T_DotComma, T_Minus, T_Plus, T_Divide, T_Times, T_Power]
 
-    T_CloseParen  deslocar, e ir ao estado 73
+    T_OpenParen  deslocar, e ir ao estado 20
+
+    $padrão  reduzir usando a regra 70 (type)
 
 
 Estado 47
 
-   54 expression: . type
-   55           | . expression T_Plus expression
-   56           | . expression T_Minus expression
-   57           | . expression T_Times expression
-   58           | . expression T_Divide expression
-   59           | . T_Minus expression
-   60           | . expression T_Power expression
-   61           | . T_OpenParen expression T_CloseParen
-   61           | T_OpenParen . expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
+   60 expression: . type
+   61           | . expression T_Plus expression
+   62           | . expression T_Minus expression
+   63           | . expression T_Times expression
+   64           | . expression T_Divide expression
+   65           | . T_Minus expression
+   65           | T_Minus . expression
+   66           | . expression T_Power expression
+   67           | . T_OpenParen expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_Identificador  deslocar, e ir ao estado 74
-    T_Minus          deslocar, e ir ao estado 52
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_Identificador  deslocar, e ir ao estado 71
+    T_Minus          deslocar, e ir ao estado 47
 
-    expression  ir ao estado 75
-    type        ir ao estado 56
+    expression  ir ao estado 73
+    type        ir ao estado 51
 
 
 Estado 48
 
-   62 type: T_IntValue .
+   59 variable: function_usage .
 
-    $padrão  reduzir usando a regra 62 (type)
+    $padrão  reduzir usando a regra 59 (variable)
 
 
 Estado 49
-
-   63 type: T_FloatValue .
-
-    $padrão  reduzir usando a regra 63 (type)
-
-
-Estado 50
-
-   51 variable: T_String .
-
-    $padrão  reduzir usando a regra 51 (variable)
-
-
-Estado 51
-
-   24 function_usage: T_Identificador . T_OpenParen optional_params T_CloseParen
-   64 type: T_Identificador .  [T_DotComma, T_Minus, T_Plus, T_Divide, T_Times, T_Power]
-
-    T_OpenParen  deslocar, e ir ao estado 20
-
-    $padrão  reduzir usando a regra 64 (type)
-
-
-Estado 52
-
-   54 expression: . type
-   55           | . expression T_Plus expression
-   56           | . expression T_Minus expression
-   57           | . expression T_Times expression
-   58           | . expression T_Divide expression
-   59           | . T_Minus expression
-   59           | T_Minus . expression
-   60           | . expression T_Power expression
-   61           | . T_OpenParen expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
-
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_Identificador  deslocar, e ir ao estado 74
-    T_Minus          deslocar, e ir ao estado 52
-
-    expression  ir ao estado 76
-    type        ir ao estado 56
-
-
-Estado 53
-
-   53 variable: function_usage .
-
-    $padrão  reduzir usando a regra 53 (variable)
-
-
-Estado 54
 
    17 attribution_right: T_Equals variable .
 
     $padrão  reduzir usando a regra 17 (attribution_right)
 
 
-Estado 55
+Estado 50
 
-   52 variable: expression .  [T_DotComma]
-   55 expression: expression . T_Plus expression
-   56           | expression . T_Minus expression
-   57           | expression . T_Times expression
-   58           | expression . T_Divide expression
-   60           | expression . T_Power expression
+   58 variable: expression .  [T_DotComma]
+   61 expression: expression . T_Plus expression
+   62           | expression . T_Minus expression
+   63           | expression . T_Times expression
+   64           | expression . T_Divide expression
+   66           | expression . T_Power expression
 
-    T_Minus   deslocar, e ir ao estado 77
-    T_Plus    deslocar, e ir ao estado 78
-    T_Divide  deslocar, e ir ao estado 79
-    T_Times   deslocar, e ir ao estado 80
-    T_Power   deslocar, e ir ao estado 81
+    T_Minus   deslocar, e ir ao estado 74
+    T_Plus    deslocar, e ir ao estado 75
+    T_Divide  deslocar, e ir ao estado 76
+    T_Times   deslocar, e ir ao estado 77
+    T_Power   deslocar, e ir ao estado 78
 
-    $padrão  reduzir usando a regra 52 (variable)
-
-
-Estado 56
-
-   54 expression: type .
-
-    $padrão  reduzir usando a regra 54 (expression)
+    $padrão  reduzir usando a regra 58 (variable)
 
 
-Estado 57
+Estado 51
+
+   60 expression: type .
+
+    $padrão  reduzir usando a regra 60 (expression)
+
+
+Estado 52
 
    19 attribution_right: T_Minus T_Equals . variable
    24 function_usage: . T_Identificador T_OpenParen optional_params T_CloseParen
-   51 variable: . T_String
-   52         | . expression
-   53         | . function_usage
-   54 expression: . type
-   55           | . expression T_Plus expression
-   56           | . expression T_Minus expression
-   57           | . expression T_Times expression
-   58           | . expression T_Divide expression
-   59           | . T_Minus expression
-   60           | . expression T_Power expression
-   61           | . T_OpenParen expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
+   57 variable: . T_String
+   58         | . expression
+   59         | . function_usage
+   60 expression: . type
+   61           | . expression T_Plus expression
+   62           | . expression T_Minus expression
+   63           | . expression T_Times expression
+   64           | . expression T_Divide expression
+   65           | . T_Minus expression
+   66           | . expression T_Power expression
+   67           | . T_OpenParen expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_String         deslocar, e ir ao estado 50
-    T_Identificador  deslocar, e ir ao estado 51
-    T_Minus          deslocar, e ir ao estado 52
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_String         deslocar, e ir ao estado 45
+    T_Identificador  deslocar, e ir ao estado 46
+    T_Minus          deslocar, e ir ao estado 47
 
-    function_usage  ir ao estado 53
-    variable        ir ao estado 82
-    expression      ir ao estado 55
-    type            ir ao estado 56
+    function_usage  ir ao estado 48
+    variable        ir ao estado 79
+    expression      ir ao estado 50
+    type            ir ao estado 51
 
 
-Estado 58
+Estado 53
 
    23 attribution_right: T_Minus T_Minus .
 
     $padrão  reduzir usando a regra 23 (attribution_right)
 
 
-Estado 59
+Estado 54
 
    18 attribution_right: T_Plus T_Equals . variable
    24 function_usage: . T_Identificador T_OpenParen optional_params T_CloseParen
-   51 variable: . T_String
-   52         | . expression
-   53         | . function_usage
-   54 expression: . type
-   55           | . expression T_Plus expression
-   56           | . expression T_Minus expression
-   57           | . expression T_Times expression
-   58           | . expression T_Divide expression
-   59           | . T_Minus expression
-   60           | . expression T_Power expression
-   61           | . T_OpenParen expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
+   57 variable: . T_String
+   58         | . expression
+   59         | . function_usage
+   60 expression: . type
+   61           | . expression T_Plus expression
+   62           | . expression T_Minus expression
+   63           | . expression T_Times expression
+   64           | . expression T_Divide expression
+   65           | . T_Minus expression
+   66           | . expression T_Power expression
+   67           | . T_OpenParen expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_String         deslocar, e ir ao estado 50
-    T_Identificador  deslocar, e ir ao estado 51
-    T_Minus          deslocar, e ir ao estado 52
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_String         deslocar, e ir ao estado 45
+    T_Identificador  deslocar, e ir ao estado 46
+    T_Minus          deslocar, e ir ao estado 47
 
-    function_usage  ir ao estado 53
-    variable        ir ao estado 83
-    expression      ir ao estado 55
-    type            ir ao estado 56
+    function_usage  ir ao estado 48
+    variable        ir ao estado 80
+    expression      ir ao estado 50
+    type            ir ao estado 51
 
 
-Estado 60
+Estado 55
 
    22 attribution_right: T_Plus T_Plus .
 
     $padrão  reduzir usando a regra 22 (attribution_right)
 
 
-Estado 61
+Estado 56
 
    20 attribution_right: T_Divide T_Equals . variable
    24 function_usage: . T_Identificador T_OpenParen optional_params T_CloseParen
-   51 variable: . T_String
-   52         | . expression
-   53         | . function_usage
-   54 expression: . type
-   55           | . expression T_Plus expression
-   56           | . expression T_Minus expression
-   57           | . expression T_Times expression
-   58           | . expression T_Divide expression
-   59           | . T_Minus expression
-   60           | . expression T_Power expression
-   61           | . T_OpenParen expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
+   57 variable: . T_String
+   58         | . expression
+   59         | . function_usage
+   60 expression: . type
+   61           | . expression T_Plus expression
+   62           | . expression T_Minus expression
+   63           | . expression T_Times expression
+   64           | . expression T_Divide expression
+   65           | . T_Minus expression
+   66           | . expression T_Power expression
+   67           | . T_OpenParen expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_String         deslocar, e ir ao estado 50
-    T_Identificador  deslocar, e ir ao estado 51
-    T_Minus          deslocar, e ir ao estado 52
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_String         deslocar, e ir ao estado 45
+    T_Identificador  deslocar, e ir ao estado 46
+    T_Minus          deslocar, e ir ao estado 47
 
-    function_usage  ir ao estado 53
-    variable        ir ao estado 84
-    expression      ir ao estado 55
-    type            ir ao estado 56
+    function_usage  ir ao estado 48
+    variable        ir ao estado 81
+    expression      ir ao estado 50
+    type            ir ao estado 51
 
 
-Estado 62
+Estado 57
 
    21 attribution_right: T_Times T_Equals . variable
    24 function_usage: . T_Identificador T_OpenParen optional_params T_CloseParen
-   51 variable: . T_String
-   52         | . expression
-   53         | . function_usage
-   54 expression: . type
-   55           | . expression T_Plus expression
-   56           | . expression T_Minus expression
-   57           | . expression T_Times expression
-   58           | . expression T_Divide expression
-   59           | . T_Minus expression
-   60           | . expression T_Power expression
-   61           | . T_OpenParen expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
+   57 variable: . T_String
+   58         | . expression
+   59         | . function_usage
+   60 expression: . type
+   61           | . expression T_Plus expression
+   62           | . expression T_Minus expression
+   63           | . expression T_Times expression
+   64           | . expression T_Divide expression
+   65           | . T_Minus expression
+   66           | . expression T_Power expression
+   67           | . T_OpenParen expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_String         deslocar, e ir ao estado 50
-    T_Identificador  deslocar, e ir ao estado 51
-    T_Minus          deslocar, e ir ao estado 52
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_String         deslocar, e ir ao estado 45
+    T_Identificador  deslocar, e ir ao estado 46
+    T_Minus          deslocar, e ir ao estado 47
 
-    function_usage  ir ao estado 53
-    variable        ir ao estado 85
-    expression      ir ao estado 55
-    type            ir ao estado 56
-
-
-Estado 63
-
-   30 structure_for: T_For T_OpenSquareBracket . T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
-
-    T_Identificador  deslocar, e ir ao estado 86
+    function_usage  ir ao estado 48
+    variable        ir ao estado 82
+    expression      ir ao estado 50
+    type            ir ao estado 51
 
 
-Estado 64
+Estado 58
 
-   31 structure_if: T_If T_OpenSquareBracket . logical_expression T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
-   42 logical_expression: . expression T_EqualsEQ expression
-   43                   | . expression T_NegativeEquals expression
-   44                   | . expression T_BiggerThan expression
-   45                   | . expression T_SmallerThan expression
-   46                   | . expression T_BiggerThanEQ expression
-   47                   | . expression T_SmallerThanEQ expression
-   48                   | . expression T_Or expression
-   49                   | . expression T_And expression
-   50                   | . T_Not expression
-   54 expression: . type
-   55           | . expression T_Plus expression
-   56           | . expression T_Minus expression
-   57           | . expression T_Times expression
-   58           | . expression T_Divide expression
-   59           | . T_Minus expression
-   60           | . expression T_Power expression
-   61           | . T_OpenParen expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
+   36 structure_for: T_For . T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
 
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_Not            deslocar, e ir ao estado 87
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_Identificador  deslocar, e ir ao estado 74
-    T_Minus          deslocar, e ir ao estado 52
-
-    logical_expression  ir ao estado 88
-    expression          ir ao estado 89
-    type                ir ao estado 56
+    T_OpenSquareBracket  deslocar, e ir ao estado 83
 
 
-Estado 65
+Estado 59
 
-   40 structure_while: T_While T_OpenSquareBracket . logical_expression T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
-   42 logical_expression: . expression T_EqualsEQ expression
-   43                   | . expression T_NegativeEquals expression
-   44                   | . expression T_BiggerThan expression
-   45                   | . expression T_SmallerThan expression
-   46                   | . expression T_BiggerThanEQ expression
-   47                   | . expression T_SmallerThanEQ expression
-   48                   | . expression T_Or expression
-   49                   | . expression T_And expression
-   50                   | . T_Not expression
-   54 expression: . type
-   55           | . expression T_Plus expression
-   56           | . expression T_Minus expression
-   57           | . expression T_Times expression
-   58           | . expression T_Divide expression
-   59           | . T_Minus expression
-   60           | . expression T_Power expression
-   61           | . T_OpenParen expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
+   26 logical_structure: $@3 structure_for .
 
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_Not            deslocar, e ir ao estado 87
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_Identificador  deslocar, e ir ao estado 74
-    T_Minus          deslocar, e ir ao estado 52
-
-    logical_expression  ir ao estado 90
-    expression          ir ao estado 89
-    type                ir ao estado 56
+    $padrão  reduzir usando a regra 26 (logical_structure)
 
 
-Estado 66
+Estado 60
 
-   34 structure_switch: T_Switch T_OpenSquareBracket . T_Identificador T_CloseSquareBracket T_OpenBracket structure_cases structure_default T_CloseBracket
+   46 structure_while: T_While . T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
 
-    T_Identificador  deslocar, e ir ao estado 91
-
-
-Estado 67
-
-    3 lines: . lines line
-    4      | . %empty
-   41 structure_do: T_Do T_OpenBracket . lines T_CloseBracket T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket
-
-    $padrão  reduzir usando a regra 4 (lines)
-
-    lines  ir ao estado 92
+    T_OpenSquareBracket  deslocar, e ir ao estado 84
 
 
-Estado 68
+Estado 61
 
-   32 structure_else: T_Else . T_OpenBracket lines T_CloseBracket
-
-    T_OpenBracket  deslocar, e ir ao estado 93
-
-
-Estado 69
-
-   28 logical_structure: structure_if structure_else .
+   28 logical_structure: $@4 structure_while .
 
     $padrão  reduzir usando a regra 28 (logical_structure)
 
 
-Estado 70
+Estado 62
 
-   27 logical_structure: structure_do T_DotComma .
+   47 structure_do: T_Do . T_OpenBracket lines T_CloseBracket T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket
 
-    $padrão  reduzir usando a regra 27 (logical_structure)
+    T_OpenBracket  deslocar, e ir ao estado 85
 
 
-Estado 71
+Estado 63
+
+   30 logical_structure: $@5 structure_do . T_DotComma
+
+    T_DotComma  deslocar, e ir ao estado 86
+
+
+Estado 64
+
+   37 structure_if: T_If . T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
+
+    T_OpenSquareBracket  deslocar, e ir ao estado 87
+
+
+Estado 65
+
+   32 $@7: . %empty
+   33 logical_structure: $@6 structure_if . $@7 structure_else
+
+    $padrão  reduzir usando a regra 32 ($@7)
+
+    $@7  ir ao estado 88
+
+
+Estado 66
+
+   40 structure_switch: T_Switch . T_OpenSquareBracket T_Identificador T_CloseSquareBracket T_OpenBracket structure_cases structure_default T_CloseBracket
+
+    T_OpenSquareBracket  deslocar, e ir ao estado 89
+
+
+Estado 67
+
+   35 logical_structure: $@8 structure_switch .
+
+    $padrão  reduzir usando a regra 35 (logical_structure)
+
+
+Estado 68
 
    14 variable_declaration: T_Let T_Identificador T_Equals variable .
 
     $padrão  reduzir usando a regra 14 (variable_declaration)
 
 
-Estado 72
+Estado 69
 
    15 variable_declaration: T_Const T_Identificador T_Equals variable .
 
     $padrão  reduzir usando a regra 15 (variable_declaration)
 
 
-Estado 73
+Estado 70
 
    24 function_usage: T_Identificador T_OpenParen optional_params T_CloseParen .
 
     $padrão  reduzir usando a regra 24 (function_usage)
 
 
+Estado 71
+
+   70 type: T_Identificador .
+
+    $padrão  reduzir usando a regra 70 (type)
+
+
+Estado 72
+
+   61 expression: expression . T_Plus expression
+   62           | expression . T_Minus expression
+   63           | expression . T_Times expression
+   64           | expression . T_Divide expression
+   66           | expression . T_Power expression
+   67           | T_OpenParen expression . T_CloseParen
+
+    T_CloseParen  deslocar, e ir ao estado 90
+    T_Minus       deslocar, e ir ao estado 74
+    T_Plus        deslocar, e ir ao estado 75
+    T_Divide      deslocar, e ir ao estado 76
+    T_Times       deslocar, e ir ao estado 77
+    T_Power       deslocar, e ir ao estado 78
+
+
+Estado 73
+
+   61 expression: expression . T_Plus expression
+   62           | expression . T_Minus expression
+   63           | expression . T_Times expression
+   64           | expression . T_Divide expression
+   65           | T_Minus expression .  [T_CloseParen, T_DotComma, T_CloseSquareBracket, T_EqualsEQ, T_NegativeEquals, T_Or, T_And, T_SmallerThan, T_SmallerThanEQ, T_BiggerThan, T_BiggerThanEQ, T_Minus, T_Plus, T_Divide, T_Times]
+   66           | expression . T_Power expression
+
+    T_Power  deslocar, e ir ao estado 78
+
+    $padrão  reduzir usando a regra 65 (expression)
+
+    Conflito entre a regra 65 e o token T_Minus resolvido como redução (reduce) (T_Minus < T_Negative).
+    Conflito entre a regra 65 e o token T_Plus resolvido como redução (reduce) (T_Plus < T_Negative).
+    Conflito entre a regra 65 e o token T_Divide resolvido como redução (reduce) (T_Divide < T_Negative).
+    Conflito entre a regra 65 e o token T_Times resolvido como redução (reduce) (T_Times < T_Negative).
+    Conflito entre a regra 65 e o token T_Power resolvido como deslocamento (shift) (T_Negative < T_Power).
+
+
 Estado 74
 
-   64 type: T_Identificador .
+   60 expression: . type
+   61           | . expression T_Plus expression
+   62           | . expression T_Minus expression
+   62           | expression T_Minus . expression
+   63           | . expression T_Times expression
+   64           | . expression T_Divide expression
+   65           | . T_Minus expression
+   66           | . expression T_Power expression
+   67           | . T_OpenParen expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    $padrão  reduzir usando a regra 64 (type)
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_Identificador  deslocar, e ir ao estado 71
+    T_Minus          deslocar, e ir ao estado 47
+
+    expression  ir ao estado 91
+    type        ir ao estado 51
 
 
 Estado 75
 
-   55 expression: expression . T_Plus expression
-   56           | expression . T_Minus expression
-   57           | expression . T_Times expression
-   58           | expression . T_Divide expression
-   60           | expression . T_Power expression
-   61           | T_OpenParen expression . T_CloseParen
+   60 expression: . type
+   61           | . expression T_Plus expression
+   61           | expression T_Plus . expression
+   62           | . expression T_Minus expression
+   63           | . expression T_Times expression
+   64           | . expression T_Divide expression
+   65           | . T_Minus expression
+   66           | . expression T_Power expression
+   67           | . T_OpenParen expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    T_CloseParen  deslocar, e ir ao estado 94
-    T_Minus       deslocar, e ir ao estado 77
-    T_Plus        deslocar, e ir ao estado 78
-    T_Divide      deslocar, e ir ao estado 79
-    T_Times       deslocar, e ir ao estado 80
-    T_Power       deslocar, e ir ao estado 81
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_Identificador  deslocar, e ir ao estado 71
+    T_Minus          deslocar, e ir ao estado 47
+
+    expression  ir ao estado 92
+    type        ir ao estado 51
 
 
 Estado 76
 
-   55 expression: expression . T_Plus expression
-   56           | expression . T_Minus expression
-   57           | expression . T_Times expression
-   58           | expression . T_Divide expression
-   59           | T_Minus expression .  [T_CloseParen, T_DotComma, T_CloseSquareBracket, T_EqualsEQ, T_NegativeEquals, T_Or, T_And, T_SmallerThan, T_SmallerThanEQ, T_BiggerThan, T_BiggerThanEQ, T_Minus, T_Plus, T_Divide, T_Times]
-   60           | expression . T_Power expression
+   60 expression: . type
+   61           | . expression T_Plus expression
+   62           | . expression T_Minus expression
+   63           | . expression T_Times expression
+   64           | . expression T_Divide expression
+   64           | expression T_Divide . expression
+   65           | . T_Minus expression
+   66           | . expression T_Power expression
+   67           | . T_OpenParen expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    T_Power  deslocar, e ir ao estado 81
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_Identificador  deslocar, e ir ao estado 71
+    T_Minus          deslocar, e ir ao estado 47
 
-    $padrão  reduzir usando a regra 59 (expression)
-
-    Conflito entre a regra 59 e o token T_Minus resolvido como redução (reduce) (T_Minus < T_Negative).
-    Conflito entre a regra 59 e o token T_Plus resolvido como redução (reduce) (T_Plus < T_Negative).
-    Conflito entre a regra 59 e o token T_Divide resolvido como redução (reduce) (T_Divide < T_Negative).
-    Conflito entre a regra 59 e o token T_Times resolvido como redução (reduce) (T_Times < T_Negative).
-    Conflito entre a regra 59 e o token T_Power resolvido como deslocamento (shift) (T_Negative < T_Power).
+    expression  ir ao estado 93
+    type        ir ao estado 51
 
 
 Estado 77
 
-   54 expression: . type
-   55           | . expression T_Plus expression
-   56           | . expression T_Minus expression
-   56           | expression T_Minus . expression
-   57           | . expression T_Times expression
-   58           | . expression T_Divide expression
-   59           | . T_Minus expression
-   60           | . expression T_Power expression
-   61           | . T_OpenParen expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
+   60 expression: . type
+   61           | . expression T_Plus expression
+   62           | . expression T_Minus expression
+   63           | . expression T_Times expression
+   63           | expression T_Times . expression
+   64           | . expression T_Divide expression
+   65           | . T_Minus expression
+   66           | . expression T_Power expression
+   67           | . T_OpenParen expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_Identificador  deslocar, e ir ao estado 74
-    T_Minus          deslocar, e ir ao estado 52
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_Identificador  deslocar, e ir ao estado 71
+    T_Minus          deslocar, e ir ao estado 47
 
-    expression  ir ao estado 95
-    type        ir ao estado 56
+    expression  ir ao estado 94
+    type        ir ao estado 51
 
 
 Estado 78
 
-   54 expression: . type
-   55           | . expression T_Plus expression
-   55           | expression T_Plus . expression
-   56           | . expression T_Minus expression
-   57           | . expression T_Times expression
-   58           | . expression T_Divide expression
-   59           | . T_Minus expression
-   60           | . expression T_Power expression
-   61           | . T_OpenParen expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
+   60 expression: . type
+   61           | . expression T_Plus expression
+   62           | . expression T_Minus expression
+   63           | . expression T_Times expression
+   64           | . expression T_Divide expression
+   65           | . T_Minus expression
+   66           | . expression T_Power expression
+   66           | expression T_Power . expression
+   67           | . T_OpenParen expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_Identificador  deslocar, e ir ao estado 74
-    T_Minus          deslocar, e ir ao estado 52
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_Identificador  deslocar, e ir ao estado 71
+    T_Minus          deslocar, e ir ao estado 47
 
-    expression  ir ao estado 96
-    type        ir ao estado 56
+    expression  ir ao estado 95
+    type        ir ao estado 51
 
 
 Estado 79
-
-   54 expression: . type
-   55           | . expression T_Plus expression
-   56           | . expression T_Minus expression
-   57           | . expression T_Times expression
-   58           | . expression T_Divide expression
-   58           | expression T_Divide . expression
-   59           | . T_Minus expression
-   60           | . expression T_Power expression
-   61           | . T_OpenParen expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
-
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_Identificador  deslocar, e ir ao estado 74
-    T_Minus          deslocar, e ir ao estado 52
-
-    expression  ir ao estado 97
-    type        ir ao estado 56
-
-
-Estado 80
-
-   54 expression: . type
-   55           | . expression T_Plus expression
-   56           | . expression T_Minus expression
-   57           | . expression T_Times expression
-   57           | expression T_Times . expression
-   58           | . expression T_Divide expression
-   59           | . T_Minus expression
-   60           | . expression T_Power expression
-   61           | . T_OpenParen expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
-
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_Identificador  deslocar, e ir ao estado 74
-    T_Minus          deslocar, e ir ao estado 52
-
-    expression  ir ao estado 98
-    type        ir ao estado 56
-
-
-Estado 81
-
-   54 expression: . type
-   55           | . expression T_Plus expression
-   56           | . expression T_Minus expression
-   57           | . expression T_Times expression
-   58           | . expression T_Divide expression
-   59           | . T_Minus expression
-   60           | . expression T_Power expression
-   60           | expression T_Power . expression
-   61           | . T_OpenParen expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
-
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_Identificador  deslocar, e ir ao estado 74
-    T_Minus          deslocar, e ir ao estado 52
-
-    expression  ir ao estado 99
-    type        ir ao estado 56
-
-
-Estado 82
 
    19 attribution_right: T_Minus T_Equals variable .
 
     $padrão  reduzir usando a regra 19 (attribution_right)
 
 
-Estado 83
+Estado 80
 
    18 attribution_right: T_Plus T_Equals variable .
 
     $padrão  reduzir usando a regra 18 (attribution_right)
 
 
-Estado 84
+Estado 81
 
    20 attribution_right: T_Divide T_Equals variable .
 
     $padrão  reduzir usando a regra 20 (attribution_right)
 
 
-Estado 85
+Estado 82
 
    21 attribution_right: T_Times T_Equals variable .
 
     $padrão  reduzir usando a regra 21 (attribution_right)
 
 
+Estado 83
+
+   36 structure_for: T_For T_OpenSquareBracket . T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
+
+    T_Identificador  deslocar, e ir ao estado 96
+
+
+Estado 84
+
+   46 structure_while: T_While T_OpenSquareBracket . logical_expression T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
+   48 logical_expression: . expression T_EqualsEQ expression
+   49                   | . expression T_NegativeEquals expression
+   50                   | . expression T_BiggerThan expression
+   51                   | . expression T_SmallerThan expression
+   52                   | . expression T_BiggerThanEQ expression
+   53                   | . expression T_SmallerThanEQ expression
+   54                   | . expression T_Or expression
+   55                   | . expression T_And expression
+   56                   | . T_Not expression
+   60 expression: . type
+   61           | . expression T_Plus expression
+   62           | . expression T_Minus expression
+   63           | . expression T_Times expression
+   64           | . expression T_Divide expression
+   65           | . T_Minus expression
+   66           | . expression T_Power expression
+   67           | . T_OpenParen expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
+
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_Not            deslocar, e ir ao estado 97
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_Identificador  deslocar, e ir ao estado 71
+    T_Minus          deslocar, e ir ao estado 47
+
+    logical_expression  ir ao estado 98
+    expression          ir ao estado 99
+    type                ir ao estado 51
+
+
+Estado 85
+
+    3 lines: . lines line
+    4      | . %empty
+   47 structure_do: T_Do T_OpenBracket . lines T_CloseBracket T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket
+
+    $padrão  reduzir usando a regra 4 (lines)
+
+    lines  ir ao estado 100
+
+
 Estado 86
 
-   30 structure_for: T_For T_OpenSquareBracket T_Identificador . T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
+   30 logical_structure: $@5 structure_do T_DotComma .
 
-    T_doubleDot  deslocar, e ir ao estado 100
+    $padrão  reduzir usando a regra 30 (logical_structure)
 
 
 Estado 87
 
-   50 logical_expression: T_Not . expression
-   54 expression: . type
-   55           | . expression T_Plus expression
-   56           | . expression T_Minus expression
-   57           | . expression T_Times expression
-   58           | . expression T_Divide expression
-   59           | . T_Minus expression
-   60           | . expression T_Power expression
-   61           | . T_OpenParen expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
+   37 structure_if: T_If T_OpenSquareBracket . logical_expression T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
+   48 logical_expression: . expression T_EqualsEQ expression
+   49                   | . expression T_NegativeEquals expression
+   50                   | . expression T_BiggerThan expression
+   51                   | . expression T_SmallerThan expression
+   52                   | . expression T_BiggerThanEQ expression
+   53                   | . expression T_SmallerThanEQ expression
+   54                   | . expression T_Or expression
+   55                   | . expression T_And expression
+   56                   | . T_Not expression
+   60 expression: . type
+   61           | . expression T_Plus expression
+   62           | . expression T_Minus expression
+   63           | . expression T_Times expression
+   64           | . expression T_Divide expression
+   65           | . T_Minus expression
+   66           | . expression T_Power expression
+   67           | . T_OpenParen expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_Identificador  deslocar, e ir ao estado 74
-    T_Minus          deslocar, e ir ao estado 52
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_Not            deslocar, e ir ao estado 97
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_Identificador  deslocar, e ir ao estado 71
+    T_Minus          deslocar, e ir ao estado 47
 
-    expression  ir ao estado 101
-    type        ir ao estado 56
+    logical_expression  ir ao estado 101
+    expression          ir ao estado 99
+    type                ir ao estado 51
 
 
 Estado 88
 
-   31 structure_if: T_If T_OpenSquareBracket logical_expression . T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
+   33 logical_structure: $@6 structure_if $@7 . structure_else
+   38 structure_else: . T_Else T_OpenBracket lines T_CloseBracket
+   39               | . %empty  [$end, T_Let, T_Import, T_CloseBracket, T_For, T_If, T_While, T_Switch, T_Case, T_Default, T_Do, T_Const, T_EndLine, T_Comment, T_Identificador]
 
-    T_CloseSquareBracket  deslocar, e ir ao estado 102
+    T_Else  deslocar, e ir ao estado 102
+
+    $padrão  reduzir usando a regra 39 (structure_else)
+
+    structure_else  ir ao estado 103
 
 
 Estado 89
 
-   42 logical_expression: expression . T_EqualsEQ expression
-   43                   | expression . T_NegativeEquals expression
-   44                   | expression . T_BiggerThan expression
-   45                   | expression . T_SmallerThan expression
-   46                   | expression . T_BiggerThanEQ expression
-   47                   | expression . T_SmallerThanEQ expression
-   48                   | expression . T_Or expression
-   49                   | expression . T_And expression
-   55 expression: expression . T_Plus expression
-   56           | expression . T_Minus expression
-   57           | expression . T_Times expression
-   58           | expression . T_Divide expression
-   60           | expression . T_Power expression
+   40 structure_switch: T_Switch T_OpenSquareBracket . T_Identificador T_CloseSquareBracket T_OpenBracket structure_cases structure_default T_CloseBracket
 
-    T_EqualsEQ        deslocar, e ir ao estado 103
-    T_NegativeEquals  deslocar, e ir ao estado 104
-    T_Or              deslocar, e ir ao estado 105
-    T_And             deslocar, e ir ao estado 106
-    T_SmallerThan     deslocar, e ir ao estado 107
-    T_SmallerThanEQ   deslocar, e ir ao estado 108
-    T_BiggerThan      deslocar, e ir ao estado 109
-    T_BiggerThanEQ    deslocar, e ir ao estado 110
-    T_Minus           deslocar, e ir ao estado 77
-    T_Plus            deslocar, e ir ao estado 78
-    T_Divide          deslocar, e ir ao estado 79
-    T_Times           deslocar, e ir ao estado 80
-    T_Power           deslocar, e ir ao estado 81
+    T_Identificador  deslocar, e ir ao estado 104
 
 
 Estado 90
 
-   40 structure_while: T_While T_OpenSquareBracket logical_expression . T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
+   67 expression: T_OpenParen expression T_CloseParen .
 
-    T_CloseSquareBracket  deslocar, e ir ao estado 111
+    $padrão  reduzir usando a regra 67 (expression)
 
 
 Estado 91
 
-   34 structure_switch: T_Switch T_OpenSquareBracket T_Identificador . T_CloseSquareBracket T_OpenBracket structure_cases structure_default T_CloseBracket
+   61 expression: expression . T_Plus expression
+   62           | expression . T_Minus expression
+   62           | expression T_Minus expression .  [T_CloseParen, T_DotComma, T_CloseSquareBracket, T_EqualsEQ, T_NegativeEquals, T_Or, T_And, T_SmallerThan, T_SmallerThanEQ, T_BiggerThan, T_BiggerThanEQ, T_Minus, T_Plus]
+   63           | expression . T_Times expression
+   64           | expression . T_Divide expression
+   66           | expression . T_Power expression
 
-    T_CloseSquareBracket  deslocar, e ir ao estado 112
+    T_Divide  deslocar, e ir ao estado 76
+    T_Times   deslocar, e ir ao estado 77
+    T_Power   deslocar, e ir ao estado 78
+
+    $padrão  reduzir usando a regra 62 (expression)
+
+    Conflito entre a regra 62 e o token T_Minus resolvido como redução (reduce) (%left T_Minus).
+    Conflito entre a regra 62 e o token T_Plus resolvido como redução (reduce) (%left T_Plus).
+    Conflito entre a regra 62 e o token T_Divide resolvido como deslocamento (shift) (T_Minus < T_Divide).
+    Conflito entre a regra 62 e o token T_Times resolvido como deslocamento (shift) (T_Minus < T_Times).
+    Conflito entre a regra 62 e o token T_Power resolvido como deslocamento (shift) (T_Minus < T_Power).
 
 
 Estado 92
 
-    3 lines: lines . line
-    5 line: . T_EndLine
-    6     | . variable_declaration T_DotComma
-    7     | . attribution T_DotComma
-    8     | . function_usage T_DotComma
-    9 $@2: . %empty  [T_For, T_If, T_While, T_Switch, T_Do]
-   10 line: . $@2 logical_structure
-   11     | . import T_DotComma
-   12     | . T_Comment
-   13 import: . T_Import T_Identificador
-   14 variable_declaration: . T_Let T_Identificador T_Equals variable
-   15                     | . T_Const T_Identificador T_Equals variable
-   16 attribution: . T_Identificador attribution_right
-   24 function_usage: . T_Identificador T_OpenParen optional_params T_CloseParen
-   41 structure_do: T_Do T_OpenBracket lines . T_CloseBracket T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket
+   61 expression: expression . T_Plus expression
+   61           | expression T_Plus expression .  [T_CloseParen, T_DotComma, T_CloseSquareBracket, T_EqualsEQ, T_NegativeEquals, T_Or, T_And, T_SmallerThan, T_SmallerThanEQ, T_BiggerThan, T_BiggerThanEQ, T_Minus, T_Plus]
+   62           | expression . T_Minus expression
+   63           | expression . T_Times expression
+   64           | expression . T_Divide expression
+   66           | expression . T_Power expression
 
-    T_Let            deslocar, e ir ao estado 5
-    T_Import         deslocar, e ir ao estado 6
-    T_CloseBracket   deslocar, e ir ao estado 113
-    T_Const          deslocar, e ir ao estado 7
-    T_EndLine        deslocar, e ir ao estado 8
-    T_Comment        deslocar, e ir ao estado 9
-    T_Identificador  deslocar, e ir ao estado 10
+    T_Divide  deslocar, e ir ao estado 76
+    T_Times   deslocar, e ir ao estado 77
+    T_Power   deslocar, e ir ao estado 78
 
-    $padrão  reduzir usando a regra 9 ($@2)
+    $padrão  reduzir usando a regra 61 (expression)
 
-    line                  ir ao estado 11
-    $@2                   ir ao estado 12
-    import                ir ao estado 13
-    variable_declaration  ir ao estado 14
-    attribution           ir ao estado 15
-    function_usage        ir ao estado 16
+    Conflito entre a regra 61 e o token T_Minus resolvido como redução (reduce) (%left T_Minus).
+    Conflito entre a regra 61 e o token T_Plus resolvido como redução (reduce) (%left T_Plus).
+    Conflito entre a regra 61 e o token T_Divide resolvido como deslocamento (shift) (T_Plus < T_Divide).
+    Conflito entre a regra 61 e o token T_Times resolvido como deslocamento (shift) (T_Plus < T_Times).
+    Conflito entre a regra 61 e o token T_Power resolvido como deslocamento (shift) (T_Plus < T_Power).
 
 
 Estado 93
 
-    3 lines: . lines line
-    4      | . %empty
-   32 structure_else: T_Else T_OpenBracket . lines T_CloseBracket
+   61 expression: expression . T_Plus expression
+   62           | expression . T_Minus expression
+   63           | expression . T_Times expression
+   64           | expression . T_Divide expression
+   64           | expression T_Divide expression .  [T_CloseParen, T_DotComma, T_CloseSquareBracket, T_EqualsEQ, T_NegativeEquals, T_Or, T_And, T_SmallerThan, T_SmallerThanEQ, T_BiggerThan, T_BiggerThanEQ, T_Minus, T_Plus, T_Divide, T_Times]
+   66           | expression . T_Power expression
 
-    $padrão  reduzir usando a regra 4 (lines)
+    T_Power  deslocar, e ir ao estado 78
 
-    lines  ir ao estado 114
+    $padrão  reduzir usando a regra 64 (expression)
+
+    Conflito entre a regra 64 e o token T_Minus resolvido como redução (reduce) (T_Minus < T_Divide).
+    Conflito entre a regra 64 e o token T_Plus resolvido como redução (reduce) (T_Plus < T_Divide).
+    Conflito entre a regra 64 e o token T_Divide resolvido como redução (reduce) (%left T_Divide).
+    Conflito entre a regra 64 e o token T_Times resolvido como redução (reduce) (%left T_Times).
+    Conflito entre a regra 64 e o token T_Power resolvido como deslocamento (shift) (T_Divide < T_Power).
 
 
 Estado 94
 
-   61 expression: T_OpenParen expression T_CloseParen .
+   61 expression: expression . T_Plus expression
+   62           | expression . T_Minus expression
+   63           | expression . T_Times expression
+   63           | expression T_Times expression .  [T_CloseParen, T_DotComma, T_CloseSquareBracket, T_EqualsEQ, T_NegativeEquals, T_Or, T_And, T_SmallerThan, T_SmallerThanEQ, T_BiggerThan, T_BiggerThanEQ, T_Minus, T_Plus, T_Divide, T_Times]
+   64           | expression . T_Divide expression
+   66           | expression . T_Power expression
 
-    $padrão  reduzir usando a regra 61 (expression)
+    T_Power  deslocar, e ir ao estado 78
+
+    $padrão  reduzir usando a regra 63 (expression)
+
+    Conflito entre a regra 63 e o token T_Minus resolvido como redução (reduce) (T_Minus < T_Times).
+    Conflito entre a regra 63 e o token T_Plus resolvido como redução (reduce) (T_Plus < T_Times).
+    Conflito entre a regra 63 e o token T_Divide resolvido como redução (reduce) (%left T_Divide).
+    Conflito entre a regra 63 e o token T_Times resolvido como redução (reduce) (%left T_Times).
+    Conflito entre a regra 63 e o token T_Power resolvido como deslocamento (shift) (T_Times < T_Power).
 
 
 Estado 95
 
-   55 expression: expression . T_Plus expression
-   56           | expression . T_Minus expression
-   56           | expression T_Minus expression .  [T_CloseParen, T_DotComma, T_CloseSquareBracket, T_EqualsEQ, T_NegativeEquals, T_Or, T_And, T_SmallerThan, T_SmallerThanEQ, T_BiggerThan, T_BiggerThanEQ, T_Minus, T_Plus]
-   57           | expression . T_Times expression
-   58           | expression . T_Divide expression
-   60           | expression . T_Power expression
+   61 expression: expression . T_Plus expression
+   62           | expression . T_Minus expression
+   63           | expression . T_Times expression
+   64           | expression . T_Divide expression
+   66           | expression . T_Power expression
+   66           | expression T_Power expression .  [T_CloseParen, T_DotComma, T_CloseSquareBracket, T_EqualsEQ, T_NegativeEquals, T_Or, T_And, T_SmallerThan, T_SmallerThanEQ, T_BiggerThan, T_BiggerThanEQ, T_Minus, T_Plus, T_Divide, T_Times]
 
-    T_Divide  deslocar, e ir ao estado 79
-    T_Times   deslocar, e ir ao estado 80
-    T_Power   deslocar, e ir ao estado 81
+    T_Power  deslocar, e ir ao estado 78
 
-    $padrão  reduzir usando a regra 56 (expression)
+    $padrão  reduzir usando a regra 66 (expression)
 
-    Conflito entre a regra 56 e o token T_Minus resolvido como redução (reduce) (%left T_Minus).
-    Conflito entre a regra 56 e o token T_Plus resolvido como redução (reduce) (%left T_Plus).
-    Conflito entre a regra 56 e o token T_Divide resolvido como deslocamento (shift) (T_Minus < T_Divide).
-    Conflito entre a regra 56 e o token T_Times resolvido como deslocamento (shift) (T_Minus < T_Times).
-    Conflito entre a regra 56 e o token T_Power resolvido como deslocamento (shift) (T_Minus < T_Power).
+    Conflito entre a regra 66 e o token T_Minus resolvido como redução (reduce) (T_Minus < T_Power).
+    Conflito entre a regra 66 e o token T_Plus resolvido como redução (reduce) (T_Plus < T_Power).
+    Conflito entre a regra 66 e o token T_Divide resolvido como redução (reduce) (T_Divide < T_Power).
+    Conflito entre a regra 66 e o token T_Times resolvido como redução (reduce) (T_Times < T_Power).
+    Conflito entre a regra 66 e o token T_Power resolvido como deslocamento (shift) (%right T_Power).
 
 
 Estado 96
 
-   55 expression: expression . T_Plus expression
-   55           | expression T_Plus expression .  [T_CloseParen, T_DotComma, T_CloseSquareBracket, T_EqualsEQ, T_NegativeEquals, T_Or, T_And, T_SmallerThan, T_SmallerThanEQ, T_BiggerThan, T_BiggerThanEQ, T_Minus, T_Plus]
-   56           | expression . T_Minus expression
-   57           | expression . T_Times expression
-   58           | expression . T_Divide expression
-   60           | expression . T_Power expression
+   36 structure_for: T_For T_OpenSquareBracket T_Identificador . T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
 
-    T_Divide  deslocar, e ir ao estado 79
-    T_Times   deslocar, e ir ao estado 80
-    T_Power   deslocar, e ir ao estado 81
-
-    $padrão  reduzir usando a regra 55 (expression)
-
-    Conflito entre a regra 55 e o token T_Minus resolvido como redução (reduce) (%left T_Minus).
-    Conflito entre a regra 55 e o token T_Plus resolvido como redução (reduce) (%left T_Plus).
-    Conflito entre a regra 55 e o token T_Divide resolvido como deslocamento (shift) (T_Plus < T_Divide).
-    Conflito entre a regra 55 e o token T_Times resolvido como deslocamento (shift) (T_Plus < T_Times).
-    Conflito entre a regra 55 e o token T_Power resolvido como deslocamento (shift) (T_Plus < T_Power).
+    T_doubleDot  deslocar, e ir ao estado 105
 
 
 Estado 97
 
-   55 expression: expression . T_Plus expression
-   56           | expression . T_Minus expression
-   57           | expression . T_Times expression
-   58           | expression . T_Divide expression
-   58           | expression T_Divide expression .  [T_CloseParen, T_DotComma, T_CloseSquareBracket, T_EqualsEQ, T_NegativeEquals, T_Or, T_And, T_SmallerThan, T_SmallerThanEQ, T_BiggerThan, T_BiggerThanEQ, T_Minus, T_Plus, T_Divide, T_Times]
-   60           | expression . T_Power expression
+   56 logical_expression: T_Not . expression
+   60 expression: . type
+   61           | . expression T_Plus expression
+   62           | . expression T_Minus expression
+   63           | . expression T_Times expression
+   64           | . expression T_Divide expression
+   65           | . T_Minus expression
+   66           | . expression T_Power expression
+   67           | . T_OpenParen expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    T_Power  deslocar, e ir ao estado 81
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_Identificador  deslocar, e ir ao estado 71
+    T_Minus          deslocar, e ir ao estado 47
 
-    $padrão  reduzir usando a regra 58 (expression)
-
-    Conflito entre a regra 58 e o token T_Minus resolvido como redução (reduce) (T_Minus < T_Divide).
-    Conflito entre a regra 58 e o token T_Plus resolvido como redução (reduce) (T_Plus < T_Divide).
-    Conflito entre a regra 58 e o token T_Divide resolvido como redução (reduce) (%left T_Divide).
-    Conflito entre a regra 58 e o token T_Times resolvido como redução (reduce) (%left T_Times).
-    Conflito entre a regra 58 e o token T_Power resolvido como deslocamento (shift) (T_Divide < T_Power).
+    expression  ir ao estado 106
+    type        ir ao estado 51
 
 
 Estado 98
 
-   55 expression: expression . T_Plus expression
-   56           | expression . T_Minus expression
-   57           | expression . T_Times expression
-   57           | expression T_Times expression .  [T_CloseParen, T_DotComma, T_CloseSquareBracket, T_EqualsEQ, T_NegativeEquals, T_Or, T_And, T_SmallerThan, T_SmallerThanEQ, T_BiggerThan, T_BiggerThanEQ, T_Minus, T_Plus, T_Divide, T_Times]
-   58           | expression . T_Divide expression
-   60           | expression . T_Power expression
+   46 structure_while: T_While T_OpenSquareBracket logical_expression . T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
 
-    T_Power  deslocar, e ir ao estado 81
-
-    $padrão  reduzir usando a regra 57 (expression)
-
-    Conflito entre a regra 57 e o token T_Minus resolvido como redução (reduce) (T_Minus < T_Times).
-    Conflito entre a regra 57 e o token T_Plus resolvido como redução (reduce) (T_Plus < T_Times).
-    Conflito entre a regra 57 e o token T_Divide resolvido como redução (reduce) (%left T_Divide).
-    Conflito entre a regra 57 e o token T_Times resolvido como redução (reduce) (%left T_Times).
-    Conflito entre a regra 57 e o token T_Power resolvido como deslocamento (shift) (T_Times < T_Power).
+    T_CloseSquareBracket  deslocar, e ir ao estado 107
 
 
 Estado 99
 
-   55 expression: expression . T_Plus expression
-   56           | expression . T_Minus expression
-   57           | expression . T_Times expression
-   58           | expression . T_Divide expression
-   60           | expression . T_Power expression
-   60           | expression T_Power expression .  [T_CloseParen, T_DotComma, T_CloseSquareBracket, T_EqualsEQ, T_NegativeEquals, T_Or, T_And, T_SmallerThan, T_SmallerThanEQ, T_BiggerThan, T_BiggerThanEQ, T_Minus, T_Plus, T_Divide, T_Times]
+   48 logical_expression: expression . T_EqualsEQ expression
+   49                   | expression . T_NegativeEquals expression
+   50                   | expression . T_BiggerThan expression
+   51                   | expression . T_SmallerThan expression
+   52                   | expression . T_BiggerThanEQ expression
+   53                   | expression . T_SmallerThanEQ expression
+   54                   | expression . T_Or expression
+   55                   | expression . T_And expression
+   61 expression: expression . T_Plus expression
+   62           | expression . T_Minus expression
+   63           | expression . T_Times expression
+   64           | expression . T_Divide expression
+   66           | expression . T_Power expression
 
-    T_Power  deslocar, e ir ao estado 81
-
-    $padrão  reduzir usando a regra 60 (expression)
-
-    Conflito entre a regra 60 e o token T_Minus resolvido como redução (reduce) (T_Minus < T_Power).
-    Conflito entre a regra 60 e o token T_Plus resolvido como redução (reduce) (T_Plus < T_Power).
-    Conflito entre a regra 60 e o token T_Divide resolvido como redução (reduce) (T_Divide < T_Power).
-    Conflito entre a regra 60 e o token T_Times resolvido como redução (reduce) (T_Times < T_Power).
-    Conflito entre a regra 60 e o token T_Power resolvido como deslocamento (shift) (%right T_Power).
+    T_EqualsEQ        deslocar, e ir ao estado 108
+    T_NegativeEquals  deslocar, e ir ao estado 109
+    T_Or              deslocar, e ir ao estado 110
+    T_And             deslocar, e ir ao estado 111
+    T_SmallerThan     deslocar, e ir ao estado 112
+    T_SmallerThanEQ   deslocar, e ir ao estado 113
+    T_BiggerThan      deslocar, e ir ao estado 114
+    T_BiggerThanEQ    deslocar, e ir ao estado 115
+    T_Minus           deslocar, e ir ao estado 74
+    T_Plus            deslocar, e ir ao estado 75
+    T_Divide          deslocar, e ir ao estado 76
+    T_Times           deslocar, e ir ao estado 77
+    T_Power           deslocar, e ir ao estado 78
 
 
 Estado 100
 
-   30 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot . T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
+    3 lines: lines . line
+    5 line: . T_EndLine
+    6     | . variable_declaration T_DotComma
+    7     | . attribution T_DotComma
+    8     | . function_usage T_DotComma
+    9 $@2: . %empty  [T_For, T_If, T_While, T_Switch, T_Do]
+   10 line: . $@2 logical_structure
+   11     | . import T_DotComma
+   12     | . T_Comment
+   13 import: . T_Import T_Identificador
+   14 variable_declaration: . T_Let T_Identificador T_Equals variable
+   15                     | . T_Const T_Identificador T_Equals variable
+   16 attribution: . T_Identificador attribution_right
+   24 function_usage: . T_Identificador T_OpenParen optional_params T_CloseParen
+   47 structure_do: T_Do T_OpenBracket lines . T_CloseBracket T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket
 
-    T_OpenParen  deslocar, e ir ao estado 115
+    T_Let            deslocar, e ir ao estado 5
+    T_Import         deslocar, e ir ao estado 6
+    T_CloseBracket   deslocar, e ir ao estado 116
+    T_Const          deslocar, e ir ao estado 7
+    T_EndLine        deslocar, e ir ao estado 8
+    T_Comment        deslocar, e ir ao estado 9
+    T_Identificador  deslocar, e ir ao estado 10
+
+    $padrão  reduzir usando a regra 9 ($@2)
+
+    line                  ir ao estado 11
+    $@2                   ir ao estado 12
+    import                ir ao estado 13
+    variable_declaration  ir ao estado 14
+    attribution           ir ao estado 15
+    function_usage        ir ao estado 16
 
 
 Estado 101
 
-   50 logical_expression: T_Not expression .  [T_CloseSquareBracket]
-   55 expression: expression . T_Plus expression
-   56           | expression . T_Minus expression
-   57           | expression . T_Times expression
-   58           | expression . T_Divide expression
-   60           | expression . T_Power expression
+   37 structure_if: T_If T_OpenSquareBracket logical_expression . T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
 
-    T_Minus   deslocar, e ir ao estado 77
-    T_Plus    deslocar, e ir ao estado 78
-    T_Divide  deslocar, e ir ao estado 79
-    T_Times   deslocar, e ir ao estado 80
-    T_Power   deslocar, e ir ao estado 81
-
-    $padrão  reduzir usando a regra 50 (logical_expression)
+    T_CloseSquareBracket  deslocar, e ir ao estado 117
 
 
 Estado 102
 
-   31 structure_if: T_If T_OpenSquareBracket logical_expression T_CloseSquareBracket . T_OpenBracket lines T_CloseBracket
+   38 structure_else: T_Else . T_OpenBracket lines T_CloseBracket
 
-    T_OpenBracket  deslocar, e ir ao estado 116
+    T_OpenBracket  deslocar, e ir ao estado 118
 
 
 Estado 103
 
-   42 logical_expression: expression T_EqualsEQ . expression
-   54 expression: . type
-   55           | . expression T_Plus expression
-   56           | . expression T_Minus expression
-   57           | . expression T_Times expression
-   58           | . expression T_Divide expression
-   59           | . T_Minus expression
-   60           | . expression T_Power expression
-   61           | . T_OpenParen expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
+   33 logical_structure: $@6 structure_if $@7 structure_else .
 
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_Identificador  deslocar, e ir ao estado 74
-    T_Minus          deslocar, e ir ao estado 52
-
-    expression  ir ao estado 117
-    type        ir ao estado 56
+    $padrão  reduzir usando a regra 33 (logical_structure)
 
 
 Estado 104
 
-   43 logical_expression: expression T_NegativeEquals . expression
-   54 expression: . type
-   55           | . expression T_Plus expression
-   56           | . expression T_Minus expression
-   57           | . expression T_Times expression
-   58           | . expression T_Divide expression
-   59           | . T_Minus expression
-   60           | . expression T_Power expression
-   61           | . T_OpenParen expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
+   40 structure_switch: T_Switch T_OpenSquareBracket T_Identificador . T_CloseSquareBracket T_OpenBracket structure_cases structure_default T_CloseBracket
 
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_Identificador  deslocar, e ir ao estado 74
-    T_Minus          deslocar, e ir ao estado 52
-
-    expression  ir ao estado 118
-    type        ir ao estado 56
+    T_CloseSquareBracket  deslocar, e ir ao estado 119
 
 
 Estado 105
 
-   48 logical_expression: expression T_Or . expression
-   54 expression: . type
-   55           | . expression T_Plus expression
-   56           | . expression T_Minus expression
-   57           | . expression T_Times expression
-   58           | . expression T_Divide expression
-   59           | . T_Minus expression
-   60           | . expression T_Power expression
-   61           | . T_OpenParen expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
+   36 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot . T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
 
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_Identificador  deslocar, e ir ao estado 74
-    T_Minus          deslocar, e ir ao estado 52
-
-    expression  ir ao estado 119
-    type        ir ao estado 56
+    T_OpenParen  deslocar, e ir ao estado 120
 
 
 Estado 106
 
-   49 logical_expression: expression T_And . expression
-   54 expression: . type
-   55           | . expression T_Plus expression
-   56           | . expression T_Minus expression
-   57           | . expression T_Times expression
-   58           | . expression T_Divide expression
-   59           | . T_Minus expression
-   60           | . expression T_Power expression
-   61           | . T_OpenParen expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
+   56 logical_expression: T_Not expression .  [T_CloseSquareBracket]
+   61 expression: expression . T_Plus expression
+   62           | expression . T_Minus expression
+   63           | expression . T_Times expression
+   64           | expression . T_Divide expression
+   66           | expression . T_Power expression
 
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_Identificador  deslocar, e ir ao estado 74
-    T_Minus          deslocar, e ir ao estado 52
+    T_Minus   deslocar, e ir ao estado 74
+    T_Plus    deslocar, e ir ao estado 75
+    T_Divide  deslocar, e ir ao estado 76
+    T_Times   deslocar, e ir ao estado 77
+    T_Power   deslocar, e ir ao estado 78
 
-    expression  ir ao estado 120
-    type        ir ao estado 56
+    $padrão  reduzir usando a regra 56 (logical_expression)
 
 
 Estado 107
 
-   45 logical_expression: expression T_SmallerThan . expression
-   54 expression: . type
-   55           | . expression T_Plus expression
-   56           | . expression T_Minus expression
-   57           | . expression T_Times expression
-   58           | . expression T_Divide expression
-   59           | . T_Minus expression
-   60           | . expression T_Power expression
-   61           | . T_OpenParen expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
+   46 structure_while: T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket . T_OpenBracket lines T_CloseBracket
 
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_Identificador  deslocar, e ir ao estado 74
-    T_Minus          deslocar, e ir ao estado 52
-
-    expression  ir ao estado 121
-    type        ir ao estado 56
+    T_OpenBracket  deslocar, e ir ao estado 121
 
 
 Estado 108
 
-   47 logical_expression: expression T_SmallerThanEQ . expression
-   54 expression: . type
-   55           | . expression T_Plus expression
-   56           | . expression T_Minus expression
-   57           | . expression T_Times expression
-   58           | . expression T_Divide expression
-   59           | . T_Minus expression
-   60           | . expression T_Power expression
-   61           | . T_OpenParen expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
+   48 logical_expression: expression T_EqualsEQ . expression
+   60 expression: . type
+   61           | . expression T_Plus expression
+   62           | . expression T_Minus expression
+   63           | . expression T_Times expression
+   64           | . expression T_Divide expression
+   65           | . T_Minus expression
+   66           | . expression T_Power expression
+   67           | . T_OpenParen expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_Identificador  deslocar, e ir ao estado 74
-    T_Minus          deslocar, e ir ao estado 52
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_Identificador  deslocar, e ir ao estado 71
+    T_Minus          deslocar, e ir ao estado 47
 
     expression  ir ao estado 122
-    type        ir ao estado 56
+    type        ir ao estado 51
 
 
 Estado 109
 
-   44 logical_expression: expression T_BiggerThan . expression
-   54 expression: . type
-   55           | . expression T_Plus expression
-   56           | . expression T_Minus expression
-   57           | . expression T_Times expression
-   58           | . expression T_Divide expression
-   59           | . T_Minus expression
-   60           | . expression T_Power expression
-   61           | . T_OpenParen expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
+   49 logical_expression: expression T_NegativeEquals . expression
+   60 expression: . type
+   61           | . expression T_Plus expression
+   62           | . expression T_Minus expression
+   63           | . expression T_Times expression
+   64           | . expression T_Divide expression
+   65           | . T_Minus expression
+   66           | . expression T_Power expression
+   67           | . T_OpenParen expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_Identificador  deslocar, e ir ao estado 74
-    T_Minus          deslocar, e ir ao estado 52
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_Identificador  deslocar, e ir ao estado 71
+    T_Minus          deslocar, e ir ao estado 47
 
     expression  ir ao estado 123
-    type        ir ao estado 56
+    type        ir ao estado 51
 
 
 Estado 110
 
-   46 logical_expression: expression T_BiggerThanEQ . expression
-   54 expression: . type
-   55           | . expression T_Plus expression
-   56           | . expression T_Minus expression
-   57           | . expression T_Times expression
-   58           | . expression T_Divide expression
-   59           | . T_Minus expression
-   60           | . expression T_Power expression
-   61           | . T_OpenParen expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
+   54 logical_expression: expression T_Or . expression
+   60 expression: . type
+   61           | . expression T_Plus expression
+   62           | . expression T_Minus expression
+   63           | . expression T_Times expression
+   64           | . expression T_Divide expression
+   65           | . T_Minus expression
+   66           | . expression T_Power expression
+   67           | . T_OpenParen expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_Identificador  deslocar, e ir ao estado 74
-    T_Minus          deslocar, e ir ao estado 52
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_Identificador  deslocar, e ir ao estado 71
+    T_Minus          deslocar, e ir ao estado 47
 
     expression  ir ao estado 124
-    type        ir ao estado 56
+    type        ir ao estado 51
 
 
 Estado 111
 
-   40 structure_while: T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket . T_OpenBracket lines T_CloseBracket
+   55 logical_expression: expression T_And . expression
+   60 expression: . type
+   61           | . expression T_Plus expression
+   62           | . expression T_Minus expression
+   63           | . expression T_Times expression
+   64           | . expression T_Divide expression
+   65           | . T_Minus expression
+   66           | . expression T_Power expression
+   67           | . T_OpenParen expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    T_OpenBracket  deslocar, e ir ao estado 125
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_Identificador  deslocar, e ir ao estado 71
+    T_Minus          deslocar, e ir ao estado 47
+
+    expression  ir ao estado 125
+    type        ir ao estado 51
 
 
 Estado 112
 
-   34 structure_switch: T_Switch T_OpenSquareBracket T_Identificador T_CloseSquareBracket . T_OpenBracket structure_cases structure_default T_CloseBracket
+   51 logical_expression: expression T_SmallerThan . expression
+   60 expression: . type
+   61           | . expression T_Plus expression
+   62           | . expression T_Minus expression
+   63           | . expression T_Times expression
+   64           | . expression T_Divide expression
+   65           | . T_Minus expression
+   66           | . expression T_Power expression
+   67           | . T_OpenParen expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    T_OpenBracket  deslocar, e ir ao estado 126
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_Identificador  deslocar, e ir ao estado 71
+    T_Minus          deslocar, e ir ao estado 47
+
+    expression  ir ao estado 126
+    type        ir ao estado 51
 
 
 Estado 113
 
-   41 structure_do: T_Do T_OpenBracket lines T_CloseBracket . T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket
+   53 logical_expression: expression T_SmallerThanEQ . expression
+   60 expression: . type
+   61           | . expression T_Plus expression
+   62           | . expression T_Minus expression
+   63           | . expression T_Times expression
+   64           | . expression T_Divide expression
+   65           | . T_Minus expression
+   66           | . expression T_Power expression
+   67           | . T_OpenParen expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    T_While  deslocar, e ir ao estado 127
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_Identificador  deslocar, e ir ao estado 71
+    T_Minus          deslocar, e ir ao estado 47
+
+    expression  ir ao estado 127
+    type        ir ao estado 51
 
 
 Estado 114
 
-    3 lines: lines . line
-    5 line: . T_EndLine
-    6     | . variable_declaration T_DotComma
-    7     | . attribution T_DotComma
-    8     | . function_usage T_DotComma
-    9 $@2: . %empty  [T_For, T_If, T_While, T_Switch, T_Do]
-   10 line: . $@2 logical_structure
-   11     | . import T_DotComma
-   12     | . T_Comment
-   13 import: . T_Import T_Identificador
-   14 variable_declaration: . T_Let T_Identificador T_Equals variable
-   15                     | . T_Const T_Identificador T_Equals variable
-   16 attribution: . T_Identificador attribution_right
-   24 function_usage: . T_Identificador T_OpenParen optional_params T_CloseParen
-   32 structure_else: T_Else T_OpenBracket lines . T_CloseBracket
+   50 logical_expression: expression T_BiggerThan . expression
+   60 expression: . type
+   61           | . expression T_Plus expression
+   62           | . expression T_Minus expression
+   63           | . expression T_Times expression
+   64           | . expression T_Divide expression
+   65           | . T_Minus expression
+   66           | . expression T_Power expression
+   67           | . T_OpenParen expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    T_Let            deslocar, e ir ao estado 5
-    T_Import         deslocar, e ir ao estado 6
-    T_CloseBracket   deslocar, e ir ao estado 128
-    T_Const          deslocar, e ir ao estado 7
-    T_EndLine        deslocar, e ir ao estado 8
-    T_Comment        deslocar, e ir ao estado 9
-    T_Identificador  deslocar, e ir ao estado 10
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_Identificador  deslocar, e ir ao estado 71
+    T_Minus          deslocar, e ir ao estado 47
 
-    $padrão  reduzir usando a regra 9 ($@2)
-
-    line                  ir ao estado 11
-    $@2                   ir ao estado 12
-    import                ir ao estado 13
-    variable_declaration  ir ao estado 14
-    attribution           ir ao estado 15
-    function_usage        ir ao estado 16
+    expression  ir ao estado 128
+    type        ir ao estado 51
 
 
 Estado 115
 
-   30 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen . type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
+   52 logical_expression: expression T_BiggerThanEQ . expression
+   60 expression: . type
+   61           | . expression T_Plus expression
+   62           | . expression T_Minus expression
+   63           | . expression T_Times expression
+   64           | . expression T_Divide expression
+   65           | . T_Minus expression
+   66           | . expression T_Power expression
+   67           | . T_OpenParen expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_Identificador  deslocar, e ir ao estado 74
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_Identificador  deslocar, e ir ao estado 71
+    T_Minus          deslocar, e ir ao estado 47
 
-    type  ir ao estado 129
+    expression  ir ao estado 129
+    type        ir ao estado 51
 
 
 Estado 116
 
-    3 lines: . lines line
-    4      | . %empty
-   31 structure_if: T_If T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket . lines T_CloseBracket
+   47 structure_do: T_Do T_OpenBracket lines T_CloseBracket . T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket
 
-    $padrão  reduzir usando a regra 4 (lines)
-
-    lines  ir ao estado 130
+    T_While  deslocar, e ir ao estado 130
 
 
 Estado 117
 
-   42 logical_expression: expression T_EqualsEQ expression .  [T_CloseSquareBracket]
-   55 expression: expression . T_Plus expression
-   56           | expression . T_Minus expression
-   57           | expression . T_Times expression
-   58           | expression . T_Divide expression
-   60           | expression . T_Power expression
+   37 structure_if: T_If T_OpenSquareBracket logical_expression T_CloseSquareBracket . T_OpenBracket lines T_CloseBracket
 
-    T_Minus   deslocar, e ir ao estado 77
-    T_Plus    deslocar, e ir ao estado 78
-    T_Divide  deslocar, e ir ao estado 79
-    T_Times   deslocar, e ir ao estado 80
-    T_Power   deslocar, e ir ao estado 81
-
-    $padrão  reduzir usando a regra 42 (logical_expression)
+    T_OpenBracket  deslocar, e ir ao estado 131
 
 
 Estado 118
 
-   43 logical_expression: expression T_NegativeEquals expression .  [T_CloseSquareBracket]
-   55 expression: expression . T_Plus expression
-   56           | expression . T_Minus expression
-   57           | expression . T_Times expression
-   58           | expression . T_Divide expression
-   60           | expression . T_Power expression
+    3 lines: . lines line
+    4      | . %empty
+   38 structure_else: T_Else T_OpenBracket . lines T_CloseBracket
 
-    T_Minus   deslocar, e ir ao estado 77
-    T_Plus    deslocar, e ir ao estado 78
-    T_Divide  deslocar, e ir ao estado 79
-    T_Times   deslocar, e ir ao estado 80
-    T_Power   deslocar, e ir ao estado 81
+    $padrão  reduzir usando a regra 4 (lines)
 
-    $padrão  reduzir usando a regra 43 (logical_expression)
+    lines  ir ao estado 132
 
 
 Estado 119
 
-   48 logical_expression: expression T_Or expression .  [T_CloseSquareBracket]
-   55 expression: expression . T_Plus expression
-   56           | expression . T_Minus expression
-   57           | expression . T_Times expression
-   58           | expression . T_Divide expression
-   60           | expression . T_Power expression
+   40 structure_switch: T_Switch T_OpenSquareBracket T_Identificador T_CloseSquareBracket . T_OpenBracket structure_cases structure_default T_CloseBracket
 
-    T_Minus   deslocar, e ir ao estado 77
-    T_Plus    deslocar, e ir ao estado 78
-    T_Divide  deslocar, e ir ao estado 79
-    T_Times   deslocar, e ir ao estado 80
-    T_Power   deslocar, e ir ao estado 81
-
-    $padrão  reduzir usando a regra 48 (logical_expression)
+    T_OpenBracket  deslocar, e ir ao estado 133
 
 
 Estado 120
 
-   49 logical_expression: expression T_And expression .  [T_CloseSquareBracket]
-   55 expression: expression . T_Plus expression
-   56           | expression . T_Minus expression
-   57           | expression . T_Times expression
-   58           | expression . T_Divide expression
-   60           | expression . T_Power expression
+   36 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen . type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    T_Minus   deslocar, e ir ao estado 77
-    T_Plus    deslocar, e ir ao estado 78
-    T_Divide  deslocar, e ir ao estado 79
-    T_Times   deslocar, e ir ao estado 80
-    T_Power   deslocar, e ir ao estado 81
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_Identificador  deslocar, e ir ao estado 71
 
-    $padrão  reduzir usando a regra 49 (logical_expression)
+    type  ir ao estado 134
 
 
 Estado 121
 
-   45 logical_expression: expression T_SmallerThan expression .  [T_CloseSquareBracket]
-   55 expression: expression . T_Plus expression
-   56           | expression . T_Minus expression
-   57           | expression . T_Times expression
-   58           | expression . T_Divide expression
-   60           | expression . T_Power expression
+    3 lines: . lines line
+    4      | . %empty
+   46 structure_while: T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket . lines T_CloseBracket
 
-    T_Minus   deslocar, e ir ao estado 77
-    T_Plus    deslocar, e ir ao estado 78
-    T_Divide  deslocar, e ir ao estado 79
-    T_Times   deslocar, e ir ao estado 80
-    T_Power   deslocar, e ir ao estado 81
+    $padrão  reduzir usando a regra 4 (lines)
 
-    $padrão  reduzir usando a regra 45 (logical_expression)
+    lines  ir ao estado 135
 
 
 Estado 122
 
-   47 logical_expression: expression T_SmallerThanEQ expression .  [T_CloseSquareBracket]
-   55 expression: expression . T_Plus expression
-   56           | expression . T_Minus expression
-   57           | expression . T_Times expression
-   58           | expression . T_Divide expression
-   60           | expression . T_Power expression
+   48 logical_expression: expression T_EqualsEQ expression .  [T_CloseSquareBracket]
+   61 expression: expression . T_Plus expression
+   62           | expression . T_Minus expression
+   63           | expression . T_Times expression
+   64           | expression . T_Divide expression
+   66           | expression . T_Power expression
 
-    T_Minus   deslocar, e ir ao estado 77
-    T_Plus    deslocar, e ir ao estado 78
-    T_Divide  deslocar, e ir ao estado 79
-    T_Times   deslocar, e ir ao estado 80
-    T_Power   deslocar, e ir ao estado 81
+    T_Minus   deslocar, e ir ao estado 74
+    T_Plus    deslocar, e ir ao estado 75
+    T_Divide  deslocar, e ir ao estado 76
+    T_Times   deslocar, e ir ao estado 77
+    T_Power   deslocar, e ir ao estado 78
 
-    $padrão  reduzir usando a regra 47 (logical_expression)
+    $padrão  reduzir usando a regra 48 (logical_expression)
 
 
 Estado 123
 
-   44 logical_expression: expression T_BiggerThan expression .  [T_CloseSquareBracket]
-   55 expression: expression . T_Plus expression
-   56           | expression . T_Minus expression
-   57           | expression . T_Times expression
-   58           | expression . T_Divide expression
-   60           | expression . T_Power expression
+   49 logical_expression: expression T_NegativeEquals expression .  [T_CloseSquareBracket]
+   61 expression: expression . T_Plus expression
+   62           | expression . T_Minus expression
+   63           | expression . T_Times expression
+   64           | expression . T_Divide expression
+   66           | expression . T_Power expression
 
-    T_Minus   deslocar, e ir ao estado 77
-    T_Plus    deslocar, e ir ao estado 78
-    T_Divide  deslocar, e ir ao estado 79
-    T_Times   deslocar, e ir ao estado 80
-    T_Power   deslocar, e ir ao estado 81
+    T_Minus   deslocar, e ir ao estado 74
+    T_Plus    deslocar, e ir ao estado 75
+    T_Divide  deslocar, e ir ao estado 76
+    T_Times   deslocar, e ir ao estado 77
+    T_Power   deslocar, e ir ao estado 78
 
-    $padrão  reduzir usando a regra 44 (logical_expression)
+    $padrão  reduzir usando a regra 49 (logical_expression)
 
 
 Estado 124
 
-   46 logical_expression: expression T_BiggerThanEQ expression .  [T_CloseSquareBracket]
-   55 expression: expression . T_Plus expression
-   56           | expression . T_Minus expression
-   57           | expression . T_Times expression
-   58           | expression . T_Divide expression
-   60           | expression . T_Power expression
+   54 logical_expression: expression T_Or expression .  [T_CloseSquareBracket]
+   61 expression: expression . T_Plus expression
+   62           | expression . T_Minus expression
+   63           | expression . T_Times expression
+   64           | expression . T_Divide expression
+   66           | expression . T_Power expression
 
-    T_Minus   deslocar, e ir ao estado 77
-    T_Plus    deslocar, e ir ao estado 78
-    T_Divide  deslocar, e ir ao estado 79
-    T_Times   deslocar, e ir ao estado 80
-    T_Power   deslocar, e ir ao estado 81
+    T_Minus   deslocar, e ir ao estado 74
+    T_Plus    deslocar, e ir ao estado 75
+    T_Divide  deslocar, e ir ao estado 76
+    T_Times   deslocar, e ir ao estado 77
+    T_Power   deslocar, e ir ao estado 78
 
-    $padrão  reduzir usando a regra 46 (logical_expression)
+    $padrão  reduzir usando a regra 54 (logical_expression)
 
 
 Estado 125
 
-    3 lines: . lines line
-    4      | . %empty
-   40 structure_while: T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket . lines T_CloseBracket
+   55 logical_expression: expression T_And expression .  [T_CloseSquareBracket]
+   61 expression: expression . T_Plus expression
+   62           | expression . T_Minus expression
+   63           | expression . T_Times expression
+   64           | expression . T_Divide expression
+   66           | expression . T_Power expression
 
-    $padrão  reduzir usando a regra 4 (lines)
+    T_Minus   deslocar, e ir ao estado 74
+    T_Plus    deslocar, e ir ao estado 75
+    T_Divide  deslocar, e ir ao estado 76
+    T_Times   deslocar, e ir ao estado 77
+    T_Power   deslocar, e ir ao estado 78
 
-    lines  ir ao estado 131
+    $padrão  reduzir usando a regra 55 (logical_expression)
 
 
 Estado 126
 
-   34 structure_switch: T_Switch T_OpenSquareBracket T_Identificador T_CloseSquareBracket T_OpenBracket . structure_cases structure_default T_CloseBracket
-   35 structure_cases: . structure_cases structure_case
-   36                | . %empty
+   51 logical_expression: expression T_SmallerThan expression .  [T_CloseSquareBracket]
+   61 expression: expression . T_Plus expression
+   62           | expression . T_Minus expression
+   63           | expression . T_Times expression
+   64           | expression . T_Divide expression
+   66           | expression . T_Power expression
 
-    $padrão  reduzir usando a regra 36 (structure_cases)
+    T_Minus   deslocar, e ir ao estado 74
+    T_Plus    deslocar, e ir ao estado 75
+    T_Divide  deslocar, e ir ao estado 76
+    T_Times   deslocar, e ir ao estado 77
+    T_Power   deslocar, e ir ao estado 78
 
-    structure_cases  ir ao estado 132
+    $padrão  reduzir usando a regra 51 (logical_expression)
 
 
 Estado 127
 
-   41 structure_do: T_Do T_OpenBracket lines T_CloseBracket T_While . T_OpenSquareBracket logical_expression T_CloseSquareBracket
+   53 logical_expression: expression T_SmallerThanEQ expression .  [T_CloseSquareBracket]
+   61 expression: expression . T_Plus expression
+   62           | expression . T_Minus expression
+   63           | expression . T_Times expression
+   64           | expression . T_Divide expression
+   66           | expression . T_Power expression
 
-    T_OpenSquareBracket  deslocar, e ir ao estado 133
+    T_Minus   deslocar, e ir ao estado 74
+    T_Plus    deslocar, e ir ao estado 75
+    T_Divide  deslocar, e ir ao estado 76
+    T_Times   deslocar, e ir ao estado 77
+    T_Power   deslocar, e ir ao estado 78
+
+    $padrão  reduzir usando a regra 53 (logical_expression)
 
 
 Estado 128
 
-   32 structure_else: T_Else T_OpenBracket lines T_CloseBracket .
+   50 logical_expression: expression T_BiggerThan expression .  [T_CloseSquareBracket]
+   61 expression: expression . T_Plus expression
+   62           | expression . T_Minus expression
+   63           | expression . T_Times expression
+   64           | expression . T_Divide expression
+   66           | expression . T_Power expression
 
-    $padrão  reduzir usando a regra 32 (structure_else)
+    T_Minus   deslocar, e ir ao estado 74
+    T_Plus    deslocar, e ir ao estado 75
+    T_Divide  deslocar, e ir ao estado 76
+    T_Times   deslocar, e ir ao estado 77
+    T_Power   deslocar, e ir ao estado 78
+
+    $padrão  reduzir usando a regra 50 (logical_expression)
 
 
 Estado 129
 
-   30 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type . T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
+   52 logical_expression: expression T_BiggerThanEQ expression .  [T_CloseSquareBracket]
+   61 expression: expression . T_Plus expression
+   62           | expression . T_Minus expression
+   63           | expression . T_Times expression
+   64           | expression . T_Divide expression
+   66           | expression . T_Power expression
 
-    T_Comma  deslocar, e ir ao estado 134
+    T_Minus   deslocar, e ir ao estado 74
+    T_Plus    deslocar, e ir ao estado 75
+    T_Divide  deslocar, e ir ao estado 76
+    T_Times   deslocar, e ir ao estado 77
+    T_Power   deslocar, e ir ao estado 78
+
+    $padrão  reduzir usando a regra 52 (logical_expression)
 
 
 Estado 130
 
-    3 lines: lines . line
-    5 line: . T_EndLine
-    6     | . variable_declaration T_DotComma
-    7     | . attribution T_DotComma
-    8     | . function_usage T_DotComma
-    9 $@2: . %empty  [T_For, T_If, T_While, T_Switch, T_Do]
-   10 line: . $@2 logical_structure
-   11     | . import T_DotComma
-   12     | . T_Comment
-   13 import: . T_Import T_Identificador
-   14 variable_declaration: . T_Let T_Identificador T_Equals variable
-   15                     | . T_Const T_Identificador T_Equals variable
-   16 attribution: . T_Identificador attribution_right
-   24 function_usage: . T_Identificador T_OpenParen optional_params T_CloseParen
-   31 structure_if: T_If T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket lines . T_CloseBracket
+   47 structure_do: T_Do T_OpenBracket lines T_CloseBracket T_While . T_OpenSquareBracket logical_expression T_CloseSquareBracket
 
-    T_Let            deslocar, e ir ao estado 5
-    T_Import         deslocar, e ir ao estado 6
-    T_CloseBracket   deslocar, e ir ao estado 135
-    T_Const          deslocar, e ir ao estado 7
-    T_EndLine        deslocar, e ir ao estado 8
-    T_Comment        deslocar, e ir ao estado 9
-    T_Identificador  deslocar, e ir ao estado 10
-
-    $padrão  reduzir usando a regra 9 ($@2)
-
-    line                  ir ao estado 11
-    $@2                   ir ao estado 12
-    import                ir ao estado 13
-    variable_declaration  ir ao estado 14
-    attribution           ir ao estado 15
-    function_usage        ir ao estado 16
+    T_OpenSquareBracket  deslocar, e ir ao estado 136
 
 
 Estado 131
 
-    3 lines: lines . line
-    5 line: . T_EndLine
-    6     | . variable_declaration T_DotComma
-    7     | . attribution T_DotComma
-    8     | . function_usage T_DotComma
-    9 $@2: . %empty  [T_For, T_If, T_While, T_Switch, T_Do]
-   10 line: . $@2 logical_structure
-   11     | . import T_DotComma
-   12     | . T_Comment
-   13 import: . T_Import T_Identificador
-   14 variable_declaration: . T_Let T_Identificador T_Equals variable
-   15                     | . T_Const T_Identificador T_Equals variable
-   16 attribution: . T_Identificador attribution_right
-   24 function_usage: . T_Identificador T_OpenParen optional_params T_CloseParen
-   40 structure_while: T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket lines . T_CloseBracket
+    3 lines: . lines line
+    4      | . %empty
+   37 structure_if: T_If T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket . lines T_CloseBracket
 
-    T_Let            deslocar, e ir ao estado 5
-    T_Import         deslocar, e ir ao estado 6
-    T_CloseBracket   deslocar, e ir ao estado 136
-    T_Const          deslocar, e ir ao estado 7
-    T_EndLine        deslocar, e ir ao estado 8
-    T_Comment        deslocar, e ir ao estado 9
-    T_Identificador  deslocar, e ir ao estado 10
+    $padrão  reduzir usando a regra 4 (lines)
 
-    $padrão  reduzir usando a regra 9 ($@2)
-
-    line                  ir ao estado 11
-    $@2                   ir ao estado 12
-    import                ir ao estado 13
-    variable_declaration  ir ao estado 14
-    attribution           ir ao estado 15
-    function_usage        ir ao estado 16
+    lines  ir ao estado 137
 
 
 Estado 132
 
+    3 lines: lines . line
     5 line: . T_EndLine
     6     | . variable_declaration T_DotComma
     7     | . attribution T_DotComma
@@ -2173,16 +2135,11 @@ Estado 132
    15                     | . T_Const T_Identificador T_Equals variable
    16 attribution: . T_Identificador attribution_right
    24 function_usage: . T_Identificador T_OpenParen optional_params T_CloseParen
-   34 structure_switch: T_Switch T_OpenSquareBracket T_Identificador T_CloseSquareBracket T_OpenBracket structure_cases . structure_default T_CloseBracket
-   35 structure_cases: structure_cases . structure_case
-   37 structure_case: . T_Case T_OpenSquareBracket type T_CloseSquareBracket T_OpenBracket lines T_CloseBracket T_EndLine
-   38               | . line
-   39 structure_default: . T_Default T_OpenBracket lines T_CloseBracket T_EndLine
+   38 structure_else: T_Else T_OpenBracket lines . T_CloseBracket
 
     T_Let            deslocar, e ir ao estado 5
     T_Import         deslocar, e ir ao estado 6
-    T_Case           deslocar, e ir ao estado 137
-    T_Default        deslocar, e ir ao estado 138
+    T_CloseBracket   deslocar, e ir ao estado 138
     T_Const          deslocar, e ir ao estado 7
     T_EndLine        deslocar, e ir ao estado 8
     T_Comment        deslocar, e ir ao estado 9
@@ -2190,333 +2147,416 @@ Estado 132
 
     $padrão  reduzir usando a regra 9 ($@2)
 
-    line                  ir ao estado 139
+    line                  ir ao estado 11
     $@2                   ir ao estado 12
     import                ir ao estado 13
     variable_declaration  ir ao estado 14
     attribution           ir ao estado 15
     function_usage        ir ao estado 16
-    structure_case        ir ao estado 140
-    structure_default     ir ao estado 141
 
 
 Estado 133
 
-   41 structure_do: T_Do T_OpenBracket lines T_CloseBracket T_While T_OpenSquareBracket . logical_expression T_CloseSquareBracket
-   42 logical_expression: . expression T_EqualsEQ expression
-   43                   | . expression T_NegativeEquals expression
-   44                   | . expression T_BiggerThan expression
-   45                   | . expression T_SmallerThan expression
-   46                   | . expression T_BiggerThanEQ expression
-   47                   | . expression T_SmallerThanEQ expression
-   48                   | . expression T_Or expression
-   49                   | . expression T_And expression
-   50                   | . T_Not expression
-   54 expression: . type
-   55           | . expression T_Plus expression
-   56           | . expression T_Minus expression
-   57           | . expression T_Times expression
-   58           | . expression T_Divide expression
-   59           | . T_Minus expression
-   60           | . expression T_Power expression
-   61           | . T_OpenParen expression T_CloseParen
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
+   40 structure_switch: T_Switch T_OpenSquareBracket T_Identificador T_CloseSquareBracket T_OpenBracket . structure_cases structure_default T_CloseBracket
+   41 structure_cases: . structure_cases structure_case
+   42                | . %empty
 
-    T_OpenParen      deslocar, e ir ao estado 47
-    T_Not            deslocar, e ir ao estado 87
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_Identificador  deslocar, e ir ao estado 74
-    T_Minus          deslocar, e ir ao estado 52
+    $padrão  reduzir usando a regra 42 (structure_cases)
 
-    logical_expression  ir ao estado 142
-    expression          ir ao estado 89
-    type                ir ao estado 56
+    structure_cases  ir ao estado 139
 
 
 Estado 134
 
-   30 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma . type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
+   36 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type . T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
 
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_Identificador  deslocar, e ir ao estado 74
-
-    type  ir ao estado 143
+    T_Comma  deslocar, e ir ao estado 140
 
 
 Estado 135
 
-   31 structure_if: T_If T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket lines T_CloseBracket .
+    3 lines: lines . line
+    5 line: . T_EndLine
+    6     | . variable_declaration T_DotComma
+    7     | . attribution T_DotComma
+    8     | . function_usage T_DotComma
+    9 $@2: . %empty  [T_For, T_If, T_While, T_Switch, T_Do]
+   10 line: . $@2 logical_structure
+   11     | . import T_DotComma
+   12     | . T_Comment
+   13 import: . T_Import T_Identificador
+   14 variable_declaration: . T_Let T_Identificador T_Equals variable
+   15                     | . T_Const T_Identificador T_Equals variable
+   16 attribution: . T_Identificador attribution_right
+   24 function_usage: . T_Identificador T_OpenParen optional_params T_CloseParen
+   46 structure_while: T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket lines . T_CloseBracket
 
-    $padrão  reduzir usando a regra 31 (structure_if)
+    T_Let            deslocar, e ir ao estado 5
+    T_Import         deslocar, e ir ao estado 6
+    T_CloseBracket   deslocar, e ir ao estado 141
+    T_Const          deslocar, e ir ao estado 7
+    T_EndLine        deslocar, e ir ao estado 8
+    T_Comment        deslocar, e ir ao estado 9
+    T_Identificador  deslocar, e ir ao estado 10
+
+    $padrão  reduzir usando a regra 9 ($@2)
+
+    line                  ir ao estado 11
+    $@2                   ir ao estado 12
+    import                ir ao estado 13
+    variable_declaration  ir ao estado 14
+    attribution           ir ao estado 15
+    function_usage        ir ao estado 16
 
 
 Estado 136
 
-   40 structure_while: T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket lines T_CloseBracket .
+   47 structure_do: T_Do T_OpenBracket lines T_CloseBracket T_While T_OpenSquareBracket . logical_expression T_CloseSquareBracket
+   48 logical_expression: . expression T_EqualsEQ expression
+   49                   | . expression T_NegativeEquals expression
+   50                   | . expression T_BiggerThan expression
+   51                   | . expression T_SmallerThan expression
+   52                   | . expression T_BiggerThanEQ expression
+   53                   | . expression T_SmallerThanEQ expression
+   54                   | . expression T_Or expression
+   55                   | . expression T_And expression
+   56                   | . T_Not expression
+   60 expression: . type
+   61           | . expression T_Plus expression
+   62           | . expression T_Minus expression
+   63           | . expression T_Times expression
+   64           | . expression T_Divide expression
+   65           | . T_Minus expression
+   66           | . expression T_Power expression
+   67           | . T_OpenParen expression T_CloseParen
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    $padrão  reduzir usando a regra 40 (structure_while)
+    T_OpenParen      deslocar, e ir ao estado 42
+    T_Not            deslocar, e ir ao estado 97
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_Identificador  deslocar, e ir ao estado 71
+    T_Minus          deslocar, e ir ao estado 47
+
+    logical_expression  ir ao estado 142
+    expression          ir ao estado 99
+    type                ir ao estado 51
 
 
 Estado 137
 
-   37 structure_case: T_Case . T_OpenSquareBracket type T_CloseSquareBracket T_OpenBracket lines T_CloseBracket T_EndLine
+    3 lines: lines . line
+    5 line: . T_EndLine
+    6     | . variable_declaration T_DotComma
+    7     | . attribution T_DotComma
+    8     | . function_usage T_DotComma
+    9 $@2: . %empty  [T_For, T_If, T_While, T_Switch, T_Do]
+   10 line: . $@2 logical_structure
+   11     | . import T_DotComma
+   12     | . T_Comment
+   13 import: . T_Import T_Identificador
+   14 variable_declaration: . T_Let T_Identificador T_Equals variable
+   15                     | . T_Const T_Identificador T_Equals variable
+   16 attribution: . T_Identificador attribution_right
+   24 function_usage: . T_Identificador T_OpenParen optional_params T_CloseParen
+   37 structure_if: T_If T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket lines . T_CloseBracket
 
-    T_OpenSquareBracket  deslocar, e ir ao estado 144
+    T_Let            deslocar, e ir ao estado 5
+    T_Import         deslocar, e ir ao estado 6
+    T_CloseBracket   deslocar, e ir ao estado 143
+    T_Const          deslocar, e ir ao estado 7
+    T_EndLine        deslocar, e ir ao estado 8
+    T_Comment        deslocar, e ir ao estado 9
+    T_Identificador  deslocar, e ir ao estado 10
+
+    $padrão  reduzir usando a regra 9 ($@2)
+
+    line                  ir ao estado 11
+    $@2                   ir ao estado 12
+    import                ir ao estado 13
+    variable_declaration  ir ao estado 14
+    attribution           ir ao estado 15
+    function_usage        ir ao estado 16
 
 
 Estado 138
 
-   39 structure_default: T_Default . T_OpenBracket lines T_CloseBracket T_EndLine
+   38 structure_else: T_Else T_OpenBracket lines T_CloseBracket .
 
-    T_OpenBracket  deslocar, e ir ao estado 145
+    $padrão  reduzir usando a regra 38 (structure_else)
 
 
 Estado 139
 
-   38 structure_case: line .
+    5 line: . T_EndLine
+    6     | . variable_declaration T_DotComma
+    7     | . attribution T_DotComma
+    8     | . function_usage T_DotComma
+    9 $@2: . %empty  [T_For, T_If, T_While, T_Switch, T_Do]
+   10 line: . $@2 logical_structure
+   11     | . import T_DotComma
+   12     | . T_Comment
+   13 import: . T_Import T_Identificador
+   14 variable_declaration: . T_Let T_Identificador T_Equals variable
+   15                     | . T_Const T_Identificador T_Equals variable
+   16 attribution: . T_Identificador attribution_right
+   24 function_usage: . T_Identificador T_OpenParen optional_params T_CloseParen
+   40 structure_switch: T_Switch T_OpenSquareBracket T_Identificador T_CloseSquareBracket T_OpenBracket structure_cases . structure_default T_CloseBracket
+   41 structure_cases: structure_cases . structure_case
+   43 structure_case: . T_Case T_OpenSquareBracket type T_CloseSquareBracket T_OpenBracket lines T_CloseBracket T_EndLine
+   44               | . line
+   45 structure_default: . T_Default T_OpenBracket lines T_CloseBracket T_EndLine
 
-    $padrão  reduzir usando a regra 38 (structure_case)
+    T_Let            deslocar, e ir ao estado 5
+    T_Import         deslocar, e ir ao estado 6
+    T_Case           deslocar, e ir ao estado 144
+    T_Default        deslocar, e ir ao estado 145
+    T_Const          deslocar, e ir ao estado 7
+    T_EndLine        deslocar, e ir ao estado 8
+    T_Comment        deslocar, e ir ao estado 9
+    T_Identificador  deslocar, e ir ao estado 10
+
+    $padrão  reduzir usando a regra 9 ($@2)
+
+    line                  ir ao estado 146
+    $@2                   ir ao estado 12
+    import                ir ao estado 13
+    variable_declaration  ir ao estado 14
+    attribution           ir ao estado 15
+    function_usage        ir ao estado 16
+    structure_case        ir ao estado 147
+    structure_default     ir ao estado 148
 
 
 Estado 140
 
-   35 structure_cases: structure_cases structure_case .
+   36 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma . type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    $padrão  reduzir usando a regra 35 (structure_cases)
-
-
-Estado 141
-
-   34 structure_switch: T_Switch T_OpenSquareBracket T_Identificador T_CloseSquareBracket T_OpenBracket structure_cases structure_default . T_CloseBracket
-
-    T_CloseBracket  deslocar, e ir ao estado 146
-
-
-Estado 142
-
-   41 structure_do: T_Do T_OpenBracket lines T_CloseBracket T_While T_OpenSquareBracket logical_expression . T_CloseSquareBracket
-
-    T_CloseSquareBracket  deslocar, e ir ao estado 147
-
-
-Estado 143
-
-   30 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type . T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
-
-    T_Comma  deslocar, e ir ao estado 148
-
-
-Estado 144
-
-   37 structure_case: T_Case T_OpenSquareBracket . type T_CloseSquareBracket T_OpenBracket lines T_CloseBracket T_EndLine
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
-
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_Identificador  deslocar, e ir ao estado 74
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_Identificador  deslocar, e ir ao estado 71
 
     type  ir ao estado 149
 
 
+Estado 141
+
+   46 structure_while: T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket lines T_CloseBracket .
+
+    $padrão  reduzir usando a regra 46 (structure_while)
+
+
+Estado 142
+
+   47 structure_do: T_Do T_OpenBracket lines T_CloseBracket T_While T_OpenSquareBracket logical_expression . T_CloseSquareBracket
+
+    T_CloseSquareBracket  deslocar, e ir ao estado 150
+
+
+Estado 143
+
+   37 structure_if: T_If T_OpenSquareBracket logical_expression T_CloseSquareBracket T_OpenBracket lines T_CloseBracket .
+
+    $padrão  reduzir usando a regra 37 (structure_if)
+
+
+Estado 144
+
+   43 structure_case: T_Case . T_OpenSquareBracket type T_CloseSquareBracket T_OpenBracket lines T_CloseBracket T_EndLine
+
+    T_OpenSquareBracket  deslocar, e ir ao estado 151
+
+
 Estado 145
 
-    3 lines: . lines line
-    4      | . %empty
-   39 structure_default: T_Default T_OpenBracket . lines T_CloseBracket T_EndLine
+   45 structure_default: T_Default . T_OpenBracket lines T_CloseBracket T_EndLine
 
-    $padrão  reduzir usando a regra 4 (lines)
-
-    lines  ir ao estado 150
+    T_OpenBracket  deslocar, e ir ao estado 152
 
 
 Estado 146
 
-   34 structure_switch: T_Switch T_OpenSquareBracket T_Identificador T_CloseSquareBracket T_OpenBracket structure_cases structure_default T_CloseBracket .
+   44 structure_case: line .
 
-    $padrão  reduzir usando a regra 34 (structure_switch)
+    $padrão  reduzir usando a regra 44 (structure_case)
 
 
 Estado 147
 
-   41 structure_do: T_Do T_OpenBracket lines T_CloseBracket T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket .
+   41 structure_cases: structure_cases structure_case .
 
-    $padrão  reduzir usando a regra 41 (structure_do)
+    $padrão  reduzir usando a regra 41 (structure_cases)
 
 
 Estado 148
 
-   30 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma . type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
-   62 type: . T_IntValue
-   63     | . T_FloatValue
-   64     | . T_Identificador
+   40 structure_switch: T_Switch T_OpenSquareBracket T_Identificador T_CloseSquareBracket T_OpenBracket structure_cases structure_default . T_CloseBracket
 
-    T_IntValue       deslocar, e ir ao estado 48
-    T_FloatValue     deslocar, e ir ao estado 49
-    T_Identificador  deslocar, e ir ao estado 74
-
-    type  ir ao estado 151
+    T_CloseBracket  deslocar, e ir ao estado 153
 
 
 Estado 149
 
-   37 structure_case: T_Case T_OpenSquareBracket type . T_CloseSquareBracket T_OpenBracket lines T_CloseBracket T_EndLine
+   36 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type . T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
 
-    T_CloseSquareBracket  deslocar, e ir ao estado 152
+    T_Comma  deslocar, e ir ao estado 154
 
 
 Estado 150
 
-    3 lines: lines . line
-    5 line: . T_EndLine
-    6     | . variable_declaration T_DotComma
-    7     | . attribution T_DotComma
-    8     | . function_usage T_DotComma
-    9 $@2: . %empty  [T_For, T_If, T_While, T_Switch, T_Do]
-   10 line: . $@2 logical_structure
-   11     | . import T_DotComma
-   12     | . T_Comment
-   13 import: . T_Import T_Identificador
-   14 variable_declaration: . T_Let T_Identificador T_Equals variable
-   15                     | . T_Const T_Identificador T_Equals variable
-   16 attribution: . T_Identificador attribution_right
-   24 function_usage: . T_Identificador T_OpenParen optional_params T_CloseParen
-   39 structure_default: T_Default T_OpenBracket lines . T_CloseBracket T_EndLine
+   47 structure_do: T_Do T_OpenBracket lines T_CloseBracket T_While T_OpenSquareBracket logical_expression T_CloseSquareBracket .
 
-    T_Let            deslocar, e ir ao estado 5
-    T_Import         deslocar, e ir ao estado 6
-    T_CloseBracket   deslocar, e ir ao estado 153
-    T_Const          deslocar, e ir ao estado 7
-    T_EndLine        deslocar, e ir ao estado 8
-    T_Comment        deslocar, e ir ao estado 9
-    T_Identificador  deslocar, e ir ao estado 10
-
-    $padrão  reduzir usando a regra 9 ($@2)
-
-    line                  ir ao estado 11
-    $@2                   ir ao estado 12
-    import                ir ao estado 13
-    variable_declaration  ir ao estado 14
-    attribution           ir ao estado 15
-    function_usage        ir ao estado 16
+    $padrão  reduzir usando a regra 47 (structure_do)
 
 
 Estado 151
 
-   30 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type . T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
+   43 structure_case: T_Case T_OpenSquareBracket . type T_CloseSquareBracket T_OpenBracket lines T_CloseBracket T_EndLine
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    T_CloseParen  deslocar, e ir ao estado 154
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_Identificador  deslocar, e ir ao estado 71
+
+    type  ir ao estado 155
 
 
 Estado 152
 
-   37 structure_case: T_Case T_OpenSquareBracket type T_CloseSquareBracket . T_OpenBracket lines T_CloseBracket T_EndLine
+    3 lines: . lines line
+    4      | . %empty
+   45 structure_default: T_Default T_OpenBracket . lines T_CloseBracket T_EndLine
 
-    T_OpenBracket  deslocar, e ir ao estado 155
+    $padrão  reduzir usando a regra 4 (lines)
+
+    lines  ir ao estado 156
 
 
 Estado 153
 
-   39 structure_default: T_Default T_OpenBracket lines T_CloseBracket . T_EndLine
+   40 structure_switch: T_Switch T_OpenSquareBracket T_Identificador T_CloseSquareBracket T_OpenBracket structure_cases structure_default T_CloseBracket .
 
-    T_EndLine  deslocar, e ir ao estado 156
+    $padrão  reduzir usando a regra 40 (structure_switch)
 
 
 Estado 154
 
-   30 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen . T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
+   36 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma . type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
+   68 type: . T_IntValue
+   69     | . T_FloatValue
+   70     | . T_Identificador
 
-    T_CloseSquareBracket  deslocar, e ir ao estado 157
+    T_IntValue       deslocar, e ir ao estado 43
+    T_FloatValue     deslocar, e ir ao estado 44
+    T_Identificador  deslocar, e ir ao estado 71
+
+    type  ir ao estado 157
 
 
 Estado 155
 
-    3 lines: . lines line
-    4      | . %empty
-   37 structure_case: T_Case T_OpenSquareBracket type T_CloseSquareBracket T_OpenBracket . lines T_CloseBracket T_EndLine
+   43 structure_case: T_Case T_OpenSquareBracket type . T_CloseSquareBracket T_OpenBracket lines T_CloseBracket T_EndLine
 
-    $padrão  reduzir usando a regra 4 (lines)
-
-    lines  ir ao estado 158
+    T_CloseSquareBracket  deslocar, e ir ao estado 158
 
 
 Estado 156
 
-   39 structure_default: T_Default T_OpenBracket lines T_CloseBracket T_EndLine .
+    3 lines: lines . line
+    5 line: . T_EndLine
+    6     | . variable_declaration T_DotComma
+    7     | . attribution T_DotComma
+    8     | . function_usage T_DotComma
+    9 $@2: . %empty  [T_For, T_If, T_While, T_Switch, T_Do]
+   10 line: . $@2 logical_structure
+   11     | . import T_DotComma
+   12     | . T_Comment
+   13 import: . T_Import T_Identificador
+   14 variable_declaration: . T_Let T_Identificador T_Equals variable
+   15                     | . T_Const T_Identificador T_Equals variable
+   16 attribution: . T_Identificador attribution_right
+   24 function_usage: . T_Identificador T_OpenParen optional_params T_CloseParen
+   45 structure_default: T_Default T_OpenBracket lines . T_CloseBracket T_EndLine
 
-    $padrão  reduzir usando a regra 39 (structure_default)
+    T_Let            deslocar, e ir ao estado 5
+    T_Import         deslocar, e ir ao estado 6
+    T_CloseBracket   deslocar, e ir ao estado 159
+    T_Const          deslocar, e ir ao estado 7
+    T_EndLine        deslocar, e ir ao estado 8
+    T_Comment        deslocar, e ir ao estado 9
+    T_Identificador  deslocar, e ir ao estado 10
+
+    $padrão  reduzir usando a regra 9 ($@2)
+
+    line                  ir ao estado 11
+    $@2                   ir ao estado 12
+    import                ir ao estado 13
+    variable_declaration  ir ao estado 14
+    attribution           ir ao estado 15
+    function_usage        ir ao estado 16
 
 
 Estado 157
 
-   30 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket . T_OpenBracket lines T_CloseBracket
+   36 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type . T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
 
-    T_OpenBracket  deslocar, e ir ao estado 159
+    T_CloseParen  deslocar, e ir ao estado 160
 
 
 Estado 158
 
-    3 lines: lines . line
-    5 line: . T_EndLine
-    6     | . variable_declaration T_DotComma
-    7     | . attribution T_DotComma
-    8     | . function_usage T_DotComma
-    9 $@2: . %empty  [T_For, T_If, T_While, T_Switch, T_Do]
-   10 line: . $@2 logical_structure
-   11     | . import T_DotComma
-   12     | . T_Comment
-   13 import: . T_Import T_Identificador
-   14 variable_declaration: . T_Let T_Identificador T_Equals variable
-   15                     | . T_Const T_Identificador T_Equals variable
-   16 attribution: . T_Identificador attribution_right
-   24 function_usage: . T_Identificador T_OpenParen optional_params T_CloseParen
-   37 structure_case: T_Case T_OpenSquareBracket type T_CloseSquareBracket T_OpenBracket lines . T_CloseBracket T_EndLine
+   43 structure_case: T_Case T_OpenSquareBracket type T_CloseSquareBracket . T_OpenBracket lines T_CloseBracket T_EndLine
 
-    T_Let            deslocar, e ir ao estado 5
-    T_Import         deslocar, e ir ao estado 6
-    T_CloseBracket   deslocar, e ir ao estado 160
-    T_Const          deslocar, e ir ao estado 7
-    T_EndLine        deslocar, e ir ao estado 8
-    T_Comment        deslocar, e ir ao estado 9
-    T_Identificador  deslocar, e ir ao estado 10
-
-    $padrão  reduzir usando a regra 9 ($@2)
-
-    line                  ir ao estado 11
-    $@2                   ir ao estado 12
-    import                ir ao estado 13
-    variable_declaration  ir ao estado 14
-    attribution           ir ao estado 15
-    function_usage        ir ao estado 16
+    T_OpenBracket  deslocar, e ir ao estado 161
 
 
 Estado 159
 
-    3 lines: . lines line
-    4      | . %empty
-   30 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket . lines T_CloseBracket
-
-    $padrão  reduzir usando a regra 4 (lines)
-
-    lines  ir ao estado 161
-
-
-Estado 160
-
-   37 structure_case: T_Case T_OpenSquareBracket type T_CloseSquareBracket T_OpenBracket lines T_CloseBracket . T_EndLine
+   45 structure_default: T_Default T_OpenBracket lines T_CloseBracket . T_EndLine
 
     T_EndLine  deslocar, e ir ao estado 162
 
 
+Estado 160
+
+   36 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen . T_CloseSquareBracket T_OpenBracket lines T_CloseBracket
+
+    T_CloseSquareBracket  deslocar, e ir ao estado 163
+
+
 Estado 161
+
+    3 lines: . lines line
+    4      | . %empty
+   43 structure_case: T_Case T_OpenSquareBracket type T_CloseSquareBracket T_OpenBracket . lines T_CloseBracket T_EndLine
+
+    $padrão  reduzir usando a regra 4 (lines)
+
+    lines  ir ao estado 164
+
+
+Estado 162
+
+   45 structure_default: T_Default T_OpenBracket lines T_CloseBracket T_EndLine .
+
+    $padrão  reduzir usando a regra 45 (structure_default)
+
+
+Estado 163
+
+   36 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket . T_OpenBracket lines T_CloseBracket
+
+    T_OpenBracket  deslocar, e ir ao estado 165
+
+
+Estado 164
 
     3 lines: lines . line
     5 line: . T_EndLine
@@ -2532,11 +2572,11 @@ Estado 161
    15                     | . T_Const T_Identificador T_Equals variable
    16 attribution: . T_Identificador attribution_right
    24 function_usage: . T_Identificador T_OpenParen optional_params T_CloseParen
-   30 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines . T_CloseBracket
+   43 structure_case: T_Case T_OpenSquareBracket type T_CloseSquareBracket T_OpenBracket lines . T_CloseBracket T_EndLine
 
     T_Let            deslocar, e ir ao estado 5
     T_Import         deslocar, e ir ao estado 6
-    T_CloseBracket   deslocar, e ir ao estado 163
+    T_CloseBracket   deslocar, e ir ao estado 166
     T_Const          deslocar, e ir ao estado 7
     T_EndLine        deslocar, e ir ao estado 8
     T_Comment        deslocar, e ir ao estado 9
@@ -2552,15 +2592,69 @@ Estado 161
     function_usage        ir ao estado 16
 
 
-Estado 162
+Estado 165
 
-   37 structure_case: T_Case T_OpenSquareBracket type T_CloseSquareBracket T_OpenBracket lines T_CloseBracket T_EndLine .
+    3 lines: . lines line
+    4      | . %empty
+   36 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket . lines T_CloseBracket
 
-    $padrão  reduzir usando a regra 37 (structure_case)
+    $padrão  reduzir usando a regra 4 (lines)
+
+    lines  ir ao estado 167
 
 
-Estado 163
+Estado 166
 
-   30 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket .
+   43 structure_case: T_Case T_OpenSquareBracket type T_CloseSquareBracket T_OpenBracket lines T_CloseBracket . T_EndLine
 
-    $padrão  reduzir usando a regra 30 (structure_for)
+    T_EndLine  deslocar, e ir ao estado 168
+
+
+Estado 167
+
+    3 lines: lines . line
+    5 line: . T_EndLine
+    6     | . variable_declaration T_DotComma
+    7     | . attribution T_DotComma
+    8     | . function_usage T_DotComma
+    9 $@2: . %empty  [T_For, T_If, T_While, T_Switch, T_Do]
+   10 line: . $@2 logical_structure
+   11     | . import T_DotComma
+   12     | . T_Comment
+   13 import: . T_Import T_Identificador
+   14 variable_declaration: . T_Let T_Identificador T_Equals variable
+   15                     | . T_Const T_Identificador T_Equals variable
+   16 attribution: . T_Identificador attribution_right
+   24 function_usage: . T_Identificador T_OpenParen optional_params T_CloseParen
+   36 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines . T_CloseBracket
+
+    T_Let            deslocar, e ir ao estado 5
+    T_Import         deslocar, e ir ao estado 6
+    T_CloseBracket   deslocar, e ir ao estado 169
+    T_Const          deslocar, e ir ao estado 7
+    T_EndLine        deslocar, e ir ao estado 8
+    T_Comment        deslocar, e ir ao estado 9
+    T_Identificador  deslocar, e ir ao estado 10
+
+    $padrão  reduzir usando a regra 9 ($@2)
+
+    line                  ir ao estado 11
+    $@2                   ir ao estado 12
+    import                ir ao estado 13
+    variable_declaration  ir ao estado 14
+    attribution           ir ao estado 15
+    function_usage        ir ao estado 16
+
+
+Estado 168
+
+   43 structure_case: T_Case T_OpenSquareBracket type T_CloseSquareBracket T_OpenBracket lines T_CloseBracket T_EndLine .
+
+    $padrão  reduzir usando a regra 43 (structure_case)
+
+
+Estado 169
+
+   36 structure_for: T_For T_OpenSquareBracket T_Identificador T_doubleDot T_OpenParen type T_Comma type T_Comma type T_CloseParen T_CloseSquareBracket T_OpenBracket lines T_CloseBracket .
+
+    $padrão  reduzir usando a regra 36 (structure_for)
